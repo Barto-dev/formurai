@@ -5,6 +5,7 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
@@ -19,6 +20,28 @@
   };
   var __toModule = (module) => {
     return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+  };
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
+  };
+  var __accessCheck = (obj, member, msg) => {
+    if (!member.has(obj))
+      throw TypeError("Cannot " + msg);
+  };
+  var __privateGet = (obj, member, getter) => {
+    __accessCheck(obj, member, "read from private field");
+    return getter ? getter.call(obj) : member.get(obj);
+  };
+  var __privateAdd = (obj, member, value) => {
+    if (member.has(obj))
+      throw TypeError("Cannot add the same private member more than once");
+    member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+  };
+  var __privateSet = (obj, member, value, setter) => {
+    __accessCheck(obj, member, "write to private field");
+    setter ? setter.call(obj, value) : member.set(obj, value);
+    return value;
   };
 
   // node_modules/livr/lib/util.js
@@ -1082,13 +1105,49 @@
 
   // src/Formurai.js
   var import_livr = __toModule(require_LIVR());
+  var defaultValues = {
+    errorDictionary: {},
+    errorClass: "formurai-error",
+    successClass: "formurai-success",
+    wrapperClass: "formurai-container",
+    errorMessageClass: "formurai-message",
+    autoTrim: true
+  };
+  var _validator, _form, _validationInputs;
   var Formurai = class {
-    constructor(form, {}) {
-      console.log(import_livr.default);
+    constructor(form2, config = defaultValues) {
+      __privateAdd(this, _validator, void 0);
+      __privateAdd(this, _form, void 0);
+      __publicField(this, "init", (rules) => {
+        __privateSet(this, _validator, new import_livr.default.Validator(rules));
+        __privateGet(this, _form).addEventListener("submit", __privateGet(this, _validationInputs));
+      });
+      __publicField(this, "destroy", () => {
+        __privateSet(this, _validator, null);
+        __privateGet(this, _form).removeEventListener("submit", __privateGet(this, _validationInputs));
+      });
+      __privateAdd(this, _validationInputs, (evt) => {
+        evt.preventDefault();
+        console.log("validation");
+      });
+      __privateSet(this, _form, form2);
+    }
+    get formData() {
+      const data = new FormData(__privateGet(this, _form));
+      const values = {};
+      data.forEach((value, key) => {
+        values[key] = value;
+      });
+      return values;
     }
   };
+  _validator = new WeakMap();
+  _form = new WeakMap();
+  _validationInputs = new WeakMap();
 
   // src/index.js
-  var t = new Formurai();
+  var form = document.querySelector("#test-form");
+  var test = new Formurai(form);
+  test.init();
 })();
 //# sourceMappingURL=index.js.map
