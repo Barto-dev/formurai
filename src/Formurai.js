@@ -78,7 +78,7 @@ export default class Formurai {
   #onFormSubmit = (evt) => {
     evt.preventDefault();
     this.checkForm();
-    if (this.#isFormValid) {
+    if (this.isFormValid) {
       this.#form.submit();
     } else {
       this.#vibrate();
@@ -120,7 +120,7 @@ export default class Formurai {
     if (errorsKey.length) {
       errorsKey.forEach((inputName) => {
         const input = this.#form.querySelector(`[name="${inputName}"]`);
-        const inputWrapper = input.closest(`.${this.#wrapperClass}`);
+        const inputWrapper = this.#getWrapperElement(input);
         this.#addInputErrorClass(inputWrapper);
         this.#showErrorMessage(inputWrapper, inputName);
       });
@@ -128,10 +128,11 @@ export default class Formurai {
   }
 
   #addInputSuccessClass = () => {
-    const inputs = this.#form.querySelectorAll(`.${this.#wrapperClass}`);
-    inputs.forEach((input) => {
-      if (!input.classList.contains(this.#errorClass)) {
-        input.classList.add(this.#successClass);
+    this.#validationFields.forEach((inputName) => {
+      const input = this.#form.querySelector(`[name="${inputName}"]`);
+      const inputWrapper = this.#getWrapperElement(input);
+      if (!inputWrapper.classList.contains(this.#errorClass)) {
+        inputWrapper.classList.add(this.#successClass);
       }
     });
   };

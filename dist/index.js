@@ -1158,7 +1158,7 @@
       __privateAdd(this, _onFormSubmit, (evt) => {
         evt.preventDefault();
         this.checkForm();
-        if (__privateGet(this, _isFormValid)) {
+        if (this.isFormValid) {
           __privateGet(this, _form).submit();
         } else {
           __privateGet(this, _vibrate).call(this);
@@ -1180,17 +1180,18 @@
         if (errorsKey.length) {
           errorsKey.forEach((inputName) => {
             const input = __privateGet(this, _form).querySelector(`[name="${inputName}"]`);
-            const inputWrapper = input.closest(`.${__privateGet(this, _wrapperClass)}`);
+            const inputWrapper = __privateGet(this, _getWrapperElement).call(this, input);
             __privateGet(this, _addInputErrorClass).call(this, inputWrapper);
             __privateGet(this, _showErrorMessage).call(this, inputWrapper, inputName);
           });
         }
       });
       __privateAdd(this, _addInputSuccessClass, () => {
-        const inputs = __privateGet(this, _form).querySelectorAll(`.${__privateGet(this, _wrapperClass)}`);
-        inputs.forEach((input) => {
-          if (!input.classList.contains(__privateGet(this, _errorClass))) {
-            input.classList.add(__privateGet(this, _successClass));
+        __privateGet(this, _validationFields).forEach((inputName) => {
+          const input = __privateGet(this, _form).querySelector(`[name="${inputName}"]`);
+          const inputWrapper = __privateGet(this, _getWrapperElement).call(this, input);
+          if (!inputWrapper.classList.contains(__privateGet(this, _errorClass))) {
+            inputWrapper.classList.add(__privateGet(this, _successClass));
           }
         });
       });
