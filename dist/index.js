@@ -1114,7 +1114,7 @@
     autoTrim: true,
     vibrate: true
   };
-  var _validator, _form, _errorsDictionary, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _validationFields, _errorDictionary, _validationInputs, _checkErrors, _removeInputErrorClasses, _addInputErrorClass, _vibrate;
+  var _validator, _form, _errorsDictionary, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _validationFields, _errorDictionary, _validationInputs, _checkErrors, _removeInputErrorClasses, _addInputErrorClass, _addInputSuccessClass, _vibrate;
   var Formurai = class {
     constructor(form2, config = defaultValues) {
       __privateAdd(this, _validator, void 0);
@@ -1159,6 +1159,7 @@
           __privateSet(this, _errorsDictionary, __privateGet(this, _validator).getErrors());
           __privateSet(this, _isFormValid, false);
           __privateGet(this, _addInputErrorClass).call(this);
+          __privateGet(this, _addInputSuccessClass).call(this);
         }
       });
       __privateAdd(this, _removeInputErrorClasses, () => {
@@ -1176,6 +1177,14 @@
             field == null ? void 0 : field.classList.add(__privateGet(this, _errorClass));
           });
         }
+      });
+      __privateAdd(this, _addInputSuccessClass, () => {
+        const inputs = __privateGet(this, _form).querySelectorAll(`.${__privateGet(this, _wrapperClass)}`);
+        inputs.forEach((input) => {
+          if (!input.classList.contains(__privateGet(this, _errorClass))) {
+            input.classList.add(__privateGet(this, _successClass));
+          }
+        });
       });
       __privateAdd(this, _vibrate, () => {
         if (window.navigator.vibrate && __privateGet(this, _isVibrate)) {
@@ -1221,6 +1230,7 @@
   _checkErrors = new WeakMap();
   _removeInputErrorClasses = new WeakMap();
   _addInputErrorClass = new WeakMap();
+  _addInputSuccessClass = new WeakMap();
   _vibrate = new WeakMap();
 
   // src/testData/config.js

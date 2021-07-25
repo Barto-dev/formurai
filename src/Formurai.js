@@ -89,7 +89,7 @@ export default class Formurai {
       this.#errorsDictionary = this.#validator.getErrors();
       this.#isFormValid = false;
       this.#addInputErrorClass();
-      // this.#showInputSuccess();
+      this.#addInputSuccessClass();
     }
   };
 
@@ -111,6 +111,15 @@ export default class Formurai {
         field?.classList.add(this.#errorClass);
       });
     }
+  };
+
+  #addInputSuccessClass = () => {
+    const inputs = this.#form.querySelectorAll(`.${this.#wrapperClass}`);
+    inputs.forEach((input) => {
+      if (!input.classList.contains(this.#errorClass)) {
+        input.classList.add(this.#successClass);
+      }
+    });
   };
 
   #vibrate = () => {
