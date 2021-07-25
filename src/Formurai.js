@@ -16,10 +16,9 @@ export default class Formurai {
   #withWrapper;
 
   #validationFields;
-  #errorsDictionary;
+  #inputErrorsObj;
 
   constructor(form, {
-    errorMessages = {},
     errorClass = 'formurai-error',
     successClass = 'formurai-success',
     wrapperClass = 'formurai-container',
@@ -31,7 +30,6 @@ export default class Formurai {
     this.#form = form;
     this.#isAutoTrim = autoTrim;
     this.#isVibrate = vibrate;
-    this.#errorMessages = errorMessages;
 
     this.#successClass = successClass;
     this.#errorClass = errorClass;
@@ -39,22 +37,25 @@ export default class Formurai {
     this.#errorMessageClass = errorMessageClass;
     this.#withWrapper = withWrapper;
 
-    this.#errorsDictionary = {};
+    this.#inputErrorsObj = {};
     this.#validationFields = [];
+    this.#errorMessages = {};
 
     this.#isFormValid = false;
 
   }
 
-  init = (rules) => {
+  init = (rules, messages = {}) => {
     this.#validator = new LIVR.Validator(rules);
     this.#validationFields = Object.keys(rules);
+    this.#errorMessages = messages;
     this.#form.addEventListener('submit', this.#onFormSubmit);
   };
 
   destroy = () => {
     this.#validator = null;
     this.#validationFields = [];
+    this.#errorMessages = {};
     this.#form.removeEventListener('submit', this.#onFormSubmit);
   }
 
@@ -62,11 +63,11 @@ export default class Formurai {
     const data = this.formData
     const validData = this.#validator.validate(data);
     if (validData) {
-      this.#errorsDictionary = {};
+      this.#inputErrorsObj = {};
       this.#isFormValid = true;
       this.#removeInputErrorClasses();
     } else {
-      this.#errorsDictionary = this.#validator.getErrors();
+      this.#inputErrorsObj = this.#validator.getErrors();
       this.#isFormValid = false;
       this.#checkInputsError();
       this.#addInputSuccessClass();
@@ -93,7 +94,7 @@ export default class Formurai {
   }
 
   get errors() {
-    return this.#errorsDictionary;
+    return this.#inputErrorsObj;
   }
 
   get isFormValid() {
