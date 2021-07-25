@@ -1,0 +1,20 @@
+{
+  "name": "formurai",
+  "version": "0.0.1",
+  "description": "Form validator",
+  "main": "index.js",
+  "author": "Illia",
+  "license": "MIT",
+  "scripts": {
+    "test": "test",
+    "build": "node build.js -build",
+    "start": "node build.js -watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.12.15",
+    "servor": "^4.0.2"
+  },
+  "dependencies": {
+    "livr": "^2.3.3"
+  }
+}
