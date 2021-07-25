@@ -1105,12 +1105,21 @@
 
   // src/Formurai.js
   var import_livr = __toModule(require_LIVR());
-  var _validator, _form, _errorsDictionary, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _errorDictionary, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate;
+  var _validator, _form, _errorMessages, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _errorsDictionary, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate;
   var Formurai = class {
-    constructor(form2, config) {
+    constructor(form2, {
+      errorMessages = {},
+      errorClass = "formurai-error",
+      successClass = "formurai-success",
+      wrapperClass = "formurai-container",
+      errorMessageClass = "formurai-message",
+      withWrapper = true,
+      autoTrim = true,
+      vibrate = true
+    } = {}) {
       __privateAdd(this, _validator, void 0);
       __privateAdd(this, _form, void 0);
-      __privateAdd(this, _errorsDictionary, void 0);
+      __privateAdd(this, _errorMessages, void 0);
       __privateAdd(this, _isFormValid, void 0);
       __privateAdd(this, _isAutoTrim, void 0);
       __privateAdd(this, _isVibrate, void 0);
@@ -1120,7 +1129,7 @@
       __privateAdd(this, _errorMessageClass, void 0);
       __privateAdd(this, _withWrapper, void 0);
       __privateAdd(this, _validationFields, void 0);
-      __privateAdd(this, _errorDictionary, void 0);
+      __privateAdd(this, _errorsDictionary, void 0);
       __publicField(this, "init", (rules2) => {
         __privateSet(this, _validator, new import_livr.default.Validator(rules2));
         __privateSet(this, _validationFields, Object.keys(rules2));
@@ -1188,7 +1197,7 @@
       __privateAdd(this, _showErrorMessage, (wrapper, inputName) => {
         var _a, _b;
         const defaultError = this.errors[inputName];
-        const customError = (_b = (_a = __privateGet(this, _errorDictionary)) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
+        const customError = (_b = (_a = __privateGet(this, _errorMessages)) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
         const errorMessageBlock = wrapper == null ? void 0 : wrapper.querySelector(`.${__privateGet(this, _errorMessageClass)}`);
         if (defaultError && customError && wrapper && __privateGet(this, _withWrapper)) {
           errorMessageBlock.innerText = customError;
@@ -1207,14 +1216,14 @@
         }
       });
       __privateSet(this, _form, form2);
-      __privateSet(this, _isAutoTrim, config.autoTrim);
-      __privateSet(this, _isVibrate, config.vibrate);
-      __privateSet(this, _errorDictionary, config.errorDictionary);
-      __privateSet(this, _successClass, config.successClass);
-      __privateSet(this, _errorClass, config.errorClass);
-      __privateSet(this, _wrapperClass, config.wrapperClass);
-      __privateSet(this, _errorMessageClass, config.errorMessageClass);
-      __privateSet(this, _withWrapper, config.withWrapper);
+      __privateSet(this, _isAutoTrim, autoTrim);
+      __privateSet(this, _isVibrate, vibrate);
+      __privateSet(this, _errorMessages, errorMessages);
+      __privateSet(this, _successClass, successClass);
+      __privateSet(this, _errorClass, errorClass);
+      __privateSet(this, _wrapperClass, wrapperClass);
+      __privateSet(this, _errorMessageClass, errorMessageClass);
+      __privateSet(this, _withWrapper, withWrapper);
       __privateSet(this, _errorsDictionary, {});
       __privateSet(this, _validationFields, []);
       __privateSet(this, _isFormValid, false);
@@ -1236,7 +1245,7 @@
   };
   _validator = new WeakMap();
   _form = new WeakMap();
-  _errorsDictionary = new WeakMap();
+  _errorMessages = new WeakMap();
   _isFormValid = new WeakMap();
   _isAutoTrim = new WeakMap();
   _isVibrate = new WeakMap();
@@ -1246,7 +1255,7 @@
   _errorMessageClass = new WeakMap();
   _withWrapper = new WeakMap();
   _validationFields = new WeakMap();
-  _errorDictionary = new WeakMap();
+  _errorsDictionary = new WeakMap();
   _onFormSubmit = new WeakMap();
   _removeInputErrorClasses = new WeakMap();
   _addInputErrorClass = new WeakMap();

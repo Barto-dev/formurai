@@ -1,20 +1,9 @@
 import LIVR from 'livr';
 
-const defaultValues = {
-  errorDictionary: {},
-  errorClass: 'formurai-error',
-  successClass: 'formurai-success',
-  wrapperClass: 'formurai-container',
-  errorMessageClass: 'formurai-message',
-  withWrapper: true,
-  autoTrim: true,
-  vibrate: true
-}
-
 export default class Formurai {
   #validator;
   #form;
-  #errorsDictionary;
+  #errorMessages;
   #isFormValid;
 
   #isAutoTrim;
@@ -27,19 +16,28 @@ export default class Formurai {
   #withWrapper;
 
   #validationFields;
-  #errorDictionary;
+  #errorsDictionary;
 
-  constructor(form, config) {
+  constructor(form, {
+    errorMessages = {},
+    errorClass = 'formurai-error',
+    successClass = 'formurai-success',
+    wrapperClass = 'formurai-container',
+    errorMessageClass = 'formurai-message',
+    withWrapper = true,
+    autoTrim = true,
+    vibrate = true
+  } = {}) {
     this.#form = form;
-    this.#isAutoTrim = config.autoTrim;
-    this.#isVibrate = config.vibrate;
-    this.#errorDictionary = config.errorDictionary;
+    this.#isAutoTrim = autoTrim;
+    this.#isVibrate = vibrate;
+    this.#errorMessages = errorMessages;
 
-    this.#successClass = config.successClass;
-    this.#errorClass = config.errorClass;
-    this.#wrapperClass = config.wrapperClass;
-    this.#errorMessageClass = config.errorMessageClass;
-    this.#withWrapper = config.withWrapper;
+    this.#successClass = successClass;
+    this.#errorClass = errorClass;
+    this.#wrapperClass = wrapperClass;
+    this.#errorMessageClass = errorMessageClass;
+    this.#withWrapper = withWrapper;
 
     this.#errorsDictionary = {};
     this.#validationFields = [];
@@ -139,7 +137,7 @@ export default class Formurai {
 
   #showErrorMessage = (wrapper, inputName) => {
     const defaultError = this.errors[inputName];
-    const customError = this.#errorDictionary?.[inputName]?.[defaultError];
+    const customError = this.#errorMessages?.[inputName]?.[defaultError];
     const errorMessageBlock = wrapper?.querySelector(`.${this.#errorMessageClass}`);
     if (defaultError && customError && wrapper && this.#withWrapper) {
       errorMessageBlock.innerText = customError;
