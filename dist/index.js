@@ -1111,13 +1111,21 @@
     successClass: "formurai-success",
     wrapperClass: "formurai-container",
     errorMessageClass: "formurai-message",
-    autoTrim: true
+    autoTrim: true,
+    vibrate: true
   };
-  var _validator, _form, _validationInputs;
+  var _validator, _form, _errors, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _validationInputs, _checkErrors, _vibrate;
   var Formurai = class {
     constructor(form2, config = defaultValues) {
       __privateAdd(this, _validator, void 0);
       __privateAdd(this, _form, void 0);
+      __privateAdd(this, _errors, void 0);
+      __privateAdd(this, _isAutoTrim, void 0);
+      __privateAdd(this, _isVibrate, void 0);
+      __privateAdd(this, _successClass, void 0);
+      __privateAdd(this, _errorClass, void 0);
+      __privateAdd(this, _wrapperClass, void 0);
+      __privateAdd(this, _errorMessageClass, void 0);
       __publicField(this, "init", (rules) => {
         __privateSet(this, _validator, new import_livr.default.Validator(rules));
         __privateGet(this, _form).addEventListener("submit", __privateGet(this, _validationInputs));
@@ -1128,9 +1136,30 @@
       });
       __privateAdd(this, _validationInputs, (evt) => {
         evt.preventDefault();
-        console.log("validation");
+        __privateGet(this, _checkErrors).call(this);
+      });
+      __privateAdd(this, _checkErrors, () => {
+        const data = this.formData;
+        const validData = __privateGet(this, _validator).validate(data);
+        if (validData) {
+          __privateSet(this, _errors, {});
+        } else {
+          __privateSet(this, _errors, __privateGet(this, _validator).getErrors());
+        }
+      });
+      __privateAdd(this, _vibrate, () => {
+        if (window.navigator.vibrate && __privateGet(this, _isVibrate)) {
+          window.navigator.vibrate([300, 100, 300]);
+        }
       });
       __privateSet(this, _form, form2);
+      __privateSet(this, _isAutoTrim, config.autoTrim);
+      __privateSet(this, _isVibrate, config.vibrate);
+      __privateSet(this, _errors, {});
+      __privateSet(this, _successClass, config.successClass);
+      __privateSet(this, _errorClass, config.errorClass);
+      __privateSet(this, _wrapperClass, config.wrapperClass);
+      __privateSet(this, _errorMessageClass, config.errorMessageClass);
     }
     get formData() {
       const data = new FormData(__privateGet(this, _form));
@@ -1143,7 +1172,16 @@
   };
   _validator = new WeakMap();
   _form = new WeakMap();
+  _errors = new WeakMap();
+  _isAutoTrim = new WeakMap();
+  _isVibrate = new WeakMap();
+  _successClass = new WeakMap();
+  _errorClass = new WeakMap();
+  _wrapperClass = new WeakMap();
+  _errorMessageClass = new WeakMap();
   _validationInputs = new WeakMap();
+  _checkErrors = new WeakMap();
+  _vibrate = new WeakMap();
 
   // src/index.js
   var form = document.querySelector("#test-form");

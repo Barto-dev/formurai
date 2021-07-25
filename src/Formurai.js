@@ -6,12 +6,22 @@ const defaultValues = {
   successClass: 'formurai-success',
   wrapperClass: 'formurai-container',
   errorMessageClass: 'formurai-message',
-  autoTrim: true
+  autoTrim: true,
+  vibrate: true
 }
 
 export default class Formurai {
   #validator;
   #form;
+  #errors;
+
+  #isAutoTrim;
+  #isVibrate;
+
+  #successClass;
+  #errorClass;
+  #wrapperClass;
+  #errorMessageClass;
 
   // #errors;
   // #form;
@@ -24,13 +34,16 @@ export default class Formurai {
 
   constructor(form, config = defaultValues) {
     this.#form = form;
-    // this._isAutoTrim = autoTrim;
-    // this.#errors = {};
+    this.#isAutoTrim = config.autoTrim;
+    this.#isVibrate = config.vibrate;
+    this.#errors = {};
+
+    this.#successClass = config.successClass;
+    this.#errorClass = config.errorClass;
+    this.#wrapperClass = config.wrapperClass;
+    this.#errorMessageClass = config.errorMessageClass;
+
     // this.#validationInputsArr = [];
-    // this.#successClass = successClass;
-    // this.#errorClass = errorClass;
-    // this.#wrapperClass = wrapperClass;
-    // this.#errorMessageClass = errorMessageClass;
     // this.#errorDictionary = errorDictionary;
   }
 
@@ -47,7 +60,7 @@ export default class Formurai {
 
   #validationInputs = (evt) => {
     evt.preventDefault();
-    console.log('validation')
+    this.#checkErrors();
   }
 
   get formData() {
@@ -58,4 +71,24 @@ export default class Formurai {
     });
     return values;
   }
+
+  #checkErrors = () => {
+    const data = this.formData
+    const validData = this.#validator.validate(data);
+    if (validData) {
+      this.#errors = {};
+      // this.#clearInputErrors();
+    } else {
+      this.#errors = this.#validator.getErrors();
+      // this.#showInputErrors();
+      // this.#showInputSuccess();
+    }
+  };
+
+  #vibrate = () => {
+    if (window.navigator.vibrate && this.#isVibrate) {
+      window.navigator.vibrate([300, 100, 300]);
+    }
+  };
+
 }
