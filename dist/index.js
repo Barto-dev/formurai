@@ -1111,10 +1111,11 @@
     successClass: "formurai-success",
     wrapperClass: "formurai-container",
     errorMessageClass: "formurai-message",
+    withWrapper: true,
     autoTrim: true,
     vibrate: true
   };
-  var _validator, _form, _errorsDictionary, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _validationFields, _errorDictionary, _validationInputs, _checkErrors, _removeInputErrorClasses, _addInputErrorClass, _addInputSuccessClass, _vibrate;
+  var _validator, _form, _errorsDictionary, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _errorDictionary, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate;
   var Formurai = class {
     constructor(form2, config = defaultValues) {
       __privateAdd(this, _validator, void 0);
@@ -1127,28 +1128,20 @@
       __privateAdd(this, _errorClass, void 0);
       __privateAdd(this, _wrapperClass, void 0);
       __privateAdd(this, _errorMessageClass, void 0);
+      __privateAdd(this, _withWrapper, void 0);
       __privateAdd(this, _validationFields, void 0);
       __privateAdd(this, _errorDictionary, void 0);
       __publicField(this, "init", (rules2) => {
         __privateSet(this, _validator, new import_livr.default.Validator(rules2));
         __privateSet(this, _validationFields, Object.keys(rules2));
-        __privateGet(this, _form).addEventListener("submit", __privateGet(this, _validationInputs));
+        __privateGet(this, _form).addEventListener("submit", __privateGet(this, _onFormSubmit));
       });
       __publicField(this, "destroy", () => {
         __privateSet(this, _validator, null);
-        __privateGet(this, _form).removeEventListener("submit", __privateGet(this, _validationInputs));
         __privateSet(this, _validationFields, []);
+        __privateGet(this, _form).removeEventListener("submit", __privateGet(this, _onFormSubmit));
       });
-      __privateAdd(this, _validationInputs, (evt) => {
-        evt.preventDefault();
-        __privateGet(this, _checkErrors).call(this);
-        if (__privateGet(this, _isFormValid)) {
-          __privateGet(this, _form).submit();
-        } else {
-          __privateGet(this, _vibrate).call(this);
-        }
-      });
-      __privateAdd(this, _checkErrors, () => {
+      __publicField(this, "checkForm", () => {
         const data = this.formData;
         const validData = __privateGet(this, _validator).validate(data);
         if (validData) {
@@ -1158,23 +1151,38 @@
         } else {
           __privateSet(this, _errorsDictionary, __privateGet(this, _validator).getErrors());
           __privateSet(this, _isFormValid, false);
-          __privateGet(this, _addInputErrorClass).call(this);
+          __privateGet(this, _checkInputsError).call(this);
           __privateGet(this, _addInputSuccessClass).call(this);
+        }
+      });
+      __privateAdd(this, _onFormSubmit, (evt) => {
+        evt.preventDefault();
+        this.checkForm();
+        if (__privateGet(this, _isFormValid)) {
+          __privateGet(this, _form).submit();
+        } else {
+          __privateGet(this, _vibrate).call(this);
         }
       });
       __privateAdd(this, _removeInputErrorClasses, () => {
         const errorFields = document.querySelectorAll(`.${__privateGet(this, _errorClass)}`);
         errorFields.forEach((input) => input.classList.remove(__privateGet(this, _errorClass)));
       });
-      __privateAdd(this, _addInputErrorClass, () => {
+      __privateAdd(this, _addInputErrorClass, (inputWrapper) => {
+        if (inputWrapper) {
+          inputWrapper.classList.remove(__privateGet(this, _successClass));
+          inputWrapper.classList.add(__privateGet(this, _errorClass));
+        }
+      });
+      __privateAdd(this, _checkInputsError, () => {
         __privateGet(this, _removeInputErrorClasses).call(this);
         const errorsKey = Object.keys(this.errors);
         if (errorsKey.length) {
           errorsKey.forEach((inputName) => {
             const input = __privateGet(this, _form).querySelector(`[name="${inputName}"]`);
-            const field = input.closest(`.${__privateGet(this, _wrapperClass)}`);
-            field == null ? void 0 : field.classList.remove(__privateGet(this, _successClass));
-            field == null ? void 0 : field.classList.add(__privateGet(this, _errorClass));
+            const inputWrapper = input.closest(`.${__privateGet(this, _wrapperClass)}`);
+            __privateGet(this, _addInputErrorClass).call(this, inputWrapper);
+            __privateGet(this, _showErrorMessage).call(this, inputWrapper, inputName);
           });
         }
       });
@@ -1185,6 +1193,22 @@
             input.classList.add(__privateGet(this, _successClass));
           }
         });
+      });
+      __privateAdd(this, _showErrorMessage, (wrapper, inputName) => {
+        var _a, _b;
+        const defaultError = this.errors[inputName];
+        const customError = (_b = (_a = __privateGet(this, _errorDictionary)) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
+        const errorMessageBlock = wrapper == null ? void 0 : wrapper.querySelector(`.${__privateGet(this, _errorMessageClass)}`);
+        if (defaultError && customError && wrapper) {
+          errorMessageBlock.innerText = customError;
+        }
+      });
+      __privateAdd(this, _getWrapperElement, (input) => {
+        if (__privateGet(this, _withWrapper)) {
+          return input.closest(`.${__privateGet(this, _wrapperClass)}`);
+        } else {
+          return input;
+        }
       });
       __privateAdd(this, _vibrate, () => {
         if (window.navigator.vibrate && __privateGet(this, _isVibrate)) {
@@ -1199,8 +1223,10 @@
       __privateSet(this, _errorClass, config.errorClass);
       __privateSet(this, _wrapperClass, config.wrapperClass);
       __privateSet(this, _errorMessageClass, config.errorMessageClass);
+      __privateSet(this, _withWrapper, config.withWrapper);
       __privateSet(this, _errorsDictionary, {});
       __privateSet(this, _validationFields, []);
+      __privateSet(this, _isFormValid, false);
     }
     get formData() {
       const data = new FormData(__privateGet(this, _form));
@@ -1213,6 +1239,9 @@
     get errors() {
       return __privateGet(this, _errorsDictionary);
     }
+    get isFormValid() {
+      return __privateGet(this, _isFormValid);
+    }
   };
   _validator = new WeakMap();
   _form = new WeakMap();
@@ -1224,13 +1253,16 @@
   _errorClass = new WeakMap();
   _wrapperClass = new WeakMap();
   _errorMessageClass = new WeakMap();
+  _withWrapper = new WeakMap();
   _validationFields = new WeakMap();
   _errorDictionary = new WeakMap();
-  _validationInputs = new WeakMap();
-  _checkErrors = new WeakMap();
+  _onFormSubmit = new WeakMap();
   _removeInputErrorClasses = new WeakMap();
   _addInputErrorClass = new WeakMap();
+  _checkInputsError = new WeakMap();
   _addInputSuccessClass = new WeakMap();
+  _showErrorMessage = new WeakMap();
+  _getWrapperElement = new WeakMap();
   _vibrate = new WeakMap();
 
   // src/testData/config.js

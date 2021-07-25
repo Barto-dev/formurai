@@ -6,6 +6,7 @@ const defaultValues = {
   successClass: 'formurai-success',
   wrapperClass: 'formurai-container',
   errorMessageClass: 'formurai-message',
+  withWrapper: true,
   autoTrim: true,
   vibrate: true
 }
@@ -23,6 +24,7 @@ export default class Formurai {
   #errorClass;
   #wrapperClass;
   #errorMessageClass;
+  #withWrapper;
 
   #validationFields;
   #errorDictionary;
@@ -37,27 +39,45 @@ export default class Formurai {
     this.#errorClass = config.errorClass;
     this.#wrapperClass = config.wrapperClass;
     this.#errorMessageClass = config.errorMessageClass;
+    this.#withWrapper = config.withWrapper;
 
     this.#errorsDictionary = {};
     this.#validationFields = [];
+
+    this.#isFormValid = false;
 
   }
 
   init = (rules) => {
     this.#validator = new LIVR.Validator(rules);
     this.#validationFields = Object.keys(rules);
-    this.#form.addEventListener('submit', this.#validationInputs);
+    this.#form.addEventListener('submit', this.#onFormSubmit);
   };
 
   destroy = () => {
     this.#validator = null;
-    this.#form.removeEventListener('submit', this.#validationInputs);
     this.#validationFields = [];
+    this.#form.removeEventListener('submit', this.#onFormSubmit);
   }
 
-  #validationInputs = (evt) => {
+  checkForm = () => {
+    const data = this.formData
+    const validData = this.#validator.validate(data);
+    if (validData) {
+      this.#errorsDictionary = {};
+      this.#isFormValid = true;
+      this.#removeInputErrorClasses();
+    } else {
+      this.#errorsDictionary = this.#validator.getErrors();
+      this.#isFormValid = false;
+      this.#checkInputsError();
+      this.#addInputSuccessClass();
+    }
+  };
+
+  #onFormSubmit = (evt) => {
     evt.preventDefault();
-    this.#checkErrors();
+    this.checkForm();
     if (this.#isFormValid) {
       this.#form.submit();
     } else {
@@ -78,40 +98,34 @@ export default class Formurai {
     return this.#errorsDictionary;
   }
 
-  #checkErrors = () => {
-    const data = this.formData
-    const validData = this.#validator.validate(data);
-    if (validData) {
-      this.#errorsDictionary = {};
-      this.#isFormValid = true;
-      this.#removeInputErrorClasses();
-    } else {
-      this.#errorsDictionary = this.#validator.getErrors();
-      this.#isFormValid = false;
-      this.#addInputErrorClass();
-      this.#addInputSuccessClass();
-    }
-  };
+  get isFormValid() {
+    return this.#isFormValid;
+  }
 
   #removeInputErrorClasses = () => {
     const errorFields = document.querySelectorAll(`.${this.#errorClass}`);
     errorFields.forEach((input) => input.classList.remove(this.#errorClass));
   };
 
-  #addInputErrorClass = () => {
+  #addInputErrorClass = (inputWrapper) => {
+    if (inputWrapper) {
+      inputWrapper.classList.remove(this.#successClass);
+      inputWrapper.classList.add(this.#errorClass);
+    }
+  };
+
+  #checkInputsError = () => {
     this.#removeInputErrorClasses();
     const errorsKey = Object.keys(this.errors);
     if (errorsKey.length) {
       errorsKey.forEach((inputName) => {
         const input = this.#form.querySelector(`[name="${inputName}"]`);
-        const field = input.closest(`.${this.#wrapperClass}`);
-        // const errorMessageBlock = field?.querySelector(`.${this.#errorMessageClass}`);
-        // this.#showErrorMessage(errorMessageBlock, inputName);
-        field?.classList.remove(this.#successClass);
-        field?.classList.add(this.#errorClass);
+        const inputWrapper = input.closest(`.${this.#wrapperClass}`);
+        this.#addInputErrorClass(inputWrapper);
+        this.#showErrorMessage(inputWrapper, inputName);
       });
     }
-  };
+  }
 
   #addInputSuccessClass = () => {
     const inputs = this.#form.querySelectorAll(`.${this.#wrapperClass}`);
@@ -121,6 +135,23 @@ export default class Formurai {
       }
     });
   };
+
+  #showErrorMessage = (wrapper, inputName) => {
+    const defaultError = this.errors[inputName];
+    const customError = this.#errorDictionary?.[inputName]?.[defaultError];
+    const errorMessageBlock = wrapper?.querySelector(`.${this.#errorMessageClass}`);
+    if (defaultError && customError && wrapper) {
+      errorMessageBlock.innerText = customError;
+    }
+  };
+
+  #getWrapperElement = (input) => {
+    if (this.#withWrapper) {
+      return input.closest(`.${this.#wrapperClass}`);
+    } else {
+      return input;
+    }
+  }
 
   #vibrate = () => {
     if (window.navigator.vibrate && this.#isVibrate) {
