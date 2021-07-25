@@ -112,18 +112,18 @@
             throw "Alias name required";
           DEFAULT_RULES[alias.name] = this._buildAliasedRule(alias.rules, alias.error);
         }
-        static registerDefaultRules(rules) {
-          for (const ruleName in rules) {
-            DEFAULT_RULES[ruleName] = rules[ruleName];
+        static registerDefaultRules(rules2) {
+          for (const ruleName in rules2) {
+            DEFAULT_RULES[ruleName] = rules2[ruleName];
           }
         }
         static defaultAutoTrim(isAutoTrim) {
           IS_DEFAULT_AUTO_TRIM = !!isAutoTrim;
         }
-        static _buildAliasedRule(rules, errorCode) {
-          if (!rules)
+        static _buildAliasedRule(rules2, errorCode) {
+          if (!rules2)
             throw "Alias rules required";
-          const livr = { value: rules };
+          const livr = { value: rules2 };
           return (ruleBuilders) => {
             const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
             return (value, undefined2, outputArr) => {
@@ -195,9 +195,9 @@
         getErrors() {
           return this.errors;
         }
-        registerRules(rules) {
-          for (const ruleName in rules) {
-            this.validatorBuilders[ruleName] = rules[ruleName];
+        registerRules(rules2) {
+          for (const ruleName in rules2) {
+            this.validatorBuilders[ruleName] = rules2[ruleName];
           }
           return this;
         }
@@ -805,12 +805,12 @@
     "node_modules/livr/lib/rules/meta/list_of.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
-      function list_of(rules, ruleBuilders) {
-        if (!Array.isArray(rules)) {
-          rules = Array.prototype.slice.call(arguments);
-          ruleBuilders = rules.pop();
+      function list_of(rules2, ruleBuilders) {
+        if (!Array.isArray(rules2)) {
+          rules2 = Array.prototype.slice.call(arguments);
+          ruleBuilders = rules2.pop();
         }
-        const livr = { field: rules };
+        const livr = { field: rules2 };
         const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
         return (values, params, outputArr) => {
           if (util.isNoValue(values))
@@ -888,8 +888,8 @@
       function or() {
         const ruleSets = Array.prototype.slice.call(arguments);
         const ruleBuilders = ruleSets.pop();
-        const validators = ruleSets.map((rules) => {
-          const livr = { field: rules };
+        const validators = ruleSets.map((rules2) => {
+          const livr = { field: rules2 };
           const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
           return validator;
         });
@@ -1061,7 +1061,7 @@
     "node_modules/livr/lib/LIVR.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
-      var rules = {
+      var rules2 = {
         required: require_required(),
         not_empty: require_not_empty(),
         not_empty_list: require_not_empty_list(),
@@ -1098,8 +1098,8 @@
         remove: require_remove(),
         leave_only: require_leave_only()
       };
-      Validator.registerDefaultRules(rules);
-      module.exports = { Validator, rules, util };
+      Validator.registerDefaultRules(rules2);
+      module.exports = { Validator, rules: rules2, util };
     }
   });
 
@@ -1114,37 +1114,67 @@
     autoTrim: true,
     vibrate: true
   };
-  var _validator, _form, _errors, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _validationInputs, _checkErrors, _vibrate;
+  var _validator, _form, _errorsDictionary, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _validationFields, _errorDictionary, _validationInputs, _checkErrors, _removeInputErrorClasses, _addInputErrorClass, _vibrate;
   var Formurai = class {
     constructor(form2, config = defaultValues) {
       __privateAdd(this, _validator, void 0);
       __privateAdd(this, _form, void 0);
-      __privateAdd(this, _errors, void 0);
+      __privateAdd(this, _errorsDictionary, void 0);
+      __privateAdd(this, _isFormValid, void 0);
       __privateAdd(this, _isAutoTrim, void 0);
       __privateAdd(this, _isVibrate, void 0);
       __privateAdd(this, _successClass, void 0);
       __privateAdd(this, _errorClass, void 0);
       __privateAdd(this, _wrapperClass, void 0);
       __privateAdd(this, _errorMessageClass, void 0);
-      __publicField(this, "init", (rules) => {
-        __privateSet(this, _validator, new import_livr.default.Validator(rules));
+      __privateAdd(this, _validationFields, void 0);
+      __privateAdd(this, _errorDictionary, void 0);
+      __publicField(this, "init", (rules2) => {
+        __privateSet(this, _validator, new import_livr.default.Validator(rules2));
+        __privateSet(this, _validationFields, Object.keys(rules2));
         __privateGet(this, _form).addEventListener("submit", __privateGet(this, _validationInputs));
       });
       __publicField(this, "destroy", () => {
         __privateSet(this, _validator, null);
         __privateGet(this, _form).removeEventListener("submit", __privateGet(this, _validationInputs));
+        __privateSet(this, _validationFields, []);
       });
       __privateAdd(this, _validationInputs, (evt) => {
         evt.preventDefault();
         __privateGet(this, _checkErrors).call(this);
+        if (__privateGet(this, _isFormValid)) {
+          __privateGet(this, _form).submit();
+        } else {
+          __privateGet(this, _vibrate).call(this);
+        }
       });
       __privateAdd(this, _checkErrors, () => {
         const data = this.formData;
         const validData = __privateGet(this, _validator).validate(data);
         if (validData) {
-          __privateSet(this, _errors, {});
+          __privateSet(this, _errorsDictionary, {});
+          __privateSet(this, _isFormValid, true);
+          __privateGet(this, _removeInputErrorClasses).call(this);
         } else {
-          __privateSet(this, _errors, __privateGet(this, _validator).getErrors());
+          __privateSet(this, _errorsDictionary, __privateGet(this, _validator).getErrors());
+          __privateSet(this, _isFormValid, false);
+          __privateGet(this, _addInputErrorClass).call(this);
+        }
+      });
+      __privateAdd(this, _removeInputErrorClasses, () => {
+        const errorFields = document.querySelectorAll(`.${__privateGet(this, _errorClass)}`);
+        errorFields.forEach((input) => input.classList.remove(__privateGet(this, _errorClass)));
+      });
+      __privateAdd(this, _addInputErrorClass, () => {
+        __privateGet(this, _removeInputErrorClasses).call(this);
+        const errorsKey = Object.keys(this.errors);
+        if (errorsKey.length) {
+          errorsKey.forEach((inputName) => {
+            const input = __privateGet(this, _form).querySelector(`[name="${inputName}"]`);
+            const field = input.closest(`.${__privateGet(this, _wrapperClass)}`);
+            field == null ? void 0 : field.classList.remove(__privateGet(this, _successClass));
+            field == null ? void 0 : field.classList.add(__privateGet(this, _errorClass));
+          });
         }
       });
       __privateAdd(this, _vibrate, () => {
@@ -1155,11 +1185,13 @@
       __privateSet(this, _form, form2);
       __privateSet(this, _isAutoTrim, config.autoTrim);
       __privateSet(this, _isVibrate, config.vibrate);
-      __privateSet(this, _errors, {});
+      __privateSet(this, _errorDictionary, config.errorDictionary);
       __privateSet(this, _successClass, config.successClass);
       __privateSet(this, _errorClass, config.errorClass);
       __privateSet(this, _wrapperClass, config.wrapperClass);
       __privateSet(this, _errorMessageClass, config.errorMessageClass);
+      __privateSet(this, _errorsDictionary, {});
+      __privateSet(this, _validationFields, []);
     }
     get formData() {
       const data = new FormData(__privateGet(this, _form));
@@ -1169,23 +1201,41 @@
       });
       return values;
     }
+    get errors() {
+      return __privateGet(this, _errorsDictionary);
+    }
   };
   _validator = new WeakMap();
   _form = new WeakMap();
-  _errors = new WeakMap();
+  _errorsDictionary = new WeakMap();
+  _isFormValid = new WeakMap();
   _isAutoTrim = new WeakMap();
   _isVibrate = new WeakMap();
   _successClass = new WeakMap();
   _errorClass = new WeakMap();
   _wrapperClass = new WeakMap();
   _errorMessageClass = new WeakMap();
+  _validationFields = new WeakMap();
+  _errorDictionary = new WeakMap();
   _validationInputs = new WeakMap();
   _checkErrors = new WeakMap();
+  _removeInputErrorClasses = new WeakMap();
+  _addInputErrorClass = new WeakMap();
   _vibrate = new WeakMap();
+
+  // src/testData/config.js
+  var rules = {
+    "text": ["required"],
+    "code": ["required"],
+    "email": ["required", "email"],
+    "phone": ["required", "integer", { length_between: [1, 3] }],
+    "password": ["required", "integer", { length_between: [5, 7] }],
+    "country": ["required", { min_length: 6 }]
+  };
 
   // src/index.js
   var form = document.querySelector("#test-form");
   var test = new Formurai(form);
-  test.init();
+  test.init(rules);
 })();
 //# sourceMappingURL=index.js.map

@@ -26,17 +26,29 @@
           padding: 10px 20px;
           box-sizing: border-box;
       }
+
+      .formurai-container {
+          border: 1px solid #000;
+          border-radius: 5px;
+      }
+
+      .formurai-error {
+          border: 1px solid red;
+      }
   </style>
 </head>
 <body>
-<form action="" id="test-form" style="display: grid; grid-gap: 20px">
-  <section class="formurai-container">
+<form action="/form" id="test-form" style="display: grid; grid-gap: 20px">
+  <section class="">
     <input name="text" type="text">
   </section>
 
-
   <section class="formurai-container">
     <input name="code" type="text">
+  </section>
+
+  <section class="formurai-container">
+    <input name="email" type="text">
   </section>
 
   <section class="formurai-container">
@@ -44,10 +56,10 @@
   </section>
 
   <section class="formurai-container">
-    <input name="value" type="text">
+    <input name="password" type="text">
   </section>
 
-  <section class="formurai-container">
+    <section class="formurai-container">
     <input name="country" type="text">
   </section>
 
