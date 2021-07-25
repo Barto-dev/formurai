@@ -1199,7 +1199,7 @@
         const defaultError = this.errors[inputName];
         const customError = (_b = (_a = __privateGet(this, _errorDictionary)) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
         const errorMessageBlock = wrapper == null ? void 0 : wrapper.querySelector(`.${__privateGet(this, _errorMessageClass)}`);
-        if (defaultError && customError && wrapper) {
+        if (defaultError && customError && wrapper && __privateGet(this, _withWrapper)) {
           errorMessageBlock.innerText = customError;
         }
       });

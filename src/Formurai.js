@@ -140,11 +140,12 @@ export default class Formurai {
     const defaultError = this.errors[inputName];
     const customError = this.#errorDictionary?.[inputName]?.[defaultError];
     const errorMessageBlock = wrapper?.querySelector(`.${this.#errorMessageClass}`);
-    if (defaultError && customError && wrapper) {
+    if (defaultError && customError && wrapper && this.#withWrapper) {
       errorMessageBlock.innerText = customError;
     }
   };
 
+  // Возвращаем элемент в зависимости от того есть ли обертка у элемента
   #getWrapperElement = (input) => {
     if (this.#withWrapper) {
       return input.closest(`.${this.#wrapperClass}`);
