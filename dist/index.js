@@ -1105,19 +1105,9 @@
 
   // src/Formurai.js
   var import_livr = __toModule(require_LIVR());
-  var defaultValues = {
-    errorDictionary: {},
-    errorClass: "formurai-error",
-    successClass: "formurai-success",
-    wrapperClass: "formurai-container",
-    errorMessageClass: "formurai-message",
-    withWrapper: true,
-    autoTrim: true,
-    vibrate: true
-  };
   var _validator, _form, _errorsDictionary, _isFormValid, _isAutoTrim, _isVibrate, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _errorDictionary, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate;
   var Formurai = class {
-    constructor(form2, config = defaultValues) {
+    constructor(form2, config) {
       __privateAdd(this, _validator, void 0);
       __privateAdd(this, _form, void 0);
       __privateAdd(this, _errorsDictionary, void 0);

@@ -29,7 +29,7 @@ export default class Formurai {
   #validationFields;
   #errorDictionary;
 
-  constructor(form, config = defaultValues) {
+  constructor(form, config) {
     this.#form = form;
     this.#isAutoTrim = config.autoTrim;
     this.#isVibrate = config.vibrate;
