@@ -74,10 +74,13 @@ export default class Formurai {
     console.log(this.errors)
   };
 
-  addRule = (rule) => {
-    this.validator.registerAliasedRule({
-      ...rule
-    });
+  addRule = (rules) => {
+    const isArray = Array.isArray(rules);
+    if (isArray) {
+      rules.forEach(rule => this.validator.registerAliasedRule({...rule}))
+    } else {
+      this.validator.registerAliasedRule({...rules});
+    }
   }
 
   get formData() {
