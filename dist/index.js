@@ -1168,8 +1168,13 @@
         }
         console.log(this.errors);
       });
-      __publicField(this, "addRule", (rule2) => {
-        this.validator.registerAliasedRule(__spreadValues({}, rule2));
+      __publicField(this, "addRule", (rules2) => {
+        const isArray = Array.isArray(rules2);
+        if (isArray) {
+          rules2.forEach((rule2) => this.validator.registerAliasedRule(__spreadValues({}, rule2)));
+        } else {
+          this.validator.registerAliasedRule(__spreadValues({}, rules2));
+        }
       });
       __privateAdd(this, _onFormSubmit, (evt) => {
         evt.preventDefault();
@@ -1329,7 +1334,7 @@
   var form = document.querySelector("#test-form");
   var rule = {
     name: "strong_password",
-    rules: { length_between: [10, 15] },
+    rules: { length_between: [15, 20] },
     error: "WEAK_PASSWORD"
   };
   var test = new Formurai(form);
