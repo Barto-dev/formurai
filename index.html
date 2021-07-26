@@ -30,6 +30,7 @@
       .formurai-container {
           border: 1px solid #000;
           border-radius: 5px;
+          position: relative;
       }
 
       .formurai-error {
@@ -39,32 +40,49 @@
       .formurai-success {
         border: 1px solid green;
       }
+
+      .formurai-message {
+          display: none;
+      }
+
+      .formurai-error .formurai-message {
+          display: block;
+          position: absolute;
+          bottom: -22px;
+          color: red;
+      }
   </style>
 </head>
 <body>
-<form action="/form" id="test-form" style="display: grid; grid-gap: 20px">
+<form action="/form" id="test-form" style="display: grid; grid-gap: 30px">
   <section class="formurai-container">
     <input name="text" type="text">
+    <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
     <input name="code" type="text">
+    <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
     <input name="email" type="text">
+    <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
     <input name="phone" type="text">
+    <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
     <input name="password" type="text">
+    <span class="formurai-message"></span>
   </section>
 
     <section class="formurai-container">
     <input name="country" type="text">
+      <span class="formurai-message"></span>
   </section>
 
   <button type="submit">Submit</button>

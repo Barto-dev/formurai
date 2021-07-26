@@ -1,7 +1,6 @@
 import LIVR from 'livr';
 
 export default class Formurai {
-  #validator;
   #form;
   #errorMessages;
   #isFormValid;
@@ -46,14 +45,14 @@ export default class Formurai {
   }
 
   init = (rules, messages = {}) => {
-    this.#validator = new LIVR.Validator(rules);
+    this.validator = new LIVR.Validator(rules);
     this.#validationFields = Object.keys(rules);
     this.#errorMessages = messages;
     this.#form.addEventListener('submit', this.#onFormSubmit);
   };
 
   destroy = () => {
-    this.#validator = null;
+    this.validator = null;
     this.#validationFields = [];
     this.#errorMessages = {};
     this.#form.removeEventListener('submit', this.#onFormSubmit);
@@ -61,27 +60,24 @@ export default class Formurai {
 
   checkForm = () => {
     const data = this.formData
-    const validData = this.#validator.validate(data);
+    const validData = this.validator.validate(data);
     if (validData) {
       this.#inputErrorsObj = {};
       this.#isFormValid = true;
       this.#removeInputErrorClasses();
     } else {
-      this.#inputErrorsObj = this.#validator.getErrors();
+      this.#inputErrorsObj = this.validator.getErrors();
       this.#isFormValid = false;
       this.#checkInputsError();
       this.#addInputSuccessClass();
     }
+    console.log(this.errors)
   };
 
-  #onFormSubmit = (evt) => {
-    evt.preventDefault();
-    this.checkForm();
-    if (this.isFormValid) {
-      this.#form.submit();
-    } else {
-      this.#vibrate();
-    }
+  addRule = (rule) => {
+    this.validator.registerAliasedRule({
+      ...rule
+    });
   }
 
   get formData() {
@@ -99,6 +95,16 @@ export default class Formurai {
 
   get isFormValid() {
     return this.#isFormValid;
+  }
+
+  #onFormSubmit = (evt) => {
+    evt.preventDefault();
+    this.checkForm();
+    if (this.isFormValid) {
+      this.#form.submit();
+    } else {
+      this.#vibrate();
+    }
   }
 
   #removeInputErrorClasses = () => {
@@ -140,7 +146,7 @@ export default class Formurai {
     const defaultError = this.errors[inputName];
     const customError = this.#errorMessages?.[inputName]?.[defaultError];
     const errorMessageBlock = wrapper?.querySelector(`.${this.#errorMessageClass}`);
-    if (defaultError && customError && wrapper && this.#withWrapper) {
+    if (defaultError && customError && errorMessageBlock) {
       errorMessageBlock.innerText = customError;
     }
   };
@@ -157,6 +163,12 @@ export default class Formurai {
   #vibrate = () => {
     if (window.navigator.vibrate && this.#isVibrate) {
       window.navigator.vibrate([300, 100, 300]);
+    }
+  };
+
+  #autoTrimValues = () => {
+    if (this.#isAutoTrim) {
+      LIVR.Validator.defaultAutoTrim(true);
     }
   };
 
