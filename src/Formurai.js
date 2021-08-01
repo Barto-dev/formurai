@@ -108,6 +108,7 @@ export default class Formurai {
     } else {
       this.#vibrate();
     }
+    console.log(this.formData)
   }
 
   #removeInputErrorClasses = () => {
@@ -153,6 +154,7 @@ export default class Formurai {
       errorMessageBlock.innerText = customError;
     }
   };
+
 
   // Возвращаем элемент в зависимости от того есть ли обертка у элемента
   #getWrapperElement = (input) => {

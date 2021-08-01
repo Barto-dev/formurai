@@ -1,7 +1,7 @@
 export const rules = {
-  'text': ['required'],
+  'text': [{ remove: '0123456789' }, 'required'],
   'code': ['required'],
-  'email': ['required', 'email', 'strong_password'],
+  'email': ['strong_password'],
   'phone': ['required', 'integer', {length_between: [1, 3]}],
   'password': ['required', 'integer', {length_between: [5, 7]}],
   'country': ['required', {min_length: 6}],
@@ -17,6 +17,7 @@ export const registrationErrors = {
   'email': {
     REQUIRED: 'Email required',
     WRONG_EMAIL: 'Email must be valid',
+    WEAK_PASSWORD: 'eqwqew'
   },
   'phone': {
     NOT_INTEGER: 'Phone code must be a number',

@@ -1184,6 +1184,7 @@
         } else {
           __privateGet(this, _vibrate).call(this);
         }
+        console.log(this.formData);
       });
       __privateAdd(this, _removeInputErrorClasses, () => {
         const errorFields = document.querySelectorAll(`.${__privateGet(this, _errorClass)}`);
@@ -1294,9 +1295,9 @@
 
   // src/testData/config.js
   var rules = {
-    "text": ["required"],
+    "text": [{ remove: "0123456789" }, "required"],
     "code": ["required"],
-    "email": ["required", "email", "strong_password"],
+    "email": ["strong_password"],
     "phone": ["required", "integer", { length_between: [1, 3] }],
     "password": ["required", "integer", { length_between: [5, 7] }],
     "country": ["required", { min_length: 6 }]
@@ -1310,7 +1311,8 @@
     },
     "email": {
       REQUIRED: "Email required",
-      WRONG_EMAIL: "Email must be valid"
+      WRONG_EMAIL: "Email must be valid",
+      WEAK_PASSWORD: "eqwqew"
     },
     "phone": {
       NOT_INTEGER: "Phone code must be a number",
@@ -1334,7 +1336,7 @@
   var form = document.querySelector("#test-form");
   var rule = {
     name: "strong_password",
-    rules: { length_between: [15, 20] },
+    rules: [{ length_between: [15, 20] }],
     error: "WEAK_PASSWORD"
   };
   var test = new Formurai(form);

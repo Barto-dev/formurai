@@ -5,7 +5,7 @@ const form = document.querySelector('#test-form');
 
 const rule = {
   name: 'strong_password',
-  rules: {length_between: [15, 20]},
+  rules: [{length_between: [15, 20]}],
   error: 'WEAK_PASSWORD'
 }
 
