@@ -1,8 +1,8 @@
 {
   "name": "formurai",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "Form validator",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Illia",
   "license": "MIT",
   "files": [

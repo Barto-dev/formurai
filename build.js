@@ -45,11 +45,11 @@ esbuild.build({
 config == '-build' &&
 esbuild.build({
   // pass any options to esbuild here...
-  entryPoints: ['src/index.js'],
-  outdir: outdirectory,
-  bundle: true,
+  entryPoints: ['src/Formurai.js'],
+  // outdir: outdirectory,
+  outfile: 'dist/index.js',
+/*  bundle: true,*/
   define: {'process.env.NODE_ENV': '"production"'},
-  minify: true,
   target: [
     'es2020',
     'node14',

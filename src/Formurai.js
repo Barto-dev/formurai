@@ -1,6 +1,6 @@
 import LIVR from 'livr';
 
-export default class Formurai {
+class Formurai {
   #form;
   #errorMessages;
   #isFormValid;
@@ -42,6 +42,8 @@ export default class Formurai {
 
     this.#isFormValid = false;
 
+    this.#autoTrimValues();
+
   }
 
   init = (rules, messages = {}) => {
@@ -71,7 +73,6 @@ export default class Formurai {
       this.#checkInputsError();
       this.#addInputSuccessClass();
     }
-    console.log(this.errors)
   };
 
   addRule = (rules) => {
@@ -176,5 +177,6 @@ export default class Formurai {
       LIVR.Validator.defaultAutoTrim(true);
     }
   };
-
 }
+
+export default Formurai;

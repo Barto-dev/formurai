@@ -1,1 +1,153 @@
-(()=>{var ve=Object.create;var I=Object.defineProperty;var Ke=Object.getOwnPropertyDescriptor;var Ye=Object.getOwnPropertyNames,tr=Object.getOwnPropertySymbols,Ze=Object.getPrototypeOf,ir=Object.prototype.hasOwnProperty,Je=Object.prototype.propertyIsEnumerable;var $=(e,r,t)=>r in e?I(e,r,{enumerable:!0,configurable:!0,writable:!0,value:t}):e[r]=t,H=(e,r)=>{for(var t in r||(r={}))ir.call(r,t)&&$(e,t,r[t]);if(tr)for(var t of tr(r))Je.call(r,t)&&$(e,t,r[t]);return e};var Xe=e=>I(e,"__esModule",{value:!0});var n=(e,r)=>()=>(r||e((r={exports:{}}).exports,r),r.exports);var rt=(e,r,t)=>{if(r&&typeof r=="object"||typeof r=="function")for(let i of Ye(r))!ir.call(e,i)&&i!=="default"&&I(e,i,{get:()=>r[i],enumerable:!(t=Ke(r,i))||t.enumerable});return e},et=e=>rt(Xe(I(e!=null?ve(Ze(e)):{},"default",e&&e.__esModule&&"default"in e?{get:()=>e.default,enumerable:!0}:{value:e,enumerable:!0})),e);var b=(e,r,t)=>($(e,typeof r!="symbol"?r+"":r,t),t),sr=(e,r,t)=>{if(!r.has(e))throw TypeError("Cannot "+t)};var o=(e,r,t)=>(sr(e,r,"read from private field"),t?t.call(e):r.get(e)),p=(e,r,t)=>{if(r.has(e))throw TypeError("Cannot add the same private member more than once");r instanceof WeakSet?r.add(e):r.set(e,t)},m=(e,r,t,i)=>(sr(e,r,"write to private field"),i?i.call(e,t):r.set(e,t),t);var u=n((ri,nr)=>{nr.exports={isPrimitiveValue(e){return!!(typeof e=="string"||typeof e=="number"&&isFinite(e)||typeof e=="boolean")},looksLikeNumber(e){return!isNaN(+e)},isObject(e){return Object(e)===e&&Object.getPrototypeOf(e)===Object.prototype},isEmptyObject(e){for(let r in e)if(e.hasOwnProperty(r))return!1;return!0},escapeRegExp(e){return e.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,"\\$&")},isNoValue(e){return e==null||e===""}}});var _=n((ei,or)=>{"use strict";var D=u(),S={},ur=0,j=class{constructor(r,t){this.isPrepared=!1,this.livrRules=r,this.validators={},this.validatorBuilders={},this.errors=null,t!=null?this.isAutoTrim=t:this.isAutoTrim=ur,this.registerRules(S)}static getDefaultRules(){return S}static registerAliasedDefaultRule(r){if(!r.name)throw"Alias name required";S[r.name]=this._buildAliasedRule(r.rules,r.error)}static registerDefaultRules(r){for(let t in r)S[t]=r[t]}static defaultAutoTrim(r){ur=!!r}static _buildAliasedRule(r,t){if(!r)throw"Alias rules required";let i={value:r};return s=>{let a=new j(i).registerRules(s).prepare();return(l,f,c)=>{let h=a.validate({value:l});if(h){c.push(h.value);return}else return t||a.getErrors().value}}}prepare(){let r=this.livrRules;for(let t in r){let i=r[t];Array.isArray(i)||(i=[i]);let s=[];for(let a of i){let l=this._parseRule(a);s.push(this._buildValidator(l.name,l.args))}this.validators[t]=s}return this.isPrepared=!0,this}validate(r){if(this.isPrepared||this.prepare(),!D.isObject(r)){this.errors="FORMAT_ERROR";return}this.isAutoTrim&&(r=this._autoTrim(r));let t={},i={};for(let s in this.validators){let a=this.validators[s];if(!a||!a.length)continue;let l=r[s];for(let f of a){let c=[],h=f(i.hasOwnProperty(s)?i[s]:l,r,c);if(h){t[s]=h;break}else c.length?i[s]=c[0]:r.hasOwnProperty(s)&&!i.hasOwnProperty(s)&&(i[s]=l)}}return D.isEmptyObject(t)?(this.errors=null,i):(this.errors=t,!1)}getErrors(){return this.errors}registerRules(r){for(let t in r)this.validatorBuilders[t]=r[t];return this}registerAliasedRule(r){if(!r.name)throw"Alias name required";return this.validatorBuilders[r.name]=this.constructor._buildAliasedRule(r.rules,r.error),this}getRules(){return this.validatorBuilders}_parseRule(r){let t,i;return D.isObject(r)?(t=Object.keys(r)[0],i=r[t],Array.isArray(i)||(i=[i])):(t=r,i=[]),{name:t,args:i}}_buildValidator(r,t){if(!this.validatorBuilders[r])throw"Rule ["+r+"] not registered";let i=[];return i.push.apply(i,t),i.push(this.getRules()),this.validatorBuilders[r].apply(null,i)}_autoTrim(r){let t=typeof r;if(t!=="object"&&r)return r.replace?r.replace(/^\s*/,"").replace(/\s*$/,""):r;if(t=="object"&&Array.isArray(r)){let i=[];for(let s of r)i.push(this._autoTrim(s));return i}else if(t=="object"&&D.isObject(r)){let i={};for(let s in r)r.hasOwnProperty(s)&&(i[s]=this._autoTrim(r[s]));return i}return r}};or.exports=j});var ar=n((ti,lr)=>{var tt=u();function it(){return e=>{if(tt.isNoValue(e))return"REQUIRED"}}lr.exports=it});var cr=n((ii,fr)=>{function st(){return e=>{if(e!=null&&e==="")return"CANNOT_BE_EMPTY"}}fr.exports=st});var mr=n((si,pr)=>{function nt(){return e=>{if(e===void 0||e==="")return"CANNOT_BE_EMPTY";if(!Array.isArray(e))return"FORMAT_ERROR";if(e.length<1)return"CANNOT_BE_EMPTY"}}pr.exports=nt});var dr=n((ni,Rr)=>{var hr=u();function ut(){return e=>{if(!hr.isNoValue(e)&&!hr.isObject(e))return"FORMAT_ERROR"}}Rr.exports=ut});var Er=n((ui,Or)=>{var _r=u();function ot(){return(e,r,t)=>{if(!_r.isNoValue(e)){if(!_r.isPrimitiveValue(e))return"FORMAT_ERROR";t.push(e+"")}}}Or.exports=ot});var Tr=n((oi,qr)=>{var gr=u();function lt(e){return(r,t,i)=>{if(!gr.isNoValue(r)){if(!gr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+""==e+""){i.push(e);return}return"NOT_ALLOWED_VALUE"}}}qr.exports=lt});var br=n((li,Nr)=>{var Ar=u();function at(e){return Array.isArray(e)||(e=Array.prototype.slice.call(arguments),e.pop()),(r,t,i)=>{if(!Ar.isNoValue(r)){if(!Ar.isPrimitiveValue(r))return"FORMAT_ERROR";for(let s of e)if(r+""==s+""){i.push(s);return}return"NOT_ALLOWED_VALUE"}}}Nr.exports=at});var xr=n((ai,yr)=>{var Vr=u();function ft(e){return(r,t,i)=>{if(!Vr.isNoValue(r)){if(!Vr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",r.length>e)return"TOO_LONG";i.push(r)}}}yr.exports=ft});var wr=n((fi,Mr)=>{var Pr=u();function ct(e){return(r,t,i)=>{if(!Pr.isNoValue(r)){if(!Pr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",r.length<e)return"TOO_SHORT";i.push(r)}}}Mr.exports=ct});var Ir=n((ci,Fr)=>{var Lr=u();function pt(e){return(r,t,i)=>{if(!Lr.isNoValue(r)){if(!Lr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",r.length<e)return"TOO_SHORT";if(r.length>e)return"TOO_LONG";i.push(r)}}}Fr.exports=pt});var jr=n((pi,Sr)=>{var Dr=u();function mt(e,r){return(t,i,s)=>{if(!Dr.isNoValue(t)){if(!Dr.isPrimitiveValue(t))return"FORMAT_ERROR";if(t+="",t.length<e)return"TOO_SHORT";if(t.length>r)return"TOO_LONG";s.push(t)}}}Sr.exports=mt});var Wr=n((mi,Gr)=>{var kr=u();function ht(e,r){let t=arguments.length===3&&r.match("i"),i=new RegExp(e,t?"i":"");return(s,a,l)=>{if(!kr.isNoValue(s)){if(!kr.isPrimitiveValue(s))return"FORMAT_ERROR";if(s+="",!s.match(i))return"WRONG_FORMAT";l.push(s)}}}Gr.exports=ht});var Cr=n((hi,Ur)=>{var z=u();function Rt(){return(e,r,t)=>{if(!z.isNoValue(e)){if(!z.isPrimitiveValue(e))return"FORMAT_ERROR";if(!z.looksLikeNumber(e)||!Number.isInteger(+e))return"NOT_INTEGER";t.push(+e)}}}Ur.exports=Rt});var $r=n((Ri,Br)=>{var Q=u();function dt(){return(e,r,t)=>{if(!Q.isNoValue(e)){if(!Q.isPrimitiveValue(e))return"FORMAT_ERROR";if(!Q.looksLikeNumber(e)||!Number.isInteger(+e)||+e<1)return"NOT_POSITIVE_INTEGER";t.push(+e)}}}Br.exports=dt});var zr=n((di,Hr)=>{var v=u();function _t(){return(e,r,t)=>{if(!v.isNoValue(e)){if(!v.isPrimitiveValue(e))return"FORMAT_ERROR";if(!v.looksLikeNumber(e)||(e+="",!/^(?:\-?(?:(?:[0-9]+\.[0-9]+)|(?:[0-9]+)))$/.test(e)))return"NOT_DECIMAL";t.push(+e)}}}Hr.exports=_t});var vr=n((_i,Qr)=>{var K=u();function Ot(){return(e,r,t)=>{if(!K.isNoValue(e)){if(!K.isPrimitiveValue(e))return"FORMAT_ERROR";if(!K.looksLikeNumber(e)||Number.isNaN(+e)||+e<=0)return"NOT_POSITIVE_DECIMAL";t.push(+e)}}}Qr.exports=Ot});var Yr=n((Oi,Kr)=>{var Y=u();function Et(e){return(r,t,i)=>{if(!Y.isNoValue(r)){if(!Y.isPrimitiveValue(r))return"FORMAT_ERROR";if(!Y.looksLikeNumber(r))return"NOT_NUMBER";if(+r>+e)return"TOO_HIGH";i.push(+r)}}}Kr.exports=Et});var Jr=n((Ei,Zr)=>{var Z=u();function gt(e){return(r,t,i)=>{if(!Z.isNoValue(r)){if(!Z.isPrimitiveValue(r))return"FORMAT_ERROR";if(!Z.looksLikeNumber(r))return"NOT_NUMBER";if(+r<+e)return"TOO_LOW";i.push(+r)}}}Zr.exports=gt});var re=n((gi,Xr)=>{var J=u();function qt(e,r){return(t,i,s)=>{if(!J.isNoValue(t)){if(!J.isPrimitiveValue(t))return"FORMAT_ERROR";if(!J.looksLikeNumber(t))return"NOT_NUMBER";if(+t<+e)return"TOO_LOW";if(+t>+r)return"TOO_HIGH";s.push(+t)}}}Xr.exports=qt});var ie=n((qi,te)=>{var ee=u();function Tt(){var e=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;return r=>{if(!ee.isNoValue(r)){if(!ee.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",!e.test(r)||/\@.*\@/.test(r)||/\@.*_/.test(r))return"WRONG_EMAIL"}}}te.exports=Tt});var ue=n((Ti,ne)=>{var se=u();function At(e){return(r,t)=>{if(!se.isNoValue(r)){if(!se.isPrimitiveValue(r))return"FORMAT_ERROR";if(r!=t[e])return"FIELDS_NOT_EQUAL"}}}ne.exports=At});var ae=n((Ai,le)=>{var oe=u();function Nt(){let e="^(?:(?:http|https)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[0-1]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))\\.?|localhost)(?::\\d{2,5})?(?:[/?#]\\S*)?$",r=new RegExp(e,"i");return t=>{if(!oe.isNoValue(t)){if(!oe.isPrimitiveValue(t))return"FORMAT_ERROR";if(!(t.length<2083&&r.test(t)))return"WRONG_URL"}}}le.exports=Nt});var pe=n((Ni,ce)=>{var fe=u();function bt(){return e=>{if(fe.isNoValue(e))return;if(!fe.isPrimitiveValue(e))return"FORMAT_ERROR";let r=e.match(/^(\d{4})-([0-1][0-9])-([0-3][0-9])$/);if(r){let t=Date.parse(e);if(!t&&t!==0)return"WRONG_DATE";let i=new Date(t);if(i.setTime(i.getTime()+i.getTimezoneOffset()*60*1e3),i.getFullYear()==r[1]&&i.getMonth()+1==+r[2]&&i.getDate()==+r[3])return}return"WRONG_DATE"}}ce.exports=bt});var Re=n((bi,he)=>{var Vt=_(),me=u();function yt(e,r){let t=new Vt(e).registerRules(r).prepare();return(i,s,a)=>{if(me.isNoValue(i))return;if(!me.isObject(i))return"FORMAT_ERROR";let l=t.validate(i);if(l){a.push(l);return}else return t.getErrors()}}he.exports=yt});var Oe=n((Vi,_e)=>{var xt=_(),de=u();function Pt(e,r,t){let i={};for(let s in r){let a=new xt(r[s]).registerRules(t).prepare();i[s]=a}return(s,a,l)=>{if(de.isNoValue(s))return;if(!de.isObject(s)||!s[e]||!i[s[e]])return"FORMAT_ERROR";let f=i[s[e]],c=f.validate(s);if(c){l.push(c);return}else return f.getErrors()}}_e.exports=Pt});var ge=n((yi,Ee)=>{var Mt=_(),wt=u();function Lt(e,r){Array.isArray(e)||(e=Array.prototype.slice.call(arguments),r=e.pop());let t={field:e},i=new Mt(t).registerRules(r).prepare();return(s,a,l)=>{if(wt.isNoValue(s))return;if(!Array.isArray(s))return"FORMAT_ERROR";let f=[],c=[],h=!1;for(let R of s){let N=i.validate({field:R});N?(f.push(N.field),c.push(null)):(h=!0,c.push(i.getErrors().field),f.push(null))}if(h)return c;l.push(f)}}Ee.exports=Lt});var Te=n((xi,qe)=>{var Ft=_(),It=u();function Dt(e,r){let t=new Ft(e).registerRules(r).prepare();return(i,s,a)=>{if(It.isNoValue(i))return;if(!Array.isArray(i))return"FORMAT_ERROR";let l=[],f=[],c=!1;for(let h of i){let R=t.validate(h);R?(l.push(R),f.push(null)):(c=!0,f.push(t.getErrors()),l.push(null))}if(c)return f;a.push(l)}}qe.exports=Dt});var Ne=n((Pi,Ae)=>{var St=_();function jt(){let e=Array.prototype.slice.call(arguments),r=e.pop(),t=e.map(i=>{let s={field:i};return new St(s).registerRules(r).prepare()});return(i,s,a)=>{let l;for(let f of t){let c=f.validate({field:i});if(c){a.push(c.field);return}else l=f.getErrors().field}return l}}Ae.exports=jt});var Ve=n((Mi,be)=>{var kt=_(),Gt=u();function Wt(e,r,t){let i={};for(let s in r){let a=new kt(r[s]).registerRules(t).prepare();i[s]=a}return(s,a,l)=>{if(Gt.isNoValue(s))return;if(!Array.isArray(s))return"FORMAT_ERROR";let f=[],c=[],h=!1;for(let R of s){if(typeof R!="object"||!R[e]||!i[R[e]]){c.push("FORMAT_ERROR");continue}let N=i[R[e]],er=N.validate(R);er?(f.push(er),c.push(null)):(h=!0,c.push(N.getErrors()),f.push(null))}if(h)return c;l.push(f)}}be.exports=Wt});var xe=n((wi,ye)=>{var Ut=u();ye.exports=e=>(r,t,i)=>{Ut.isNoValue(r)&&i.push(e)}});var Me=n((Li,Pe)=>{var Ct=u();function Bt(){return(e,r,t)=>{Ct.isNoValue(e)||typeof e=="object"||(e+="",t.push(e.replace(/^\s*/,"").replace(/\s*$/,"")))}}Pe.exports=Bt});var Le=n((Fi,we)=>{var $t=u();function Ht(){return(e,r,t)=>{$t.isNoValue(e)||typeof e=="object"||(e+="",t.push(e.toLowerCase()))}}we.exports=Ht});var Ie=n((Ii,Fe)=>{var zt=u();function Qt(){return(e,r,t)=>{zt.isNoValue(e)||typeof e=="object"||(e+="",t.push(e.toUpperCase()))}}Fe.exports=Qt});var je=n((Di,Se)=>{var De=u();function vt(e){e=De.escapeRegExp(e);let r=new RegExp("["+e+"]","g");return(t,i,s)=>{De.isNoValue(t)||typeof t=="object"||(t+="",s.push(t.replace(r,"")))}}Se.exports=vt});var We=n((Si,Ge)=>{var ke=u();function Kt(e){e=ke.escapeRegExp(e);let r=new RegExp("[^"+e+"]","g");return(t,i,s)=>{ke.isNoValue(t)||typeof t=="object"||(t+="",s.push(t.replace(r,"")))}}Ge.exports=Kt});var $e=n((ji,Be)=>{var Ue=_(),Yt=u(),Ce={required:ar(),not_empty:cr(),not_empty_list:mr(),any_object:dr(),string:Er(),eq:Tr(),one_of:br(),max_length:xr(),min_length:wr(),length_equal:Ir(),length_between:jr(),like:Wr(),integer:Cr(),positive_integer:$r(),decimal:zr(),positive_decimal:vr(),max_number:Yr(),min_number:Jr(),number_between:re(),email:ie(),equal_to_field:ue(),url:ae(),iso_date:pe(),nested_object:Re(),variable_object:Oe(),list_of:ge(),list_of_objects:Te(),or:Ne(),list_of_different_objects:Ve(),default:xe(),trim:Me(),to_lc:Le(),to_uc:Ie(),remove:je(),leave_only:We()};Ue.registerDefaultRules(Ce);Be.exports={Validator:Ue,rules:Ce,util:Yt}});var X=et($e()),d,E,g,V,y,A,O,x,P,M,q,T,w,L,G,W,U,C,F,B,rr,k=class{constructor(r,{errorClass:t="formurai-error",successClass:i="formurai-success",wrapperClass:s="formurai-container",errorMessageClass:a="formurai-message",withWrapper:l=!0,autoTrim:f=!0,vibrate:c=!0}={}){p(this,d,void 0);p(this,E,void 0);p(this,g,void 0);p(this,V,void 0);p(this,y,void 0);p(this,A,void 0);p(this,O,void 0);p(this,x,void 0);p(this,P,void 0);p(this,M,void 0);p(this,q,void 0);p(this,T,void 0);b(this,"init",(r,t={})=>{this.validator=new X.default.Validator(r),m(this,q,Object.keys(r)),m(this,E,t),o(this,d).addEventListener("submit",o(this,w))});b(this,"destroy",()=>{this.validator=null,m(this,q,[]),m(this,E,{}),o(this,d).removeEventListener("submit",o(this,w))});b(this,"checkForm",()=>{let r=this.formData;this.validator.validate(r)?(m(this,T,{}),m(this,g,!0),o(this,L).call(this)):(m(this,T,this.validator.getErrors()),m(this,g,!1),o(this,W).call(this),o(this,U).call(this)),console.log(this.errors)});b(this,"addRule",r=>{Array.isArray(r)?r.forEach(i=>this.validator.registerAliasedRule(H({},i))):this.validator.registerAliasedRule(H({},r))});p(this,w,r=>{r.preventDefault(),this.checkForm(),this.isFormValid?o(this,d).submit():o(this,B).call(this),console.log(this.formData)});p(this,L,()=>{document.querySelectorAll(`.${o(this,O)}`).forEach(t=>t.classList.remove(o(this,O)))});p(this,G,r=>{r&&(r.classList.remove(o(this,A)),r.classList.add(o(this,O)))});p(this,W,()=>{o(this,L).call(this);let r=Object.keys(this.errors);r.length&&r.forEach(t=>{let i=o(this,d).querySelector(`[name="${t}"]`),s=o(this,F).call(this,i);o(this,G).call(this,s),o(this,C).call(this,s,t)})});p(this,U,()=>{o(this,q).forEach(r=>{let t=o(this,d).querySelector(`[name="${r}"]`),i=o(this,F).call(this,t);i.classList.contains(o(this,O))||i.classList.add(o(this,A))})});p(this,C,(r,t)=>{var l,f;let i=this.errors[t],s=(f=(l=o(this,E))==null?void 0:l[t])==null?void 0:f[i],a=r==null?void 0:r.querySelector(`.${o(this,P)}`);i&&s&&a&&(a.innerText=s)});p(this,F,r=>o(this,M)?r.closest(`.${o(this,x)}`):r);p(this,B,()=>{window.navigator.vibrate&&o(this,y)&&window.navigator.vibrate([300,100,300])});p(this,rr,()=>{o(this,V)&&X.default.Validator.defaultAutoTrim(!0)});m(this,d,r),m(this,V,f),m(this,y,c),m(this,A,i),m(this,O,t),m(this,x,s),m(this,P,a),m(this,M,l),m(this,T,{}),m(this,q,[]),m(this,E,{}),m(this,g,!1)}get formData(){let r=new FormData(o(this,d)),t={};return r.forEach((i,s)=>{t[s]=i}),t}get errors(){return o(this,T)}get isFormValid(){return o(this,g)}};d=new WeakMap,E=new WeakMap,g=new WeakMap,V=new WeakMap,y=new WeakMap,A=new WeakMap,O=new WeakMap,x=new WeakMap,P=new WeakMap,M=new WeakMap,q=new WeakMap,T=new WeakMap,w=new WeakMap,L=new WeakMap,G=new WeakMap,W=new WeakMap,U=new WeakMap,C=new WeakMap,F=new WeakMap,B=new WeakMap,rr=new WeakMap;var He={text:[{remove:"0123456789"},"required"],code:["required"],email:["strong_password"],phone:["required","integer",{length_between:[1,3]}],password:["required","integer",{length_between:[5,7]}],country:["required",{min_length:6}]},ze={text:{REQUIRED:"Last name required"},code:{REQUIRED:"First name required"},email:{REQUIRED:"Email required",WRONG_EMAIL:"Email must be valid",WEAK_PASSWORD:"eqwqew"},phone:{NOT_INTEGER:"Phone code must be a number",REQUIRED:"Phone code required",TOO_LONG:"Phone code must contain no more than 3 digits",TOO_SHORT:"Phone code must contain at least 1 digits"},password:{NOT_INTEGER:"Phone must be a number",REQUIRED:"Phone number required",TOO_LONG:"Phone must contain no more than 7 digits",TOO_SHORT:"Phone must contain at least 5 digits"},country:{REQUIRED:"Password required",TOO_SHORT:"Password must be at least 6 characters long"}};var Zt=document.querySelector("#test-form"),Jt={name:"strong_password",rules:[{length_between:[15,20]}],error:"WEAK_PASSWORD"};var Qe=new k(Zt);Qe.init(He,ze);Qe.addRule(Jt);})();
+import LIVR from "livr";
+class Formurai {
+  #form;
+  #errorMessages;
+  #isFormValid;
+  #isAutoTrim;
+  #isVibrate;
+  #successClass;
+  #errorClass;
+  #wrapperClass;
+  #errorMessageClass;
+  #withWrapper;
+  #validationFields;
+  #inputErrorsObj;
+  constructor(form, {
+    errorClass = "formurai-error",
+    successClass = "formurai-success",
+    wrapperClass = "formurai-container",
+    errorMessageClass = "formurai-message",
+    withWrapper = true,
+    autoTrim = true,
+    vibrate = true
+  } = {}) {
+    this.#form = form;
+    this.#isAutoTrim = autoTrim;
+    this.#isVibrate = vibrate;
+    this.#successClass = successClass;
+    this.#errorClass = errorClass;
+    this.#wrapperClass = wrapperClass;
+    this.#errorMessageClass = errorMessageClass;
+    this.#withWrapper = withWrapper;
+    this.#inputErrorsObj = {};
+    this.#validationFields = [];
+    this.#errorMessages = {};
+    this.#isFormValid = false;
+  }
+  init = (rules, messages = {}) => {
+    this.validator = new LIVR.Validator(rules);
+    this.#validationFields = Object.keys(rules);
+    this.#errorMessages = messages;
+    this.#form.addEventListener("submit", this.#onFormSubmit);
+  };
+  destroy = () => {
+    this.validator = null;
+    this.#validationFields = [];
+    this.#errorMessages = {};
+    this.#form.removeEventListener("submit", this.#onFormSubmit);
+  };
+  checkForm = () => {
+    const data = this.formData;
+    const validData = this.validator.validate(data);
+    if (validData) {
+      this.#inputErrorsObj = {};
+      this.#isFormValid = true;
+      this.#removeInputErrorClasses();
+    } else {
+      this.#inputErrorsObj = this.validator.getErrors();
+      this.#isFormValid = false;
+      this.#checkInputsError();
+      this.#addInputSuccessClass();
+    }
+    console.log(this.errors);
+  };
+  addRule = (rules) => {
+    const isArray = Array.isArray(rules);
+    if (isArray) {
+      rules.forEach((rule) => this.validator.registerAliasedRule({ ...rule }));
+    } else {
+      this.validator.registerAliasedRule({ ...rules });
+    }
+  };
+  get formData() {
+    const data = new FormData(this.#form);
+    const values = {};
+    data.forEach((value, key) => {
+      values[key] = value;
+    });
+    return values;
+  }
+  get errors() {
+    return this.#inputErrorsObj;
+  }
+  get isFormValid() {
+    return this.#isFormValid;
+  }
+  #onFormSubmit = (evt) => {
+    evt.preventDefault();
+    this.checkForm();
+    if (this.isFormValid) {
+      this.#form.submit();
+    } else {
+      this.#vibrate();
+    }
+    console.log(this.formData);
+  };
+  #removeInputErrorClasses = () => {
+    const errorFields = document.querySelectorAll(`.${this.#errorClass}`);
+    errorFields.forEach((input) => input.classList.remove(this.#errorClass));
+  };
+  #addInputErrorClass = (inputWrapper) => {
+    if (inputWrapper) {
+      inputWrapper.classList.remove(this.#successClass);
+      inputWrapper.classList.add(this.#errorClass);
+    }
+  };
+  #checkInputsError = () => {
+    this.#removeInputErrorClasses();
+    const errorsKey = Object.keys(this.errors);
+    if (errorsKey.length) {
+      errorsKey.forEach((inputName) => {
+        const input = this.#form.querySelector(`[name="${inputName}"]`);
+        const inputWrapper = this.#getWrapperElement(input);
+        this.#addInputErrorClass(inputWrapper);
+        this.#showErrorMessage(inputWrapper, inputName);
+      });
+    }
+  };
+  #addInputSuccessClass = () => {
+    this.#validationFields.forEach((inputName) => {
+      const input = this.#form.querySelector(`[name="${inputName}"]`);
+      const inputWrapper = this.#getWrapperElement(input);
+      if (!inputWrapper.classList.contains(this.#errorClass)) {
+        inputWrapper.classList.add(this.#successClass);
+      }
+    });
+  };
+  #showErrorMessage = (wrapper, inputName) => {
+    const defaultError = this.errors[inputName];
+    const customError = this.#errorMessages?.[inputName]?.[defaultError];
+    const errorMessageBlock = wrapper?.querySelector(`.${this.#errorMessageClass}`);
+    if (defaultError && customError && errorMessageBlock) {
+      errorMessageBlock.innerText = customError;
+    }
+  };
+  #getWrapperElement = (input) => {
+    if (this.#withWrapper) {
+      return input.closest(`.${this.#wrapperClass}`);
+    } else {
+      return input;
+    }
+  };
+  #vibrate = () => {
+    if (window.navigator.vibrate && this.#isVibrate) {
+      window.navigator.vibrate([300, 100, 300]);
+    }
+  };
+  #autoTrimValues = () => {
+    if (this.#isAutoTrim) {
+      LIVR.Validator.defaultAutoTrim(true);
+    }
+  };
+}
+export default Formurai;
