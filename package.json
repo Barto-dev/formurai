@@ -5,10 +5,18 @@
   "main": "index.js",
   "author": "Illia",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["form", "forms", "validation", "form validation", "validator"],
   "scripts": {
     "test": "test",
     "build": "node build.js -build",
-    "start": "node build.js -watch"
+    "start": "node build.js -watch",
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "esbuild": "^0.12.15",
