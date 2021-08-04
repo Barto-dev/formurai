@@ -7,6 +7,8 @@ class Formurai {
 
   #isAutoTrim;
   #isVibrate;
+  #noSubmit;
+  #multiStep;
 
   #successClass;
   #errorClass;
@@ -24,11 +26,15 @@ class Formurai {
     errorMessageClass = 'formurai-message',
     withWrapper = true,
     autoTrim = true,
-    vibrate = true
+    vibrate = true,
+    notSubmit = false,
+    multiStep = false
   } = {}) {
     this.#form = form;
     this.#isAutoTrim = autoTrim;
     this.#isVibrate = vibrate;
+    this.#noSubmit = notSubmit;
+    this.#multiStep = multiStep;
 
     this.#successClass = successClass;
     this.#errorClass = errorClass;
@@ -106,7 +112,9 @@ class Formurai {
     this.checkForm();
     if (this.isFormValid) {
       this.#form.submit();
-    } else {
+    } else if (this.#noSubmit) {
+      return
+    } else if (!this.isFormValid) {
       this.#vibrate();
     }
     console.log(this.formData)

@@ -48,12 +48,13 @@ esbuild.build({
   entryPoints: ['src/Formurai.js'],
   // outdir: outdirectory,
   outfile: 'dist/index.js',
+  sourcemap: true,
 /*  bundle: true,*/
   define: {'process.env.NODE_ENV': '"production"'},
-  target: [
+/*  target: [
     'es2020',
     'node14',
-  ],
+  ],*/
 }) &&
 console.log('building');
 
