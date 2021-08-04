@@ -25,3 +25,4 @@ const additionalRules = [
 const test = new Formurai(form);
 test.init(rules, registrationErrors);
 test.addRule(rule);
+test.changeState('wq')

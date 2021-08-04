@@ -1118,7 +1118,7 @@
 
   // src/Formurai.js
   var import_livr = __toModule(require_LIVR());
-  var _form, _errorMessages, _isFormValid, _isAutoTrim, _isVibrate, _noSubmit, _multiStep, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _inputErrorsObj, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate, _autoTrimValues;
+  var _form, _errorMessages, _isFormValid, _isAutoTrim, _isVibrate, _noSubmit, _multiStep, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _inputErrorsObj, _rules, _setRulesForCurrentState, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate, _autoTrimValues;
   var Formurai = class {
     constructor(form2, {
       errorClass = "formurai-error",
@@ -1145,7 +1145,15 @@
       __privateAdd(this, _withWrapper, void 0);
       __privateAdd(this, _validationFields, void 0);
       __privateAdd(this, _inputErrorsObj, void 0);
-      __publicField(this, "init", (rules2, messages = {}) => {
+      __privateAdd(this, _rules, void 0);
+      __publicField(this, "init", (rules2, messages = {}, state = false) => {
+        if (!state) {
+          throw Error("Multi step validation need initial state!");
+        }
+        if (__privateGet(this, _multiStep)) {
+          __privateGet(this, _setRulesForCurrentState).call(this, state);
+        }
+        __privateSet(this, _rules, rules2);
         this.validator = new import_livr.default.Validator(rules2);
         __privateSet(this, _validationFields, Object.keys(rules2));
         __privateSet(this, _errorMessages, messages);
@@ -1156,6 +1164,13 @@
         __privateSet(this, _validationFields, []);
         __privateSet(this, _errorMessages, {});
         __privateGet(this, _form).removeEventListener("submit", __privateGet(this, _onFormSubmit));
+      });
+      __publicField(this, "changeState", (state) => {
+        if (__privateGet(this, _multiStep)) {
+          __privateGet(this, _setRulesForCurrentState).call(this, state);
+        } else if (!__privateGet(this, _multiStep)) {
+          throw Error("changeState method only works with multi step forms!");
+        }
       });
       __publicField(this, "checkForm", () => {
         const data = this.formData;
@@ -1178,6 +1193,11 @@
         } else {
           this.validator.registerAliasedRule(__spreadValues({}, rules2));
         }
+      });
+      __privateAdd(this, _setRulesForCurrentState, (state) => {
+        this.validator = null;
+        this.validator = new import_livr.default.Validator(__privateGet(this, _rules)[state]);
+        __privateSet(this, _validationFields, Object.keys(__privateGet(this, _rules)[state]));
       });
       __privateAdd(this, _onFormSubmit, (evt) => {
         evt.preventDefault();
@@ -1293,6 +1313,8 @@
   _withWrapper = new WeakMap();
   _validationFields = new WeakMap();
   _inputErrorsObj = new WeakMap();
+  _rules = new WeakMap();
+  _setRulesForCurrentState = new WeakMap();
   _onFormSubmit = new WeakMap();
   _removeInputErrorClasses = new WeakMap();
   _addInputErrorClass = new WeakMap();
@@ -1353,5 +1375,6 @@
   var test = new Formurai_default(form);
   test.init(rules, registrationErrors);
   test.addRule(rule);
+  test.changeState("wq");
 })();
 //# sourceMappingURL=index.js.map

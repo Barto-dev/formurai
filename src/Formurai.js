@@ -18,6 +18,7 @@ class Formurai {
 
   #validationFields;
   #inputErrorsObj;
+  #rules;
 
   constructor(form, {
     errorClass = 'formurai-error',
@@ -52,7 +53,15 @@ class Formurai {
 
   }
 
-  init = (rules, messages = {}) => {
+  init = (rules, messages = {}, state = false) => {
+    if (!state) {
+      throw Error('Multi step validation need initial state!')
+    }
+
+    if (this.#multiStep) {
+      this.#setRulesForCurrentState(state)
+    }
+    this.#rules = rules;
     this.validator = new LIVR.Validator(rules);
     this.#validationFields = Object.keys(rules);
     this.#errorMessages = messages;
@@ -65,6 +74,15 @@ class Formurai {
     this.#errorMessages = {};
     this.#form.removeEventListener('submit', this.#onFormSubmit);
   }
+
+  changeState = (state) => {
+    if (this.#multiStep) {
+      this.#setRulesForCurrentState(state)
+    } else if (!this.#multiStep) {
+      throw Error('changeState method only works with multi step forms!')
+    }
+  }
+
 
   checkForm = () => {
     const data = this.formData
@@ -105,6 +123,12 @@ class Formurai {
 
   get isFormValid() {
     return this.#isFormValid;
+  }
+
+  #setRulesForCurrentState = (state) => {
+    this.validator = null;
+    this.validator = new LIVR.Validator(this.#rules[state]);
+    this.#validationFields = Object.keys(this.#rules[state]);
   }
 
   #onFormSubmit = (evt) => {
