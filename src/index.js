@@ -1,5 +1,5 @@
 import Formurai from './Formurai';
-import {rules, registrationErrors} from './testData/config';
+import {rules,rules2, registrationErrors} from './testData/config';
 
 const form = document.querySelector('#test-form');
 
@@ -22,7 +22,10 @@ const additionalRules = [
   }
 ]
 
-const test = new Formurai(form);
-test.init(rules, registrationErrors);
+const test = new Formurai(form, {
+  multiStep: true
+});
+test.init({step1: rules, step2: rules2}, {step1: registrationErrors, step2: registrationErrors}, 'step1');
 test.addRule(rule);
-test.changeState('wq')
+test.changeState('step2')
+test.changeState('step1')

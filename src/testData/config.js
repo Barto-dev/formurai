@@ -7,6 +7,11 @@ export const rules = {
   'country': ['required', {min_length: 6}],
 };
 
+export const rules2 = {
+  'text': [{ remove: '0123456789' }, 'required'],
+  'code': ['required'],
+};
+
 export const registrationErrors = {
   'text': {
     REQUIRED: 'Last name required',

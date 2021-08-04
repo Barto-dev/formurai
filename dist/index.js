@@ -125,18 +125,18 @@
             throw "Alias name required";
           DEFAULT_RULES[alias.name] = this._buildAliasedRule(alias.rules, alias.error);
         }
-        static registerDefaultRules(rules2) {
-          for (const ruleName in rules2) {
-            DEFAULT_RULES[ruleName] = rules2[ruleName];
+        static registerDefaultRules(rules3) {
+          for (const ruleName in rules3) {
+            DEFAULT_RULES[ruleName] = rules3[ruleName];
           }
         }
         static defaultAutoTrim(isAutoTrim) {
           IS_DEFAULT_AUTO_TRIM = !!isAutoTrim;
         }
-        static _buildAliasedRule(rules2, errorCode) {
-          if (!rules2)
+        static _buildAliasedRule(rules3, errorCode) {
+          if (!rules3)
             throw "Alias rules required";
-          const livr = { value: rules2 };
+          const livr = { value: rules3 };
           return (ruleBuilders) => {
             const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
             return (value, undefined2, outputArr) => {
@@ -208,9 +208,9 @@
         getErrors() {
           return this.errors;
         }
-        registerRules(rules2) {
-          for (const ruleName in rules2) {
-            this.validatorBuilders[ruleName] = rules2[ruleName];
+        registerRules(rules3) {
+          for (const ruleName in rules3) {
+            this.validatorBuilders[ruleName] = rules3[ruleName];
           }
           return this;
         }
@@ -818,12 +818,12 @@
     "node_modules/livr/lib/rules/meta/list_of.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
-      function list_of(rules2, ruleBuilders) {
-        if (!Array.isArray(rules2)) {
-          rules2 = Array.prototype.slice.call(arguments);
-          ruleBuilders = rules2.pop();
+      function list_of(rules3, ruleBuilders) {
+        if (!Array.isArray(rules3)) {
+          rules3 = Array.prototype.slice.call(arguments);
+          ruleBuilders = rules3.pop();
         }
-        const livr = { field: rules2 };
+        const livr = { field: rules3 };
         const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
         return (values, params, outputArr) => {
           if (util.isNoValue(values))
@@ -901,8 +901,8 @@
       function or() {
         const ruleSets = Array.prototype.slice.call(arguments);
         const ruleBuilders = ruleSets.pop();
-        const validators = ruleSets.map((rules2) => {
-          const livr = { field: rules2 };
+        const validators = ruleSets.map((rules3) => {
+          const livr = { field: rules3 };
           const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
           return validator;
         });
@@ -1074,7 +1074,7 @@
     "node_modules/livr/lib/LIVR.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
-      var rules2 = {
+      var rules3 = {
         required: require_required(),
         not_empty: require_not_empty(),
         not_empty_list: require_not_empty_list(),
@@ -1111,14 +1111,14 @@
         remove: require_remove(),
         leave_only: require_leave_only()
       };
-      Validator.registerDefaultRules(rules2);
-      module.exports = { Validator, rules: rules2, util };
+      Validator.registerDefaultRules(rules3);
+      module.exports = { Validator, rules: rules3, util };
     }
   });
 
   // src/Formurai.js
   var import_livr = __toModule(require_LIVR());
-  var _form, _errorMessages, _isFormValid, _isAutoTrim, _isVibrate, _noSubmit, _multiStep, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _inputErrorsObj, _rules, _setRulesForCurrentState, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate, _autoTrimValues;
+  var _form, _errorMessages, _currentStateMessages, _isFormValid, _isAutoTrim, _isVibrate, _noSubmit, _multiStep, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _inputErrorsObj, _rules, _additionalRules, _setRulesForCurrentState, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate, _autoTrimValues;
   var Formurai = class {
     constructor(form2, {
       errorClass = "formurai-error",
@@ -1133,6 +1133,7 @@
     } = {}) {
       __privateAdd(this, _form, void 0);
       __privateAdd(this, _errorMessages, void 0);
+      __privateAdd(this, _currentStateMessages, void 0);
       __privateAdd(this, _isFormValid, void 0);
       __privateAdd(this, _isAutoTrim, void 0);
       __privateAdd(this, _isVibrate, void 0);
@@ -1146,17 +1147,20 @@
       __privateAdd(this, _validationFields, void 0);
       __privateAdd(this, _inputErrorsObj, void 0);
       __privateAdd(this, _rules, void 0);
-      __publicField(this, "init", (rules2, messages = {}, state = false) => {
-        if (!state) {
-          throw Error("Multi step validation need initial state!");
+      __privateAdd(this, _additionalRules, void 0);
+      __publicField(this, "init", (rules3, messages = {}, state = false) => {
+        if (!state && __privateGet(this, _multiStep)) {
+          throw "Multi step validation need initial state!";
         }
+        __privateSet(this, _rules, rules3);
+        __privateSet(this, _errorMessages, messages);
         if (__privateGet(this, _multiStep)) {
           __privateGet(this, _setRulesForCurrentState).call(this, state);
+        } else {
+          this.validator = new import_livr.default.Validator(rules3);
+          __privateSet(this, _validationFields, Object.keys(rules3));
+          __privateSet(this, _currentStateMessages, __privateGet(this, _errorMessages));
         }
-        __privateSet(this, _rules, rules2);
-        this.validator = new import_livr.default.Validator(rules2);
-        __privateSet(this, _validationFields, Object.keys(rules2));
-        __privateSet(this, _errorMessages, messages);
         __privateGet(this, _form).addEventListener("submit", __privateGet(this, _onFormSubmit));
       });
       __publicField(this, "destroy", () => {
@@ -1169,7 +1173,7 @@
         if (__privateGet(this, _multiStep)) {
           __privateGet(this, _setRulesForCurrentState).call(this, state);
         } else if (!__privateGet(this, _multiStep)) {
-          throw Error("changeState method only works with multi step forms!");
+          throw "changeState method only works with multi step forms!";
         }
       });
       __publicField(this, "checkForm", () => {
@@ -1186,18 +1190,24 @@
           __privateGet(this, _addInputSuccessClass).call(this);
         }
       });
-      __publicField(this, "addRule", (rules2) => {
-        const isArray = Array.isArray(rules2);
+      __publicField(this, "addRule", (rules3) => {
+        if (!rules3) {
+          return;
+        }
+        const isArray = Array.isArray(rules3);
+        __privateSet(this, _additionalRules, rules3);
         if (isArray) {
-          rules2.forEach((rule2) => this.validator.registerAliasedRule(__spreadValues({}, rule2)));
+          rules3.forEach((rule2) => this.validator.registerAliasedRule(__spreadValues({}, rule2)));
         } else {
-          this.validator.registerAliasedRule(__spreadValues({}, rules2));
+          this.validator.registerAliasedRule(__spreadValues({}, rules3));
         }
       });
       __privateAdd(this, _setRulesForCurrentState, (state) => {
         this.validator = null;
         this.validator = new import_livr.default.Validator(__privateGet(this, _rules)[state]);
         __privateSet(this, _validationFields, Object.keys(__privateGet(this, _rules)[state]));
+        this.addRule(__privateGet(this, _additionalRules));
+        __privateSet(this, _currentStateMessages, __privateGet(this, _errorMessages)[state]);
       });
       __privateAdd(this, _onFormSubmit, (evt) => {
         evt.preventDefault();
@@ -1245,7 +1255,7 @@
       __privateAdd(this, _showErrorMessage, (wrapper, inputName) => {
         var _a, _b;
         const defaultError = this.errors[inputName];
-        const customError = (_b = (_a = __privateGet(this, _errorMessages)) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
+        const customError = (_b = (_a = __privateGet(this, _currentStateMessages)) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
         const errorMessageBlock = wrapper == null ? void 0 : wrapper.querySelector(`.${__privateGet(this, _errorMessageClass)}`);
         if (defaultError && customError && errorMessageBlock) {
           errorMessageBlock.innerText = customError;
@@ -1301,6 +1311,7 @@
   };
   _form = new WeakMap();
   _errorMessages = new WeakMap();
+  _currentStateMessages = new WeakMap();
   _isFormValid = new WeakMap();
   _isAutoTrim = new WeakMap();
   _isVibrate = new WeakMap();
@@ -1314,6 +1325,7 @@
   _validationFields = new WeakMap();
   _inputErrorsObj = new WeakMap();
   _rules = new WeakMap();
+  _additionalRules = new WeakMap();
   _setRulesForCurrentState = new WeakMap();
   _onFormSubmit = new WeakMap();
   _removeInputErrorClasses = new WeakMap();
@@ -1334,6 +1346,10 @@
     "phone": ["required", "integer", { length_between: [1, 3] }],
     "password": ["required", "integer", { length_between: [5, 7] }],
     "country": ["required", { min_length: 6 }]
+  };
+  var rules2 = {
+    "text": [{ remove: "0123456789" }, "required"],
+    "code": ["required"]
   };
   var registrationErrors = {
     "text": {
@@ -1372,9 +1388,12 @@
     rules: [{ length_between: [15, 20] }],
     error: "WEAK_PASSWORD"
   };
-  var test = new Formurai_default(form);
-  test.init(rules, registrationErrors);
+  var test = new Formurai_default(form, {
+    multiStep: true
+  });
+  test.init({ step1: rules, step2: rules2 }, { step1: registrationErrors, step2: registrationErrors }, "step1");
   test.addRule(rule);
-  test.changeState("wq");
+  test.changeState("step2");
+  test.changeState("step1");
 })();
 //# sourceMappingURL=index.js.map

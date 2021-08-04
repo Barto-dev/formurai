@@ -3,7 +3,9 @@ import LIVR from 'livr';
 class Formurai {
   #form;
   #errorMessages;
+  #currentStateMessages
   #isFormValid;
+
 
   #isAutoTrim;
   #isVibrate;
@@ -19,6 +21,8 @@ class Formurai {
   #validationFields;
   #inputErrorsObj;
   #rules;
+  #additionalRules
+
 
   constructor(form, {
     errorClass = 'formurai-error',
@@ -54,17 +58,21 @@ class Formurai {
   }
 
   init = (rules, messages = {}, state = false) => {
-    if (!state) {
-      throw Error('Multi step validation need initial state!')
+    if (!state && this.#multiStep) {
+      throw 'Multi step validation need initial state!'
     }
+
+    this.#rules = rules;
+    this.#errorMessages = messages;
 
     if (this.#multiStep) {
       this.#setRulesForCurrentState(state)
+    } else {
+      this.validator = new LIVR.Validator(rules);
+      this.#validationFields = Object.keys(rules);
+      this.#currentStateMessages = this.#errorMessages;
     }
-    this.#rules = rules;
-    this.validator = new LIVR.Validator(rules);
-    this.#validationFields = Object.keys(rules);
-    this.#errorMessages = messages;
+
     this.#form.addEventListener('submit', this.#onFormSubmit);
   };
 
@@ -79,7 +87,7 @@ class Formurai {
     if (this.#multiStep) {
       this.#setRulesForCurrentState(state)
     } else if (!this.#multiStep) {
-      throw Error('changeState method only works with multi step forms!')
+      throw 'changeState method only works with multi step forms!'
     }
   }
 
@@ -100,7 +108,13 @@ class Formurai {
   };
 
   addRule = (rules) => {
+    if (!rules) {
+      return
+    }
+
     const isArray = Array.isArray(rules);
+    this.#additionalRules = rules;
+
     if (isArray) {
       rules.forEach(rule => this.validator.registerAliasedRule({...rule}))
     } else {
@@ -129,6 +143,8 @@ class Formurai {
     this.validator = null;
     this.validator = new LIVR.Validator(this.#rules[state]);
     this.#validationFields = Object.keys(this.#rules[state]);
+    this.addRule(this.#additionalRules);
+    this.#currentStateMessages = this.#errorMessages[state];
   }
 
   #onFormSubmit = (evt) => {
@@ -181,13 +197,12 @@ class Formurai {
 
   #showErrorMessage = (wrapper, inputName) => {
     const defaultError = this.errors[inputName];
-    const customError = this.#errorMessages?.[inputName]?.[defaultError];
+    const customError = this.#currentStateMessages?.[inputName]?.[defaultError];
     const errorMessageBlock = wrapper?.querySelector(`.${this.#errorMessageClass}`);
     if (defaultError && customError && errorMessageBlock) {
       errorMessageBlock.innerText = customError;
     }
   };
-
 
   // Возвращаем элемент в зависимости от того есть ли обертка у элемента
   #getWrapperElement = (input) => {
