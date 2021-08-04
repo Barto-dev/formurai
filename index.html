@@ -5,87 +5,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="src/main.css">
 
-  <style>
-      body {
-          min-height: 100vh;
-          padding: 0;
-          margin: 0;
-          place-items: center;
-          display: grid;
-          background-color: #eeeeee;
-      }
 
-      input {
-          display: block;
-          height: 40px;
-          width: 350px;
-          border: none;
-          border-radius: 5px;
-          font-size: 18px;
-          padding: 10px 20px;
-          box-sizing: border-box;
-      }
-
-      .formurai-container {
-          border: 1px solid #000;
-          border-radius: 5px;
-          position: relative;
-      }
-
-      .formurai-error {
-          border: 1px solid red;
-      }
-
-      .formurai-success {
-        border: 1px solid green;
-      }
-
-      .formurai-message {
-          display: none;
-      }
-
-      .formurai-error .formurai-message {
-          display: block;
-          position: absolute;
-          bottom: -22px;
-          color: red;
-      }
-  </style>
 </head>
 <body>
-<form action="/form" id="test-form" style="display: grid; grid-gap: 30px">
+<form novalidate id="test-form">
+
   <section class="formurai-container">
-    <input name="text" type="text">
+    <label for="name">Name</label>
+    <input name="name" type="text" id="name">
     <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
-    <input name="code" type="text">
+    <label for="surname">Surname</label>
+    <input name="surname" type="text" id="surname">
     <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
-    <input name="email" type="text">
+    <label for="email">Email</label>
+    <input name="email" type="email" id="email">
     <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
-    <input name="phone" type="text">
+    <label for="phone">Phone</label>
+    <input name="phone" type="text" inputmode="numeric" id="phone">
     <span class="formurai-message"></span>
   </section>
 
   <section class="formurai-container">
-    <input name="password" type="text">
+    <label for="password">Password</label>
+    <input name="password" type="password" id="password">
     <span class="formurai-message"></span>
   </section>
 
-    <section class="formurai-container">
-    <input name="country" type="text">
-      <span class="formurai-message"></span>
+  <section class="formurai-container">
+    <label for="confirm-password">Repeat password</label>
+    <input name="password2" type="password" id="confirm-password">
+    <span class="formurai-message"></span>
   </section>
 
-  <button type="submit">Submit</button>
+  <button type="submit" class="submit">Submit</button>
+
 </form>
 <script src="dist/index.js"></script>
 </body>

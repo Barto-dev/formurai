@@ -49,12 +49,12 @@ esbuild.build({
   // outdir: outdirectory,
   outfile: 'dist/index.js',
   sourcemap: true,
-/*  bundle: true,*/
+  bundle: true,
   define: {'process.env.NODE_ENV': '"production"'},
-/*  target: [
-    'es2020',
-    'node14',
-  ],*/
+  minify: true,
+  target: [
+    'es2019',
+  ],
 }) &&
 console.log('building');
 

@@ -1,6 +1,11 @@
 # Lightweight form validation library
 ## basic usage
 ### HTML
+## Features
+
+- 📦 **Small**: Just **3.64 KB** gzipped 
+
+
 ```
 <form id="login">
 
