@@ -1,13 +1,12 @@
 # Lightweight form validation library
-## basic usage
 
 ## example https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
-### HTML
+
 ## Features
 
 - 📦 **Small**: Just **3.64 KB** gzipped 
 
-
+### HTML
 ```
 <form id="login">
 
