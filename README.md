@@ -41,6 +41,18 @@ import Formurai from 'formurai';
 const rules = {
   'email': ['required', 'email'],
 };
+
+// define errors for user
+export const errors = {
+  'email': {
+    REQUIRED: 'Email required',
+    WRONG_EMAIL: 'Email must be valid',
+  }
+};
+
+const form = document.querySelector('#login');
+const validator = new Formurai(form);
+validator.init(rules, errors);
 ```
 
 ## Usage
