@@ -13,11 +13,39 @@
 </div>
 
 
-## example https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
-
 ## Features
 
 - 📦 **Small**: Just **4.4 KB** gzipped 
+- 👩🏻‍💻 Rules are declarative 
+- 📜 Easy to create and reuse your own rules
+- ✨ Any number of rules for each field
+- 🗜 Has possibility to validate multistep forms
+- ⚙️ Configurable check queue
+- ❌ Flexible error handling and their display
+
+##Setup
+### Install the package
+```
+npm install formurai
+```
+
+```
+yarn add formurai
+```
+
+### JS
+```
+import Formurai from 'formurai';
+```
+soon...
+##Setup
+soon...
+##Usage
+soon...
+##Methods
+
+## Examples
+- https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
 
 ### HTML
 ```
