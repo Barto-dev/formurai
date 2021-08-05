@@ -1,2 +1,1393 @@
-(()=>{var ve=Object.create;var G=Object.defineProperty;var Ye=Object.getOwnPropertyDescriptor;var Qe=Object.getOwnPropertyNames;var Ze=Object.getPrototypeOf,Ke=Object.prototype.hasOwnProperty;var Je=(e,r,t)=>r in e?G(e,r,{enumerable:!0,configurable:!0,writable:!0,value:t}):e[r]=t;var Xe=e=>G(e,"__esModule",{value:!0});var n=(e,r)=>()=>(r||e((r={exports:{}}).exports,r),r.exports);var rt=(e,r,t)=>{if(r&&typeof r=="object"||typeof r=="function")for(let i of Qe(r))!Ke.call(e,i)&&i!=="default"&&G(e,i,{get:()=>r[i],enumerable:!(t=Ye(r,i))||t.enumerable});return e},et=e=>rt(Xe(G(e!=null?ve(Ze(e)):{},"default",e&&e.__esModule&&"default"in e?{get:()=>e.default,enumerable:!0}:{value:e,enumerable:!0})),e);var N=(e,r,t)=>(Je(e,typeof r!="symbol"?r+"":r,t),t),ur=(e,r,t)=>{if(!r.has(e))throw TypeError("Cannot "+t)};var u=(e,r,t)=>(ur(e,r,"read from private field"),t?t.call(e):r.get(e)),f=(e,r,t)=>{if(r.has(e))throw TypeError("Cannot add the same private member more than once");r instanceof WeakSet?r.add(e):r.set(e,t)},c=(e,r,t,i)=>(ur(e,r,"write to private field"),i?i.call(e,t):r.set(e,t),t);var o=n((Jt,nr)=>{nr.exports={isPrimitiveValue(e){return!!(typeof e=="string"||typeof e=="number"&&isFinite(e)||typeof e=="boolean")},looksLikeNumber(e){return!isNaN(+e)},isObject(e){return Object(e)===e&&Object.getPrototypeOf(e)===Object.prototype},isEmptyObject(e){for(let r in e)if(e.hasOwnProperty(r))return!1;return!0},escapeRegExp(e){return e.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,"\\$&")},isNoValue(e){return e==null||e===""}}});var _=n((Xt,lr)=>{"use strict";var B=o(),U={},or=0,W=class{constructor(r,t){this.isPrepared=!1,this.livrRules=r,this.validators={},this.validatorBuilders={},this.errors=null,t!=null?this.isAutoTrim=t:this.isAutoTrim=or,this.registerRules(U)}static getDefaultRules(){return U}static registerAliasedDefaultRule(r){if(!r.name)throw"Alias name required";U[r.name]=this._buildAliasedRule(r.rules,r.error)}static registerDefaultRules(r){for(let t in r)U[t]=r[t]}static defaultAutoTrim(r){or=!!r}static _buildAliasedRule(r,t){if(!r)throw"Alias rules required";let i={value:r};return s=>{let a=new W(i).registerRules(s).prepare();return(l,h,p)=>{let m=a.validate({value:l});if(m){p.push(m.value);return}else return t||a.getErrors().value}}}prepare(){let r=this.livrRules;for(let t in r){let i=r[t];Array.isArray(i)||(i=[i]);let s=[];for(let a of i){let l=this._parseRule(a);s.push(this._buildValidator(l.name,l.args))}this.validators[t]=s}return this.isPrepared=!0,this}validate(r){if(this.isPrepared||this.prepare(),!B.isObject(r)){this.errors="FORMAT_ERROR";return}this.isAutoTrim&&(r=this._autoTrim(r));let t={},i={};for(let s in this.validators){let a=this.validators[s];if(!a||!a.length)continue;let l=r[s];for(let h of a){let p=[],m=h(i.hasOwnProperty(s)?i[s]:l,r,p);if(m){t[s]=m;break}else p.length?i[s]=p[0]:r.hasOwnProperty(s)&&!i.hasOwnProperty(s)&&(i[s]=l)}}return B.isEmptyObject(t)?(this.errors=null,i):(this.errors=t,!1)}getErrors(){return this.errors}registerRules(r){for(let t in r)this.validatorBuilders[t]=r[t];return this}registerAliasedRule(r){if(!r.name)throw"Alias name required";return this.validatorBuilders[r.name]=this.constructor._buildAliasedRule(r.rules,r.error),this}getRules(){return this.validatorBuilders}_parseRule(r){let t,i;return B.isObject(r)?(t=Object.keys(r)[0],i=r[t],Array.isArray(i)||(i=[i])):(t=r,i=[]),{name:t,args:i}}_buildValidator(r,t){if(!this.validatorBuilders[r])throw"Rule ["+r+"] not registered";let i=[];return i.push.apply(i,t),i.push(this.getRules()),this.validatorBuilders[r].apply(null,i)}_autoTrim(r){let t=typeof r;if(t!=="object"&&r)return r.replace?r.replace(/^\s*/,"").replace(/\s*$/,""):r;if(t=="object"&&Array.isArray(r)){let i=[];for(let s of r)i.push(this._autoTrim(s));return i}else if(t=="object"&&B.isObject(r)){let i={};for(let s in r)r.hasOwnProperty(s)&&(i[s]=this._autoTrim(r[s]));return i}return r}};lr.exports=W});var fr=n((ri,ar)=>{var tt=o();function it(){return e=>{if(tt.isNoValue(e))return"REQUIRED"}}ar.exports=it});var hr=n((ei,cr)=>{function st(){return e=>{if(e!=null&&e==="")return"CANNOT_BE_EMPTY"}}cr.exports=st});var mr=n((ti,pr)=>{function ut(){return e=>{if(e===void 0||e==="")return"CANNOT_BE_EMPTY";if(!Array.isArray(e))return"FORMAT_ERROR";if(e.length<1)return"CANNOT_BE_EMPTY"}}pr.exports=ut});var _r=n((ii,dr)=>{var Rr=o();function nt(){return e=>{if(!Rr.isNoValue(e)&&!Rr.isObject(e))return"FORMAT_ERROR"}}dr.exports=nt});var Er=n((si,gr)=>{var Or=o();function ot(){return(e,r,t)=>{if(!Or.isNoValue(e)){if(!Or.isPrimitiveValue(e))return"FORMAT_ERROR";t.push(e+"")}}}gr.exports=ot});var Tr=n((ui,Ar)=>{var qr=o();function lt(e){return(r,t,i)=>{if(!qr.isNoValue(r)){if(!qr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+""==e+""){i.push(e);return}return"NOT_ALLOWED_VALUE"}}}Ar.exports=lt});var br=n((ni,Vr)=>{var Nr=o();function at(e){return Array.isArray(e)||(e=Array.prototype.slice.call(arguments),e.pop()),(r,t,i)=>{if(!Nr.isNoValue(r)){if(!Nr.isPrimitiveValue(r))return"FORMAT_ERROR";for(let s of e)if(r+""==s+""){i.push(s);return}return"NOT_ALLOWED_VALUE"}}}Vr.exports=at});var Mr=n((oi,xr)=>{var yr=o();function ft(e){return(r,t,i)=>{if(!yr.isNoValue(r)){if(!yr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",r.length>e)return"TOO_LONG";i.push(r)}}}xr.exports=ft});var Pr=n((li,Lr)=>{var Fr=o();function ct(e){return(r,t,i)=>{if(!Fr.isNoValue(r)){if(!Fr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",r.length<e)return"TOO_SHORT";i.push(r)}}}Lr.exports=ct});var kr=n((ai,Ir)=>{var wr=o();function ht(e){return(r,t,i)=>{if(!wr.isNoValue(r)){if(!wr.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",r.length<e)return"TOO_SHORT";if(r.length>e)return"TOO_LONG";i.push(r)}}}Ir.exports=ht});var Sr=n((fi,Dr)=>{var jr=o();function pt(e,r){return(t,i,s)=>{if(!jr.isNoValue(t)){if(!jr.isPrimitiveValue(t))return"FORMAT_ERROR";if(t+="",t.length<e)return"TOO_SHORT";if(t.length>r)return"TOO_LONG";s.push(t)}}}Dr.exports=pt});var Br=n((ci,Gr)=>{var Cr=o();function mt(e,r){let t=arguments.length===3&&r.match("i"),i=new RegExp(e,t?"i":"");return(s,a,l)=>{if(!Cr.isNoValue(s)){if(!Cr.isPrimitiveValue(s))return"FORMAT_ERROR";if(s+="",!s.match(i))return"WRONG_FORMAT";l.push(s)}}}Gr.exports=mt});var Wr=n((hi,Ur)=>{var K=o();function Rt(){return(e,r,t)=>{if(!K.isNoValue(e)){if(!K.isPrimitiveValue(e))return"FORMAT_ERROR";if(!K.looksLikeNumber(e)||!Number.isInteger(+e))return"NOT_INTEGER";t.push(+e)}}}Ur.exports=Rt});var zr=n((pi,$r)=>{var J=o();function dt(){return(e,r,t)=>{if(!J.isNoValue(e)){if(!J.isPrimitiveValue(e))return"FORMAT_ERROR";if(!J.looksLikeNumber(e)||!Number.isInteger(+e)||+e<1)return"NOT_POSITIVE_INTEGER";t.push(+e)}}}$r.exports=dt});var vr=n((mi,Hr)=>{var X=o();function _t(){return(e,r,t)=>{if(!X.isNoValue(e)){if(!X.isPrimitiveValue(e))return"FORMAT_ERROR";if(!X.looksLikeNumber(e)||(e+="",!/^(?:\-?(?:(?:[0-9]+\.[0-9]+)|(?:[0-9]+)))$/.test(e)))return"NOT_DECIMAL";t.push(+e)}}}Hr.exports=_t});var Qr=n((Ri,Yr)=>{var rr=o();function Ot(){return(e,r,t)=>{if(!rr.isNoValue(e)){if(!rr.isPrimitiveValue(e))return"FORMAT_ERROR";if(!rr.looksLikeNumber(e)||Number.isNaN(+e)||+e<=0)return"NOT_POSITIVE_DECIMAL";t.push(+e)}}}Yr.exports=Ot});var Kr=n((di,Zr)=>{var er=o();function gt(e){return(r,t,i)=>{if(!er.isNoValue(r)){if(!er.isPrimitiveValue(r))return"FORMAT_ERROR";if(!er.looksLikeNumber(r))return"NOT_NUMBER";if(+r>+e)return"TOO_HIGH";i.push(+r)}}}Zr.exports=gt});var Xr=n((_i,Jr)=>{var tr=o();function Et(e){return(r,t,i)=>{if(!tr.isNoValue(r)){if(!tr.isPrimitiveValue(r))return"FORMAT_ERROR";if(!tr.looksLikeNumber(r))return"NOT_NUMBER";if(+r<+e)return"TOO_LOW";i.push(+r)}}}Jr.exports=Et});var ee=n((Oi,re)=>{var ir=o();function qt(e,r){return(t,i,s)=>{if(!ir.isNoValue(t)){if(!ir.isPrimitiveValue(t))return"FORMAT_ERROR";if(!ir.looksLikeNumber(t))return"NOT_NUMBER";if(+t<+e)return"TOO_LOW";if(+t>+r)return"TOO_HIGH";s.push(+t)}}}re.exports=qt});var se=n((gi,ie)=>{var te=o();function At(){var e=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;return r=>{if(!te.isNoValue(r)){if(!te.isPrimitiveValue(r))return"FORMAT_ERROR";if(r+="",!e.test(r)||/\@.*\@/.test(r)||/\@.*_/.test(r))return"WRONG_EMAIL"}}}ie.exports=At});var oe=n((Ei,ne)=>{var ue=o();function Tt(e){return(r,t)=>{if(!ue.isNoValue(r)){if(!ue.isPrimitiveValue(r))return"FORMAT_ERROR";if(r!=t[e])return"FIELDS_NOT_EQUAL"}}}ne.exports=Tt});var fe=n((qi,ae)=>{var le=o();function Nt(){let e="^(?:(?:http|https)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[0-1]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))\\.?|localhost)(?::\\d{2,5})?(?:[/?#]\\S*)?$",r=new RegExp(e,"i");return t=>{if(!le.isNoValue(t)){if(!le.isPrimitiveValue(t))return"FORMAT_ERROR";if(!(t.length<2083&&r.test(t)))return"WRONG_URL"}}}ae.exports=Nt});var pe=n((Ai,he)=>{var ce=o();function Vt(){return e=>{if(ce.isNoValue(e))return;if(!ce.isPrimitiveValue(e))return"FORMAT_ERROR";let r=e.match(/^(\d{4})-([0-1][0-9])-([0-3][0-9])$/);if(r){let t=Date.parse(e);if(!t&&t!==0)return"WRONG_DATE";let i=new Date(t);if(i.setTime(i.getTime()+i.getTimezoneOffset()*60*1e3),i.getFullYear()==r[1]&&i.getMonth()+1==+r[2]&&i.getDate()==+r[3])return}return"WRONG_DATE"}}he.exports=Vt});var de=n((Ti,Re)=>{var bt=_(),me=o();function yt(e,r){let t=new bt(e).registerRules(r).prepare();return(i,s,a)=>{if(me.isNoValue(i))return;if(!me.isObject(i))return"FORMAT_ERROR";let l=t.validate(i);if(l){a.push(l);return}else return t.getErrors()}}Re.exports=yt});var ge=n((Ni,Oe)=>{var xt=_(),_e=o();function Mt(e,r,t){let i={};for(let s in r){let a=new xt(r[s]).registerRules(t).prepare();i[s]=a}return(s,a,l)=>{if(_e.isNoValue(s))return;if(!_e.isObject(s)||!s[e]||!i[s[e]])return"FORMAT_ERROR";let h=i[s[e]],p=h.validate(s);if(p){l.push(p);return}else return h.getErrors()}}Oe.exports=Mt});var qe=n((Vi,Ee)=>{var Ft=_(),Lt=o();function Pt(e,r){Array.isArray(e)||(e=Array.prototype.slice.call(arguments),r=e.pop());let t={field:e},i=new Ft(t).registerRules(r).prepare();return(s,a,l)=>{if(Lt.isNoValue(s))return;if(!Array.isArray(s))return"FORMAT_ERROR";let h=[],p=[],m=!1;for(let R of s){let x=i.validate({field:R});x?(h.push(x.field),p.push(null)):(m=!0,p.push(i.getErrors().field),h.push(null))}if(m)return p;l.push(h)}}Ee.exports=Pt});var Te=n((bi,Ae)=>{var wt=_(),It=o();function kt(e,r){let t=new wt(e).registerRules(r).prepare();return(i,s,a)=>{if(It.isNoValue(i))return;if(!Array.isArray(i))return"FORMAT_ERROR";let l=[],h=[],p=!1;for(let m of i){let R=t.validate(m);R?(l.push(R),h.push(null)):(p=!0,h.push(t.getErrors()),l.push(null))}if(p)return h;a.push(l)}}Ae.exports=kt});var Ve=n((yi,Ne)=>{var jt=_();function Dt(){let e=Array.prototype.slice.call(arguments),r=e.pop(),t=e.map(i=>{let s={field:i};return new jt(s).registerRules(r).prepare()});return(i,s,a)=>{let l;for(let h of t){let p=h.validate({field:i});if(p){a.push(p.field);return}else l=h.getErrors().field}return l}}Ne.exports=Dt});var ye=n((xi,be)=>{var St=_(),Ct=o();function Gt(e,r,t){let i={};for(let s in r){let a=new St(r[s]).registerRules(t).prepare();i[s]=a}return(s,a,l)=>{if(Ct.isNoValue(s))return;if(!Array.isArray(s))return"FORMAT_ERROR";let h=[],p=[],m=!1;for(let R of s){if(typeof R!="object"||!R[e]||!i[R[e]]){p.push("FORMAT_ERROR");continue}let x=i[R[e]],sr=x.validate(R);sr?(h.push(sr),p.push(null)):(m=!0,p.push(x.getErrors()),h.push(null))}if(m)return p;l.push(h)}}be.exports=Gt});var Me=n((Mi,xe)=>{var Bt=o();xe.exports=e=>(r,t,i)=>{Bt.isNoValue(r)&&i.push(e)}});var Le=n((Fi,Fe)=>{var Ut=o();function Wt(){return(e,r,t)=>{Ut.isNoValue(e)||typeof e=="object"||(e+="",t.push(e.replace(/^\s*/,"").replace(/\s*$/,"")))}}Fe.exports=Wt});var we=n((Li,Pe)=>{var $t=o();function zt(){return(e,r,t)=>{$t.isNoValue(e)||typeof e=="object"||(e+="",t.push(e.toLowerCase()))}}Pe.exports=zt});var ke=n((Pi,Ie)=>{var Ht=o();function vt(){return(e,r,t)=>{Ht.isNoValue(e)||typeof e=="object"||(e+="",t.push(e.toUpperCase()))}}Ie.exports=vt});var Se=n((wi,De)=>{var je=o();function Yt(e){e=je.escapeRegExp(e);let r=new RegExp("["+e+"]","g");return(t,i,s)=>{je.isNoValue(t)||typeof t=="object"||(t+="",s.push(t.replace(r,"")))}}De.exports=Yt});var Be=n((Ii,Ge)=>{var Ce=o();function Qt(e){e=Ce.escapeRegExp(e);let r=new RegExp("[^"+e+"]","g");return(t,i,s)=>{Ce.isNoValue(t)||typeof t=="object"||(t+="",s.push(t.replace(r,"")))}}Ge.exports=Qt});var ze=n((ki,$e)=>{var Ue=_(),Zt=o(),We={required:fr(),not_empty:hr(),not_empty_list:mr(),any_object:_r(),string:Er(),eq:Tr(),one_of:br(),max_length:Mr(),min_length:Pr(),length_equal:kr(),length_between:Sr(),like:Br(),integer:Wr(),positive_integer:zr(),decimal:vr(),positive_decimal:Qr(),max_number:Kr(),min_number:Xr(),number_between:ee(),email:se(),equal_to_field:oe(),url:fe(),iso_date:pe(),nested_object:de(),variable_object:ge(),list_of:qe(),list_of_objects:Te(),or:Ve(),list_of_different_objects:ye(),default:Me(),trim:Le(),to_lc:we(),to_uc:ke(),remove:Se(),leave_only:Be()};Ue.registerDefaultRules(We);$e.exports={Validator:Ue,rules:We,util:Zt}});var $=et(ze()),d,O,V,A,M,F,L,g,b,E,P,w,I,q,T,y,k,j,D,S,z,H,v,Y,C,Q,Z,He=class{constructor(r,{errorClass:t="formurai-error",successClass:i="formurai-success",wrapperClass:s="formurai-container",errorMessageClass:a="formurai-message",withWrapper:l=!0,autoTrim:h=!0,vibrate:p=!0,notSubmit:m=!1,multiStep:R=!1}={}){f(this,d,void 0);f(this,O,void 0);f(this,V,void 0);f(this,A,void 0);f(this,M,void 0);f(this,F,void 0);f(this,L,void 0);f(this,g,void 0);f(this,b,void 0);f(this,E,void 0);f(this,P,void 0);f(this,w,void 0);f(this,I,void 0);f(this,q,void 0);f(this,T,void 0);f(this,y,void 0);f(this,k,void 0);N(this,"init",(r,t={},i=!1)=>{if(!i&&u(this,g))throw"Multi step validation need initial state!";c(this,y,r),c(this,O,t),u(this,g)?u(this,j).call(this,i):(this.validator=new $.default.Validator(r),c(this,q,Object.keys(r)),c(this,V,u(this,O))),u(this,d).addEventListener("submit",u(this,D))});N(this,"destroy",()=>{this.validator=null,c(this,q,[]),c(this,O,{}),u(this,d).removeEventListener("submit",u(this,D))});N(this,"changeState",r=>{if(u(this,g))u(this,j).call(this,r);else if(!u(this,g))throw"changeState method only works with multi step forms!"});N(this,"checkForm",()=>{let r=this.formData;this.validator.validate(r)?(c(this,T,{}),c(this,A,!0),u(this,S).call(this)):(c(this,T,this.validator.getErrors()),c(this,A,!1),u(this,H).call(this),u(this,v).call(this))});N(this,"addRule",r=>{if(!r)return;let t=Array.isArray(r);c(this,k,r),t?r.forEach(i=>this.validator.registerAliasedRule({...i})):this.validator.registerAliasedRule({...r})});f(this,j,r=>{this.validator=null,this.validator=new $.default.Validator(u(this,y)[r]),c(this,q,Object.keys(u(this,y)[r])),this.addRule(u(this,k)),c(this,V,u(this,O)[r])});f(this,D,r=>{if(r.preventDefault(),this.checkForm(),this.isFormValid)u(this,d).submit();else{if(u(this,L))return;this.isFormValid||u(this,Q).call(this)}console.log(this.formData)});f(this,S,()=>{document.querySelectorAll(`.${u(this,E)}`).forEach(t=>t.classList.remove(u(this,E)))});f(this,z,r=>{r&&(r.classList.remove(u(this,b)),r.classList.add(u(this,E)))});f(this,H,()=>{u(this,S).call(this);let r=Object.keys(this.errors);r.length&&r.forEach(t=>{let i=u(this,d).querySelector(`[name="${t}"]`),s=u(this,C).call(this,i);u(this,z).call(this,s),u(this,Y).call(this,s,t)})});f(this,v,()=>{u(this,q).forEach(r=>{let t=u(this,d).querySelector(`[name="${r}"]`),i=u(this,C).call(this,t);i.classList.contains(u(this,E))||i.classList.add(u(this,b))})});f(this,Y,(r,t)=>{var l,h;let i=this.errors[t],s=(h=(l=u(this,V))==null?void 0:l[t])==null?void 0:h[i],a=r==null?void 0:r.querySelector(`.${u(this,w)}`);i&&s&&a&&(a.innerText=s)});f(this,C,r=>u(this,I)?r.closest(`.${u(this,P)}`):r);f(this,Q,()=>{window.navigator.vibrate&&u(this,F)&&window.navigator.vibrate([300,100,300])});f(this,Z,()=>{u(this,M)&&$.default.Validator.defaultAutoTrim(!0)});c(this,d,r),c(this,M,h),c(this,F,p),c(this,L,m),c(this,g,R),c(this,b,i),c(this,E,t),c(this,P,s),c(this,w,a),c(this,I,l),c(this,T,{}),c(this,q,[]),c(this,O,{}),c(this,A,!1),u(this,Z).call(this)}get formData(){let r=new FormData(u(this,d)),t={};return r.forEach((i,s)=>{t[s]=i}),t}get errors(){return u(this,T)}get isFormValid(){return u(this,A)}};d=new WeakMap,O=new WeakMap,V=new WeakMap,A=new WeakMap,M=new WeakMap,F=new WeakMap,L=new WeakMap,g=new WeakMap,b=new WeakMap,E=new WeakMap,P=new WeakMap,w=new WeakMap,I=new WeakMap,q=new WeakMap,T=new WeakMap,y=new WeakMap,k=new WeakMap,j=new WeakMap,D=new WeakMap,S=new WeakMap,z=new WeakMap,H=new WeakMap,v=new WeakMap,Y=new WeakMap,C=new WeakMap,Q=new WeakMap,Z=new WeakMap;var ji=He;})();
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop))
+          __defNormalProp(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __reExport = (target, module, desc) => {
+    if (module && typeof module === "object" || typeof module === "function") {
+      for (let key of __getOwnPropNames(module))
+        if (!__hasOwnProp.call(target, key) && key !== "default")
+          __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
+    }
+    return target;
+  };
+  var __toModule = (module) => {
+    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+  };
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
+  };
+  var __accessCheck = (obj, member, msg) => {
+    if (!member.has(obj))
+      throw TypeError("Cannot " + msg);
+  };
+  var __privateGet = (obj, member, getter) => {
+    __accessCheck(obj, member, "read from private field");
+    return getter ? getter.call(obj) : member.get(obj);
+  };
+  var __privateAdd = (obj, member, value) => {
+    if (member.has(obj))
+      throw TypeError("Cannot add the same private member more than once");
+    member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+  };
+  var __privateSet = (obj, member, value, setter) => {
+    __accessCheck(obj, member, "write to private field");
+    setter ? setter.call(obj, value) : member.set(obj, value);
+    return value;
+  };
+
+  // node_modules/livr/lib/util.js
+  var require_util = __commonJS({
+    "node_modules/livr/lib/util.js"(exports, module) {
+      module.exports = {
+        isPrimitiveValue(value) {
+          if (typeof value == "string")
+            return true;
+          if (typeof value == "number" && isFinite(value))
+            return true;
+          if (typeof value == "boolean")
+            return true;
+          return false;
+        },
+        looksLikeNumber(value) {
+          if (!isNaN(+value))
+            return true;
+          return false;
+        },
+        isObject(obj) {
+          return Object(obj) === obj && Object.getPrototypeOf(obj) === Object.prototype;
+        },
+        isEmptyObject(map) {
+          for (const key in map) {
+            if (map.hasOwnProperty(key)) {
+              return false;
+            }
+          }
+          return true;
+        },
+        escapeRegExp(str) {
+          return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+        },
+        isNoValue(value) {
+          return value === void 0 || value === null || value === "";
+        }
+      };
+    }
+  });
+
+  // node_modules/livr/lib/Validator.js
+  var require_Validator = __commonJS({
+    "node_modules/livr/lib/Validator.js"(exports, module) {
+      "use strict";
+      var util = require_util();
+      var DEFAULT_RULES = {};
+      var IS_DEFAULT_AUTO_TRIM = 0;
+      var Validator = class {
+        constructor(livrRules, isAutoTrim) {
+          this.isPrepared = false;
+          this.livrRules = livrRules;
+          this.validators = {};
+          this.validatorBuilders = {};
+          this.errors = null;
+          if (isAutoTrim !== null && isAutoTrim !== void 0) {
+            this.isAutoTrim = isAutoTrim;
+          } else {
+            this.isAutoTrim = IS_DEFAULT_AUTO_TRIM;
+          }
+          this.registerRules(DEFAULT_RULES);
+        }
+        static getDefaultRules() {
+          return DEFAULT_RULES;
+        }
+        static registerAliasedDefaultRule(alias) {
+          if (!alias.name)
+            throw "Alias name required";
+          DEFAULT_RULES[alias.name] = this._buildAliasedRule(alias.rules, alias.error);
+        }
+        static registerDefaultRules(rules3) {
+          for (const ruleName in rules3) {
+            DEFAULT_RULES[ruleName] = rules3[ruleName];
+          }
+        }
+        static defaultAutoTrim(isAutoTrim) {
+          IS_DEFAULT_AUTO_TRIM = !!isAutoTrim;
+        }
+        static _buildAliasedRule(rules3, errorCode) {
+          if (!rules3)
+            throw "Alias rules required";
+          const livr = { value: rules3 };
+          return (ruleBuilders) => {
+            const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
+            return (value, undefined2, outputArr) => {
+              const result = validator.validate({ value });
+              if (result) {
+                outputArr.push(result.value);
+                return;
+              } else {
+                return errorCode || validator.getErrors().value;
+              }
+            };
+          };
+        }
+        prepare() {
+          const allRules = this.livrRules;
+          for (const field in allRules) {
+            let fieldRules = allRules[field];
+            if (!Array.isArray(fieldRules)) {
+              fieldRules = [fieldRules];
+            }
+            const validators = [];
+            for (const fieldRule of fieldRules) {
+              const parsed = this._parseRule(fieldRule);
+              validators.push(this._buildValidator(parsed.name, parsed.args));
+            }
+            this.validators[field] = validators;
+          }
+          this.isPrepared = true;
+          return this;
+        }
+        validate(data) {
+          if (!this.isPrepared)
+            this.prepare();
+          if (!util.isObject(data)) {
+            this.errors = "FORMAT_ERROR";
+            return;
+          }
+          if (this.isAutoTrim) {
+            data = this._autoTrim(data);
+          }
+          const errors = {};
+          const result = {};
+          for (const fieldName in this.validators) {
+            const validators = this.validators[fieldName];
+            if (!validators || !validators.length)
+              continue;
+            const value = data[fieldName];
+            for (const validator of validators) {
+              const fieldResultArr = [];
+              const errCode = validator(result.hasOwnProperty(fieldName) ? result[fieldName] : value, data, fieldResultArr);
+              if (errCode) {
+                errors[fieldName] = errCode;
+                break;
+              } else if (fieldResultArr.length) {
+                result[fieldName] = fieldResultArr[0];
+              } else if (data.hasOwnProperty(fieldName) && !result.hasOwnProperty(fieldName)) {
+                result[fieldName] = value;
+              }
+            }
+          }
+          if (util.isEmptyObject(errors)) {
+            this.errors = null;
+            return result;
+          } else {
+            this.errors = errors;
+            return false;
+          }
+        }
+        getErrors() {
+          return this.errors;
+        }
+        registerRules(rules3) {
+          for (const ruleName in rules3) {
+            this.validatorBuilders[ruleName] = rules3[ruleName];
+          }
+          return this;
+        }
+        registerAliasedRule(alias) {
+          if (!alias.name)
+            throw "Alias name required";
+          this.validatorBuilders[alias.name] = this.constructor._buildAliasedRule(alias.rules, alias.error);
+          return this;
+        }
+        getRules() {
+          return this.validatorBuilders;
+        }
+        _parseRule(livrRule) {
+          let name;
+          let args;
+          if (util.isObject(livrRule)) {
+            name = Object.keys(livrRule)[0];
+            args = livrRule[name];
+            if (!Array.isArray(args))
+              args = [args];
+          } else {
+            name = livrRule;
+            args = [];
+          }
+          return { name, args };
+        }
+        _buildValidator(name, args) {
+          if (!this.validatorBuilders[name]) {
+            throw "Rule [" + name + "] not registered";
+          }
+          const allArgs = [];
+          allArgs.push.apply(allArgs, args);
+          allArgs.push(this.getRules());
+          return this.validatorBuilders[name].apply(null, allArgs);
+        }
+        _autoTrim(data) {
+          const dataType = typeof data;
+          if (dataType !== "object" && data) {
+            if (data.replace) {
+              return data.replace(/^\s*/, "").replace(/\s*$/, "");
+            } else {
+              return data;
+            }
+          } else if (dataType == "object" && Array.isArray(data)) {
+            const trimmedData = [];
+            for (const item of data) {
+              trimmedData.push(this._autoTrim(item));
+            }
+            return trimmedData;
+          } else if (dataType == "object" && util.isObject(data)) {
+            const trimmedData = {};
+            for (const key in data) {
+              if (data.hasOwnProperty(key)) {
+                trimmedData[key] = this._autoTrim(data[key]);
+              }
+            }
+            return trimmedData;
+          }
+          return data;
+        }
+      };
+      module.exports = Validator;
+    }
+  });
+
+  // node_modules/livr/lib/rules/common/required.js
+  var require_required = __commonJS({
+    "node_modules/livr/lib/rules/common/required.js"(exports, module) {
+      var util = require_util();
+      function required() {
+        return (value) => {
+          if (util.isNoValue(value)) {
+            return "REQUIRED";
+          }
+          return;
+        };
+      }
+      module.exports = required;
+    }
+  });
+
+  // node_modules/livr/lib/rules/common/not_empty.js
+  var require_not_empty = __commonJS({
+    "node_modules/livr/lib/rules/common/not_empty.js"(exports, module) {
+      function not_empty() {
+        return (value) => {
+          if (value !== null && value !== void 0 && value === "") {
+            return "CANNOT_BE_EMPTY";
+          }
+          return;
+        };
+      }
+      module.exports = not_empty;
+    }
+  });
+
+  // node_modules/livr/lib/rules/common/not_empty_list.js
+  var require_not_empty_list = __commonJS({
+    "node_modules/livr/lib/rules/common/not_empty_list.js"(exports, module) {
+      function not_empty_list() {
+        return (list) => {
+          if (list === void 0 || list === "")
+            return "CANNOT_BE_EMPTY";
+          if (!Array.isArray(list))
+            return "FORMAT_ERROR";
+          if (list.length < 1)
+            return "CANNOT_BE_EMPTY";
+          return;
+        };
+      }
+      module.exports = not_empty_list;
+    }
+  });
+
+  // node_modules/livr/lib/rules/common/any_object.js
+  var require_any_object = __commonJS({
+    "node_modules/livr/lib/rules/common/any_object.js"(exports, module) {
+      var util = require_util();
+      function any_object() {
+        return (value) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isObject(value)) {
+            return "FORMAT_ERROR";
+          }
+        };
+      }
+      module.exports = any_object;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/string.js
+  var require_string = __commonJS({
+    "node_modules/livr/lib/rules/string/string.js"(exports, module) {
+      var util = require_util();
+      function string() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          outputArr.push(value + "");
+          return;
+        };
+      }
+      module.exports = string;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/eq.js
+  var require_eq = __commonJS({
+    "node_modules/livr/lib/rules/string/eq.js"(exports, module) {
+      var util = require_util();
+      function eq(allowedValue) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (value + "" === allowedValue + "") {
+            outputArr.push(allowedValue);
+            return;
+          }
+          return "NOT_ALLOWED_VALUE";
+        };
+      }
+      module.exports = eq;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/one_of.js
+  var require_one_of = __commonJS({
+    "node_modules/livr/lib/rules/string/one_of.js"(exports, module) {
+      var util = require_util();
+      function one_of(allowedValues) {
+        if (!Array.isArray(allowedValues)) {
+          allowedValues = Array.prototype.slice.call(arguments);
+          allowedValues.pop();
+        }
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          for (const allowedValue of allowedValues) {
+            if (value + "" === allowedValue + "") {
+              outputArr.push(allowedValue);
+              return;
+            }
+          }
+          return "NOT_ALLOWED_VALUE";
+        };
+      }
+      module.exports = one_of;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/max_length.js
+  var require_max_length = __commonJS({
+    "node_modules/livr/lib/rules/string/max_length.js"(exports, module) {
+      var util = require_util();
+      function max_length(maxLength) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          value += "";
+          if (value.length > maxLength)
+            return "TOO_LONG";
+          outputArr.push(value);
+        };
+      }
+      module.exports = max_length;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/min_length.js
+  var require_min_length = __commonJS({
+    "node_modules/livr/lib/rules/string/min_length.js"(exports, module) {
+      var util = require_util();
+      function min_length(minLength) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          value += "";
+          if (value.length < minLength)
+            return "TOO_SHORT";
+          outputArr.push(value);
+        };
+      }
+      module.exports = min_length;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/length_equal.js
+  var require_length_equal = __commonJS({
+    "node_modules/livr/lib/rules/string/length_equal.js"(exports, module) {
+      var util = require_util();
+      function length_equal(length) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          value += "";
+          if (value.length < length)
+            return "TOO_SHORT";
+          if (value.length > length)
+            return "TOO_LONG";
+          outputArr.push(value);
+        };
+      }
+      module.exports = length_equal;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/length_between.js
+  var require_length_between = __commonJS({
+    "node_modules/livr/lib/rules/string/length_between.js"(exports, module) {
+      var util = require_util();
+      function length_between(minLength, maxLength) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          value += "";
+          if (value.length < minLength)
+            return "TOO_SHORT";
+          if (value.length > maxLength)
+            return "TOO_LONG";
+          outputArr.push(value);
+        };
+      }
+      module.exports = length_between;
+    }
+  });
+
+  // node_modules/livr/lib/rules/string/like.js
+  var require_like = __commonJS({
+    "node_modules/livr/lib/rules/string/like.js"(exports, module) {
+      var util = require_util();
+      function like(reStr, flags) {
+        const isIgnoreCase = arguments.length === 3 && flags.match("i");
+        const re = new RegExp(reStr, isIgnoreCase ? "i" : "");
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          value += "";
+          if (!value.match(re))
+            return "WRONG_FORMAT";
+          outputArr.push(value);
+        };
+      }
+      module.exports = like;
+    }
+  });
+
+  // node_modules/livr/lib/rules/numeric/integer.js
+  var require_integer = __commonJS({
+    "node_modules/livr/lib/rules/numeric/integer.js"(exports, module) {
+      var util = require_util();
+      function integer() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (!util.looksLikeNumber(value))
+            return "NOT_INTEGER";
+          if (!Number.isInteger(+value))
+            return "NOT_INTEGER";
+          outputArr.push(+value);
+        };
+      }
+      module.exports = integer;
+    }
+  });
+
+  // node_modules/livr/lib/rules/numeric/positive_integer.js
+  var require_positive_integer = __commonJS({
+    "node_modules/livr/lib/rules/numeric/positive_integer.js"(exports, module) {
+      var util = require_util();
+      function positive_integer() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (!util.looksLikeNumber(value))
+            return "NOT_POSITIVE_INTEGER";
+          if (!Number.isInteger(+value) || +value < 1)
+            return "NOT_POSITIVE_INTEGER";
+          outputArr.push(+value);
+        };
+      }
+      module.exports = positive_integer;
+    }
+  });
+
+  // node_modules/livr/lib/rules/numeric/decimal.js
+  var require_decimal = __commonJS({
+    "node_modules/livr/lib/rules/numeric/decimal.js"(exports, module) {
+      var util = require_util();
+      function decimal() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (!util.looksLikeNumber(value))
+            return "NOT_DECIMAL";
+          value += "";
+          if (!/^(?:\-?(?:(?:[0-9]+\.[0-9]+)|(?:[0-9]+)))$/.test(value))
+            return "NOT_DECIMAL";
+          outputArr.push(+value);
+        };
+      }
+      module.exports = decimal;
+    }
+  });
+
+  // node_modules/livr/lib/rules/numeric/positive_decimal.js
+  var require_positive_decimal = __commonJS({
+    "node_modules/livr/lib/rules/numeric/positive_decimal.js"(exports, module) {
+      var util = require_util();
+      function positive_decimal() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (!util.looksLikeNumber(value))
+            return "NOT_POSITIVE_DECIMAL";
+          if (Number.isNaN(+value) || +value <= 0)
+            return "NOT_POSITIVE_DECIMAL";
+          outputArr.push(+value);
+        };
+      }
+      module.exports = positive_decimal;
+    }
+  });
+
+  // node_modules/livr/lib/rules/numeric/max_number.js
+  var require_max_number = __commonJS({
+    "node_modules/livr/lib/rules/numeric/max_number.js"(exports, module) {
+      var util = require_util();
+      function max_number(maxNumber) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (!util.looksLikeNumber(value))
+            return "NOT_NUMBER";
+          if (+value > +maxNumber)
+            return "TOO_HIGH";
+          outputArr.push(+value);
+        };
+      }
+      module.exports = max_number;
+    }
+  });
+
+  // node_modules/livr/lib/rules/numeric/min_number.js
+  var require_min_number = __commonJS({
+    "node_modules/livr/lib/rules/numeric/min_number.js"(exports, module) {
+      var util = require_util();
+      function min_number(minNumber) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (!util.looksLikeNumber(value))
+            return "NOT_NUMBER";
+          if (+value < +minNumber)
+            return "TOO_LOW";
+          outputArr.push(+value);
+        };
+      }
+      module.exports = min_number;
+    }
+  });
+
+  // node_modules/livr/lib/rules/numeric/number_between.js
+  var require_number_between = __commonJS({
+    "node_modules/livr/lib/rules/numeric/number_between.js"(exports, module) {
+      var util = require_util();
+      function number_between(minNumber, maxNumber) {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (!util.looksLikeNumber(value))
+            return "NOT_NUMBER";
+          if (+value < +minNumber)
+            return "TOO_LOW";
+          if (+value > +maxNumber)
+            return "TOO_HIGH";
+          outputArr.push(+value);
+        };
+      }
+      module.exports = number_between;
+    }
+  });
+
+  // node_modules/livr/lib/rules/special/email.js
+  var require_email = __commonJS({
+    "node_modules/livr/lib/rules/special/email.js"(exports, module) {
+      var util = require_util();
+      function email() {
+        var emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return (value) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          value += "";
+          if (!emailRe.test(value))
+            return "WRONG_EMAIL";
+          if (/\@.*\@/.test(value))
+            return "WRONG_EMAIL";
+          if (/\@.*_/.test(value))
+            return "WRONG_EMAIL";
+          return;
+        };
+      }
+      module.exports = email;
+    }
+  });
+
+  // node_modules/livr/lib/rules/special/equal_to_field.js
+  var require_equal_to_field = __commonJS({
+    "node_modules/livr/lib/rules/special/equal_to_field.js"(exports, module) {
+      var util = require_util();
+      function equal_to_field(field) {
+        return (value, params) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (value != params[field])
+            return "FIELDS_NOT_EQUAL";
+          return;
+        };
+      }
+      module.exports = equal_to_field;
+    }
+  });
+
+  // node_modules/livr/lib/rules/special/url.js
+  var require_url = __commonJS({
+    "node_modules/livr/lib/rules/special/url.js"(exports, module) {
+      var util = require_util();
+      function url() {
+        const urlReStr = "^(?:(?:http|https)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[0-1]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))\\.?|localhost)(?::\\d{2,5})?(?:[/?#]\\S*)?$";
+        const urlRe = new RegExp(urlReStr, "i");
+        return (value) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          if (value.length < 2083 && urlRe.test(value))
+            return;
+          return "WRONG_URL";
+        };
+      }
+      module.exports = url;
+    }
+  });
+
+  // node_modules/livr/lib/rules/special/iso_date.js
+  var require_iso_date = __commonJS({
+    "node_modules/livr/lib/rules/special/iso_date.js"(exports, module) {
+      var util = require_util();
+      function iso_date() {
+        return (value) => {
+          if (util.isNoValue(value))
+            return;
+          if (!util.isPrimitiveValue(value))
+            return "FORMAT_ERROR";
+          const matched = value.match(/^(\d{4})-([0-1][0-9])-([0-3][0-9])$/);
+          if (matched) {
+            const epoch = Date.parse(value);
+            if (!epoch && epoch !== 0)
+              return "WRONG_DATE";
+            const d = new Date(epoch);
+            d.setTime(d.getTime() + d.getTimezoneOffset() * 60 * 1e3);
+            if (d.getFullYear() == matched[1] && d.getMonth() + 1 == +matched[2] && d.getDate() == +matched[3]) {
+              return;
+            }
+          }
+          return "WRONG_DATE";
+        };
+      }
+      module.exports = iso_date;
+    }
+  });
+
+  // node_modules/livr/lib/rules/meta/nested_object.js
+  var require_nested_object = __commonJS({
+    "node_modules/livr/lib/rules/meta/nested_object.js"(exports, module) {
+      var Validator = require_Validator();
+      var util = require_util();
+      function nested_object(livr, ruleBuilders) {
+        const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
+        return (nestedObject, params, outputArr) => {
+          if (util.isNoValue(nestedObject))
+            return;
+          if (!util.isObject(nestedObject))
+            return "FORMAT_ERROR";
+          const result = validator.validate(nestedObject);
+          if (result) {
+            outputArr.push(result);
+            return;
+          } else {
+            return validator.getErrors();
+          }
+        };
+      }
+      module.exports = nested_object;
+    }
+  });
+
+  // node_modules/livr/lib/rules/meta/variable_object.js
+  var require_variable_object = __commonJS({
+    "node_modules/livr/lib/rules/meta/variable_object.js"(exports, module) {
+      var Validator = require_Validator();
+      var util = require_util();
+      function variable_object(selectorField, livrs, ruleBuilders) {
+        const validators = {};
+        for (const selectorValue in livrs) {
+          const validator = new Validator(livrs[selectorValue]).registerRules(ruleBuilders).prepare();
+          validators[selectorValue] = validator;
+        }
+        return (object, params, outputArr) => {
+          if (util.isNoValue(object))
+            return;
+          if (!util.isObject(object) || !object[selectorField] || !validators[object[selectorField]]) {
+            return "FORMAT_ERROR";
+          }
+          const validator = validators[object[selectorField]];
+          const result = validator.validate(object);
+          if (result) {
+            outputArr.push(result);
+            return;
+          } else {
+            return validator.getErrors();
+          }
+        };
+      }
+      module.exports = variable_object;
+    }
+  });
+
+  // node_modules/livr/lib/rules/meta/list_of.js
+  var require_list_of = __commonJS({
+    "node_modules/livr/lib/rules/meta/list_of.js"(exports, module) {
+      var Validator = require_Validator();
+      var util = require_util();
+      function list_of(rules3, ruleBuilders) {
+        if (!Array.isArray(rules3)) {
+          rules3 = Array.prototype.slice.call(arguments);
+          ruleBuilders = rules3.pop();
+        }
+        const livr = { field: rules3 };
+        const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
+        return (values, params, outputArr) => {
+          if (util.isNoValue(values))
+            return;
+          if (!Array.isArray(values))
+            return "FORMAT_ERROR";
+          const results = [];
+          const errors = [];
+          let hasErrors = false;
+          for (const value of values) {
+            const result = validator.validate({ field: value });
+            if (result) {
+              results.push(result.field);
+              errors.push(null);
+            } else {
+              hasErrors = true;
+              errors.push(validator.getErrors().field);
+              results.push(null);
+            }
+          }
+          if (hasErrors) {
+            return errors;
+          } else {
+            outputArr.push(results);
+            return;
+          }
+        };
+      }
+      module.exports = list_of;
+    }
+  });
+
+  // node_modules/livr/lib/rules/meta/list_of_objects.js
+  var require_list_of_objects = __commonJS({
+    "node_modules/livr/lib/rules/meta/list_of_objects.js"(exports, module) {
+      var Validator = require_Validator();
+      var util = require_util();
+      function list_of_objects(livr, ruleBuilders) {
+        const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
+        return (objects, params, outputArr) => {
+          if (util.isNoValue(objects))
+            return;
+          if (!Array.isArray(objects))
+            return "FORMAT_ERROR";
+          const results = [];
+          const errors = [];
+          let hasErrors = false;
+          for (const object of objects) {
+            const result = validator.validate(object);
+            if (result) {
+              results.push(result);
+              errors.push(null);
+            } else {
+              hasErrors = true;
+              errors.push(validator.getErrors());
+              results.push(null);
+            }
+          }
+          if (hasErrors) {
+            return errors;
+          } else {
+            outputArr.push(results);
+            return;
+          }
+        };
+      }
+      module.exports = list_of_objects;
+    }
+  });
+
+  // node_modules/livr/lib/rules/meta/or.js
+  var require_or = __commonJS({
+    "node_modules/livr/lib/rules/meta/or.js"(exports, module) {
+      var Validator = require_Validator();
+      function or() {
+        const ruleSets = Array.prototype.slice.call(arguments);
+        const ruleBuilders = ruleSets.pop();
+        const validators = ruleSets.map((rules3) => {
+          const livr = { field: rules3 };
+          const validator = new Validator(livr).registerRules(ruleBuilders).prepare();
+          return validator;
+        });
+        return (value, params, outputArr) => {
+          let lastError;
+          for (const validator of validators) {
+            const result = validator.validate({ field: value });
+            if (result) {
+              outputArr.push(result.field);
+              return;
+            } else {
+              lastError = validator.getErrors().field;
+            }
+          }
+          return lastError;
+        };
+      }
+      module.exports = or;
+    }
+  });
+
+  // node_modules/livr/lib/rules/meta/list_of_different_objects.js
+  var require_list_of_different_objects = __commonJS({
+    "node_modules/livr/lib/rules/meta/list_of_different_objects.js"(exports, module) {
+      var Validator = require_Validator();
+      var util = require_util();
+      function list_of_different_objects(selectorField, livrs, ruleBuilders) {
+        const validators = {};
+        for (const selectorValue in livrs) {
+          const validator = new Validator(livrs[selectorValue]).registerRules(ruleBuilders).prepare();
+          validators[selectorValue] = validator;
+        }
+        return (objects, params, outputArr) => {
+          if (util.isNoValue(objects))
+            return;
+          if (!Array.isArray(objects))
+            return "FORMAT_ERROR";
+          const results = [];
+          const errors = [];
+          let hasErrors = false;
+          for (const object of objects) {
+            if (typeof object != "object" || !object[selectorField] || !validators[object[selectorField]]) {
+              errors.push("FORMAT_ERROR");
+              continue;
+            }
+            const validator = validators[object[selectorField]];
+            const result = validator.validate(object);
+            if (result) {
+              results.push(result);
+              errors.push(null);
+            } else {
+              hasErrors = true;
+              errors.push(validator.getErrors());
+              results.push(null);
+            }
+          }
+          if (hasErrors) {
+            return errors;
+          } else {
+            outputArr.push(results);
+            return;
+          }
+        };
+      }
+      module.exports = list_of_different_objects;
+    }
+  });
+
+  // node_modules/livr/lib/rules/modifiers/default.js
+  var require_default = __commonJS({
+    "node_modules/livr/lib/rules/modifiers/default.js"(exports, module) {
+      var util = require_util();
+      module.exports = (defaultValue) => {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value)) {
+            outputArr.push(defaultValue);
+          }
+        };
+      };
+    }
+  });
+
+  // node_modules/livr/lib/rules/modifiers/trim.js
+  var require_trim = __commonJS({
+    "node_modules/livr/lib/rules/modifiers/trim.js"(exports, module) {
+      var util = require_util();
+      function trim() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value) || typeof value === "object")
+            return;
+          value += "";
+          outputArr.push(value.replace(/^\s*/, "").replace(/\s*$/, ""));
+        };
+      }
+      module.exports = trim;
+    }
+  });
+
+  // node_modules/livr/lib/rules/modifiers/to_lc.js
+  var require_to_lc = __commonJS({
+    "node_modules/livr/lib/rules/modifiers/to_lc.js"(exports, module) {
+      var util = require_util();
+      function to_lc() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value) || typeof value === "object")
+            return;
+          value += "";
+          outputArr.push(value.toLowerCase());
+        };
+      }
+      module.exports = to_lc;
+    }
+  });
+
+  // node_modules/livr/lib/rules/modifiers/to_uc.js
+  var require_to_uc = __commonJS({
+    "node_modules/livr/lib/rules/modifiers/to_uc.js"(exports, module) {
+      var util = require_util();
+      function to_uc() {
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value) || typeof value === "object")
+            return;
+          value += "";
+          outputArr.push(value.toUpperCase());
+        };
+      }
+      module.exports = to_uc;
+    }
+  });
+
+  // node_modules/livr/lib/rules/modifiers/remove.js
+  var require_remove = __commonJS({
+    "node_modules/livr/lib/rules/modifiers/remove.js"(exports, module) {
+      var util = require_util();
+      function remove(chars) {
+        chars = util.escapeRegExp(chars);
+        const re = new RegExp("[" + chars + "]", "g");
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value) || typeof value === "object")
+            return;
+          value += "";
+          outputArr.push(value.replace(re, ""));
+        };
+      }
+      module.exports = remove;
+    }
+  });
+
+  // node_modules/livr/lib/rules/modifiers/leave_only.js
+  var require_leave_only = __commonJS({
+    "node_modules/livr/lib/rules/modifiers/leave_only.js"(exports, module) {
+      var util = require_util();
+      function leave_only(chars) {
+        chars = util.escapeRegExp(chars);
+        const re = new RegExp("[^" + chars + "]", "g");
+        return (value, params, outputArr) => {
+          if (util.isNoValue(value) || typeof value === "object")
+            return;
+          value += "";
+          outputArr.push(value.replace(re, ""));
+        };
+      }
+      module.exports = leave_only;
+    }
+  });
+
+  // node_modules/livr/lib/LIVR.js
+  var require_LIVR = __commonJS({
+    "node_modules/livr/lib/LIVR.js"(exports, module) {
+      var Validator = require_Validator();
+      var util = require_util();
+      var rules3 = {
+        required: require_required(),
+        not_empty: require_not_empty(),
+        not_empty_list: require_not_empty_list(),
+        any_object: require_any_object(),
+        string: require_string(),
+        eq: require_eq(),
+        one_of: require_one_of(),
+        max_length: require_max_length(),
+        min_length: require_min_length(),
+        length_equal: require_length_equal(),
+        length_between: require_length_between(),
+        like: require_like(),
+        integer: require_integer(),
+        positive_integer: require_positive_integer(),
+        decimal: require_decimal(),
+        positive_decimal: require_positive_decimal(),
+        max_number: require_max_number(),
+        min_number: require_min_number(),
+        number_between: require_number_between(),
+        email: require_email(),
+        equal_to_field: require_equal_to_field(),
+        url: require_url(),
+        iso_date: require_iso_date(),
+        nested_object: require_nested_object(),
+        variable_object: require_variable_object(),
+        list_of: require_list_of(),
+        list_of_objects: require_list_of_objects(),
+        or: require_or(),
+        list_of_different_objects: require_list_of_different_objects(),
+        default: require_default(),
+        trim: require_trim(),
+        to_lc: require_to_lc(),
+        to_uc: require_to_uc(),
+        remove: require_remove(),
+        leave_only: require_leave_only()
+      };
+      Validator.registerDefaultRules(rules3);
+      module.exports = { Validator, rules: rules3, util };
+    }
+  });
+
+  // src/Formurai.js
+  var import_livr = __toModule(require_LIVR());
+  var _form, _errorMessages, _currentStateMessages, _isFormValid, _isAutoTrim, _isVibrate, _noSubmit, _multiStep, _successClass, _errorClass, _wrapperClass, _errorMessageClass, _withWrapper, _validationFields, _inputErrorsObj, _rules, _additionalRules, _setRulesForCurrentState, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate, _autoTrimValues;
+  var Formurai = class {
+    constructor(form2, {
+      errorClass = "formurai-error",
+      successClass = "formurai-success",
+      wrapperClass = "formurai-container",
+      errorMessageClass = "formurai-message",
+      withWrapper = true,
+      autoTrim = true,
+      vibrate = true,
+      notSubmit = false,
+      multiStep = false
+    } = {}) {
+      __privateAdd(this, _form, void 0);
+      __privateAdd(this, _errorMessages, void 0);
+      __privateAdd(this, _currentStateMessages, void 0);
+      __privateAdd(this, _isFormValid, void 0);
+      __privateAdd(this, _isAutoTrim, void 0);
+      __privateAdd(this, _isVibrate, void 0);
+      __privateAdd(this, _noSubmit, void 0);
+      __privateAdd(this, _multiStep, void 0);
+      __privateAdd(this, _successClass, void 0);
+      __privateAdd(this, _errorClass, void 0);
+      __privateAdd(this, _wrapperClass, void 0);
+      __privateAdd(this, _errorMessageClass, void 0);
+      __privateAdd(this, _withWrapper, void 0);
+      __privateAdd(this, _validationFields, void 0);
+      __privateAdd(this, _inputErrorsObj, void 0);
+      __privateAdd(this, _rules, void 0);
+      __privateAdd(this, _additionalRules, void 0);
+      __publicField(this, "init", (rules3, messages = {}, state = false) => {
+        if (!state && __privateGet(this, _multiStep)) {
+          throw "Multi step validation need initial state!";
+        }
+        __privateSet(this, _rules, rules3);
+        __privateSet(this, _errorMessages, messages);
+        if (__privateGet(this, _multiStep)) {
+          __privateGet(this, _setRulesForCurrentState).call(this, state);
+        } else {
+          this.validator = new import_livr.default.Validator(rules3);
+          __privateSet(this, _validationFields, Object.keys(rules3));
+          __privateSet(this, _currentStateMessages, __privateGet(this, _errorMessages));
+        }
+        __privateGet(this, _form).addEventListener("submit", __privateGet(this, _onFormSubmit));
+      });
+      __publicField(this, "destroy", () => {
+        this.validator = null;
+        __privateSet(this, _validationFields, []);
+        __privateSet(this, _errorMessages, {});
+        __privateGet(this, _form).removeEventListener("submit", __privateGet(this, _onFormSubmit));
+      });
+      __publicField(this, "changeState", (state) => {
+        if (__privateGet(this, _multiStep)) {
+          __privateGet(this, _setRulesForCurrentState).call(this, state);
+        } else if (!__privateGet(this, _multiStep)) {
+          throw "changeState method only works with multi step forms!";
+        }
+      });
+      __publicField(this, "checkForm", () => {
+        const data = this.formData;
+        const validData = this.validator.validate(data);
+        if (validData) {
+          __privateSet(this, _inputErrorsObj, {});
+          __privateSet(this, _isFormValid, true);
+          __privateGet(this, _removeInputErrorClasses).call(this);
+        } else {
+          __privateSet(this, _inputErrorsObj, this.validator.getErrors());
+          __privateSet(this, _isFormValid, false);
+          __privateGet(this, _checkInputsError).call(this);
+          __privateGet(this, _addInputSuccessClass).call(this);
+        }
+      });
+      __publicField(this, "addRule", (rules3) => {
+        if (!rules3) {
+          return;
+        }
+        const isArray = Array.isArray(rules3);
+        __privateSet(this, _additionalRules, rules3);
+        if (isArray) {
+          rules3.forEach((rule2) => this.validator.registerAliasedRule(__spreadValues({}, rule2)));
+        } else {
+          this.validator.registerAliasedRule(__spreadValues({}, rules3));
+        }
+      });
+      __privateAdd(this, _setRulesForCurrentState, (state) => {
+        this.validator = null;
+        this.validator = new import_livr.default.Validator(__privateGet(this, _rules)[state]);
+        __privateSet(this, _validationFields, Object.keys(__privateGet(this, _rules)[state]));
+        this.addRule(__privateGet(this, _additionalRules));
+        __privateSet(this, _currentStateMessages, __privateGet(this, _errorMessages)[state]);
+      });
+      __privateAdd(this, _onFormSubmit, (evt) => {
+        evt.preventDefault();
+        this.checkForm();
+        if (this.isFormValid && !__privateGet(this, _noSubmit)) {
+          __privateGet(this, _form).submit();
+        } else if (!this.isFormValid) {
+          __privateGet(this, _vibrate).call(this);
+        }
+      });
+      __privateAdd(this, _removeInputErrorClasses, () => {
+        const errorFields = document.querySelectorAll(`.${__privateGet(this, _errorClass)}`);
+        errorFields.forEach((input) => input.classList.remove(__privateGet(this, _errorClass)));
+      });
+      __privateAdd(this, _addInputErrorClass, (inputWrapper) => {
+        if (inputWrapper) {
+          inputWrapper.classList.remove(__privateGet(this, _successClass));
+          inputWrapper.classList.add(__privateGet(this, _errorClass));
+        }
+      });
+      __privateAdd(this, _checkInputsError, () => {
+        __privateGet(this, _removeInputErrorClasses).call(this);
+        const errorsKey = Object.keys(this.errors);
+        if (errorsKey.length) {
+          errorsKey.forEach((inputName) => {
+            const input = __privateGet(this, _form).querySelector(`[name="${inputName}"]`);
+            const inputWrapper = __privateGet(this, _getWrapperElement).call(this, input);
+            __privateGet(this, _addInputErrorClass).call(this, inputWrapper);
+            __privateGet(this, _showErrorMessage).call(this, inputWrapper, inputName);
+          });
+        }
+      });
+      __privateAdd(this, _addInputSuccessClass, () => {
+        __privateGet(this, _validationFields).forEach((inputName) => {
+          const input = __privateGet(this, _form).querySelector(`[name="${inputName}"]`);
+          const inputWrapper = __privateGet(this, _getWrapperElement).call(this, input);
+          if (inputWrapper && !inputWrapper.classList.contains(__privateGet(this, _errorClass))) {
+            inputWrapper.classList.add(__privateGet(this, _successClass));
+          }
+        });
+      });
+      __privateAdd(this, _showErrorMessage, (wrapper, inputName) => {
+        var _a, _b;
+        const defaultError = this.errors[inputName];
+        const customError = (_b = (_a = __privateGet(this, _currentStateMessages)) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
+        const errorMessageBlock = wrapper == null ? void 0 : wrapper.querySelector(`.${__privateGet(this, _errorMessageClass)}`);
+        if (defaultError && customError && errorMessageBlock) {
+          errorMessageBlock.innerText = customError;
+        }
+      });
+      __privateAdd(this, _getWrapperElement, (input) => {
+        if (__privateGet(this, _withWrapper)) {
+          return input.closest(`.${__privateGet(this, _wrapperClass)}`);
+        } else {
+          return input;
+        }
+      });
+      __privateAdd(this, _vibrate, () => {
+        if (window.navigator.vibrate && __privateGet(this, _isVibrate)) {
+          window.navigator.vibrate([300, 100, 300]);
+        }
+      });
+      __privateAdd(this, _autoTrimValues, () => {
+        if (__privateGet(this, _isAutoTrim)) {
+          import_livr.default.Validator.defaultAutoTrim(true);
+        }
+      });
+      __privateSet(this, _form, form2);
+      __privateSet(this, _isAutoTrim, autoTrim);
+      __privateSet(this, _isVibrate, vibrate);
+      __privateSet(this, _noSubmit, notSubmit);
+      __privateSet(this, _multiStep, multiStep);
+      __privateSet(this, _successClass, successClass);
+      __privateSet(this, _errorClass, errorClass);
+      __privateSet(this, _wrapperClass, wrapperClass);
+      __privateSet(this, _errorMessageClass, errorMessageClass);
+      __privateSet(this, _withWrapper, withWrapper);
+      __privateSet(this, _inputErrorsObj, {});
+      __privateSet(this, _validationFields, []);
+      __privateSet(this, _errorMessages, {});
+      __privateSet(this, _isFormValid, false);
+      __privateGet(this, _autoTrimValues).call(this);
+    }
+    get formData() {
+      const data = new FormData(__privateGet(this, _form));
+      const values = {};
+      data.forEach((value, key) => {
+        values[key] = value;
+      });
+      return values;
+    }
+    get errors() {
+      return __privateGet(this, _inputErrorsObj);
+    }
+    get isFormValid() {
+      return __privateGet(this, _isFormValid);
+    }
+  };
+  _form = new WeakMap();
+  _errorMessages = new WeakMap();
+  _currentStateMessages = new WeakMap();
+  _isFormValid = new WeakMap();
+  _isAutoTrim = new WeakMap();
+  _isVibrate = new WeakMap();
+  _noSubmit = new WeakMap();
+  _multiStep = new WeakMap();
+  _successClass = new WeakMap();
+  _errorClass = new WeakMap();
+  _wrapperClass = new WeakMap();
+  _errorMessageClass = new WeakMap();
+  _withWrapper = new WeakMap();
+  _validationFields = new WeakMap();
+  _inputErrorsObj = new WeakMap();
+  _rules = new WeakMap();
+  _additionalRules = new WeakMap();
+  _setRulesForCurrentState = new WeakMap();
+  _onFormSubmit = new WeakMap();
+  _removeInputErrorClasses = new WeakMap();
+  _addInputErrorClass = new WeakMap();
+  _checkInputsError = new WeakMap();
+  _addInputSuccessClass = new WeakMap();
+  _showErrorMessage = new WeakMap();
+  _getWrapperElement = new WeakMap();
+  _vibrate = new WeakMap();
+  _autoTrimValues = new WeakMap();
+  var Formurai_default = Formurai;
+
+  // src/testData/config.js
+  var rules = {
+    "name": ["required"],
+    "surname": ["required"],
+    "email": ["required", "email"],
+    "phone": ["required", "integer", { length_equal: 11 }],
+    "password": ["required", { min_length: 6 }],
+    "password2": ["required", { "equal_to_field": "password" }]
+  };
+  var rules2 = {
+    "text": [{ remove: "0123456789" }, "required"],
+    "code": ["required"]
+  };
+  var registrationErrors = {
+    "name": {
+      REQUIRED: "Last name required"
+    },
+    "surname": {
+      REQUIRED: "First name required"
+    },
+    "email": {
+      REQUIRED: "Email required",
+      WRONG_EMAIL: "Email must be valid"
+    },
+    "phone": {
+      NOT_INTEGER: "Phone must be a number",
+      REQUIRED: "Phone required",
+      TOO_LONG: "Phone must contain no more than 11 digits",
+      TOO_SHORT: "Phone must contain at least 11 digits"
+    },
+    "password": {
+      REQUIRED: "Password required",
+      TOO_SHORT: "Password must contain at least 6 symbols"
+    },
+    "password2": {
+      REQUIRED: "Password repeat required",
+      FIELDS_NOT_EQUAL: "Repeat password must match password"
+    }
+  };
+
+  // src/index.js
+  var form = document.querySelector("#test-form");
+  var rule = {
+    name: "strong_password",
+    rules: [{ length_between: [15, 20] }],
+    error: "WEAK_PASSWORD"
+  };
+  var test = new Formurai_default(form, {
+    multiStep: true
+  });
+  test.init({ step1: rules, step2: rules2 }, { step1: registrationErrors, step2: registrationErrors }, "step1");
+  test.addRule(rule);
+  test.changeState("step2");
+  test.changeState("step1");
+})();
 //# sourceMappingURL=index.js.map

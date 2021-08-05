@@ -76,6 +76,7 @@ As a key for the rules, you need to pass the name of the field to be validated. 
   border: 1px solid green;
 }
 ```
+When the form is submitted or the checkForm method is called, the wrapper is assigned an error or success class.
 
 ## HTML
 ```html

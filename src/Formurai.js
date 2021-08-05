@@ -150,14 +150,11 @@ class Formurai {
   #onFormSubmit = (evt) => {
     evt.preventDefault();
     this.checkForm();
-    if (this.isFormValid) {
+    if (this.isFormValid && !this.#noSubmit) {
       this.#form.submit();
-    } else if (this.#noSubmit) {
-      return
     } else if (!this.isFormValid) {
       this.#vibrate();
     }
-    console.log(this.formData)
   }
 
   #removeInputErrorClasses = () => {
@@ -189,7 +186,7 @@ class Formurai {
     this.#validationFields.forEach((inputName) => {
       const input = this.#form.querySelector(`[name="${inputName}"]`);
       const inputWrapper = this.#getWrapperElement(input);
-      if (!inputWrapper.classList.contains(this.#errorClass)) {
+      if (inputWrapper && !inputWrapper.classList.contains(this.#errorClass)) {
         inputWrapper.classList.add(this.#successClass);
       }
     });
