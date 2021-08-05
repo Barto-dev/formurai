@@ -8,7 +8,10 @@
   </a>
 </div>
 
-# Lightweight form validation library
+<div align="center">
+  <strong>Formurai</strong> is a lightweight library for declarative form validation
+</div>
+
 
 ## example https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
 
