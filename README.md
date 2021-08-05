@@ -40,12 +40,12 @@ import Formurai from 'formurai';
 
 // define rules
 const rules = {
-  'email': ['required', 'email'],
+  'login-email': ['required', 'email'],
 };
 
 // define errors for user
 export const errors = {
-  'email': {
+  'login-email': {
     REQUIRED: 'Email required',
     WRONG_EMAIL: 'Email must be valid',
   }
@@ -82,7 +82,7 @@ As a key for the rules, you need to pass the name of the field to be validated. 
 <form id="login">
   
   <section class="formurai-container">
-    <input name="email" type="email">
+    <input name="login-email" type="email">
     <span class="formurai-message"></span>
   </section>
 
