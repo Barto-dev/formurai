@@ -1,10 +1,20 @@
+<div align="center">
+    <img src="assets/logo.svg" width="280" height="210" alt="Logo" />
+</div>
+
+<div align="center">
+  <a href="https://bundlephobia.com/package/formurai@0.0.11">
+    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai?color=6ead0a&label=" />
+  </a>
+</div>
+
 # Lightweight form validation library
 
 ## example https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
 
 ## Features
 
-- 📦 **Small**: Just **3.64 KB** gzipped 
+- 📦 **Small**: Just **4.4 KB** gzipped 
 
 ### HTML
 ```
