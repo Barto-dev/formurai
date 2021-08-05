@@ -15,7 +15,7 @@
 
 ## Features
 
-- 📦 **Small**: Just **4.4 KB** gzipped 
+- 📦 Just **4.4 KB** gzipped 
 - 👩🏻‍💻 Rules are declarative 
 - 📜 Easy to create and reuse your own rules
 - ✨ Any number of rules for each field
@@ -55,29 +55,31 @@ const validator = new Formurai(form);
 validator.init(rules, errors);
 ```
 
-## Usage
-soon...
-## Methods
+## css
+```css
+.formurai-message {
+  display: none;
+}
 
-## Examples
-- https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
+.formurai-error .formurai-message {
+  display: none;
+}
 
-### HTML
+.formurai-error input {
+  border: 1px solid red;
+}
+
+.formurai-success input {
+  border: 1px solid green;
+}
 ```
+
+## HTML
+```html
 <form id="login">
-
+  
   <section class="formurai-container">
-    <input name="name" type="text">
-    <span class="formurai-message"></span>
-  </section>
-
-  <section class="formurai-container">
-    <input name="code" type="text">
-    <span class="formurai-message"></span>
-  </section>
-
-  <section class="formurai-container">
-    <input name="email" type="text">
+    <input name="email" type="email">
     <span class="formurai-message"></span>
   </section>
 
@@ -85,33 +87,14 @@ soon...
   
 </form>
 ```
+## Usage
 
-### JS
-```
-import Formurai from 'Formurai';
+## Options
 
-const rules = {
-  'name': ['required'],
-  'code': ['required', 'integer', {length_between: [1, 3]}],
-  'email': ['required', 'email'],
-};
+## Methods
 
-export const registrationErrors = {
-  'name': {
-    REQUIRED: 'Name required',
-  },
-  'code': {
-    REQUIRED: 'First name required',
-    TOO_LONG: 'Phone code must contain no more than 3 digits',
-    TOO_SHORT: 'Phone code must contain at least 1 digits',
-  },
-  'email': {
-    REQUIRED: 'Email required',
-    WRONG_EMAIL: 'Email must be valid',
-  }
-};
+## Rules
+soon...
 
-const form = document.querySelector('#login');
-const validator = new Formurai(form);
-validator.init(rules, registrationErrors);
-```
+## Examples
+- https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
