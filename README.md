@@ -3,13 +3,14 @@
 </div>
 
 <div align="center">
-  <a href="https://bundlephobia.com/package/formurai@0.0.11">
-    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai" />
-  </a>
+<strong>Formurai</strong> is a lightweight and powerfull library for declarative form validation
+
 </div>
 
 <div align="center">
-  <strong>Formurai</strong> is a lightweight library for declarative form validation
+  <a href="https://bundlephobia.com/package/formurai@0.0.11">
+    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai" />
+  </a>
 </div>
 
 
