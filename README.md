@@ -1,11 +1,11 @@
 <div align="center">
     <img src="assets/logo.svg" width="180" height="180" alt="Logo" />
 </div>
-
+<br>
 <div align="center">
 <strong>Formurai</strong> is a lightweight and powerfull library for declarative form validation
-
 </div>
+<br>
 
 <div align="center">
   <a href="https://bundlephobia.com/package/formurai@0.0.11">
