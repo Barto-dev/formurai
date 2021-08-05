@@ -23,7 +23,7 @@
 - ⚙️ Configurable check queue
 - ❌ Flexible error handling and their display
 
-##Setup
+## Setup
 ### Install the package
 ```
 npm install formurai
@@ -40,9 +40,9 @@ import Formurai from 'formurai';
 soon...
 ## Setup
 soon...
-##Usage
+## Usage
 soon...
-##Methods
+## Methods
 
 ## Examples
 - https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
