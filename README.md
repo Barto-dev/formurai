@@ -25,21 +25,24 @@
 
 ## Setup
 ### Install the package
-```
+```js
 npm install formurai
 ```
 
-```
+```js
 yarn add formurai
 ```
 
 ### JS
-```
+```js
 import Formurai from 'formurai';
+
+// define rules
+const rules = {
+  'email': ['required', 'email'],
+};
 ```
-soon...
-## Setup
-soon...
+
 ## Usage
 soon...
 ## Methods
