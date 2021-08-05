@@ -1,10 +1,10 @@
 <div align="center">
-    <img src="assets/logo.svg" width="280" height="210" alt="Logo" />
+    <img src="assets/logo.svg" width="180" height="180" alt="Logo" />
 </div>
 
 <div align="center">
   <a href="https://bundlephobia.com/package/formurai@0.0.11">
-    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai?color=6ead0a&label=" />
+    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai" />
   </a>
 </div>
 
