@@ -98,4 +98,5 @@ validator.init(rules, errors);
 soon...
 
 ## Examples
-- https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js
+[Registration form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js)
+- 
