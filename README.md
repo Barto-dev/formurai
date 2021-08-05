@@ -56,6 +56,8 @@ const validator = new Formurai(form);
 validator.init(rules, errors);
 ```
 
+As a key for the rules, you need to pass the name of the field to be validated. The field name must be unique within this form
+
 ## css
 ```css
 .formurai-message {
