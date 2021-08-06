@@ -43,7 +43,7 @@ const rules = {
   'login-email': ['required', 'email'],
 };
 
-// define errors for user
+// define errors for user, its optional
 export const errors = {
   'login-email': {
     REQUIRED: 'Email required',
@@ -58,7 +58,7 @@ validator.init(rules, errors);
 
 As a key for the rules, you need to pass the name of the field to be validated. The field name must be unique within this form
 
-## css
+## CSS
 ```css
 .formurai-message {
   display: none;
@@ -76,7 +76,7 @@ As a key for the rules, you need to pass the name of the field to be validated. 
   border: 1px solid green;
 }
 ```
-When the form is submitted or the checkForm method is called, the wrapper(.formurai-container) is assigned an error or success class.
+When the form is submitted, or the checkForm method is called, the wrapper(.formurai-container) is assigned an error or success class.
 
 ## HTML
 ```html
@@ -91,6 +91,10 @@ When the form is submitted or the checkForm method is called, the wrapper(.formu
   
 </form>
 ```
+
+If you need to show errors in the interface, add the formurai-container class to the element to which you want to assign the error or success class (optional step).
+
+To display an error, inside the container, define an element with the class formurai-message, errors that you pass during initialization will be displayed here (optional step).
 ## Usage
 
 ## Options
