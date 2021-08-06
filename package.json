@@ -1,12 +1,13 @@
 {
   "name": "formurai",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Form validator",
   "main": "dist/index.js",
   "author": "Illia",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "assets"
   ],
   "publishConfig": {
     "access": "public"

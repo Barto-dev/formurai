@@ -180,7 +180,6 @@ class Formurai {
   _onFormSubmit (evt) {
     evt.preventDefault();
     this.checkForm();
-    this._form.dispatchEvent(this._event)
     if (this._isFormValid && !this._noSubmit) {
       this._form.submit();
     } else if (!this._isFormValid) {

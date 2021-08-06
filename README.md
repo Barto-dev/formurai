@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="assets/logo.svg" width="180" height="180" alt="Logo" />
+    <img src="https://raw.githubusercontent.com/Barto-dev/formurai/master/assets/logo.svg" width="180" height="180" alt="Logo" />
 </div>
 <br>
 <div align="center">
@@ -98,6 +98,18 @@ To display an error, inside the container, define an element with the class form
 ## Usage
 
 ## Options
+
+| Option  | Type | Default value | Description |
+| ----- | ----- | ----- | ----- |
+| errorClass | string | 'formurai-error' | The class that will be added to the field with an error |
+| successClass | string | 'formurai-success' | The class that will be added to the field with an success |
+| wrapperClass | string | 'formurai-container' | The wrapper class to which the error or success class will be added |
+| withWrapper | boolean | true | If you do not need to show error messages and it will be enough for you to add an error or success class to the field, set false |
+| autoTrim | boolean | true | Soon... |
+| vibrate | boolean | true | Soon... |
+| notSubmit | boolean | false | Soon... |
+| multiStep | boolean | false | Soon... |
+
 
 ## Methods
 
