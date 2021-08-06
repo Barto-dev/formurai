@@ -29,3 +29,4 @@ test.init({step1: rules, step2: rules2}, {step1: registrationErrors, step2: regi
 test.addRule(rule);
 test.changeState('step2')
 test.changeState('step1')
+test.on('formValid', () => {console.log('test')})
