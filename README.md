@@ -114,40 +114,40 @@ To display an error, inside the container, define an element with the class form
 
 ## Methods
 
-###init(rules, messages, state)
+### init(rules, messages, state)
 ```js
 
 ```
 
-###destroy()
+### destroy()
 ```js
 
 ```
-###changeState(state)
-```js
-
-```
-
-###checkForm()
+### changeState(state)
 ```js
 
 ```
 
-###addRule(rule)
-```js
-
-```
-###formData
+### checkForm()
 ```js
 
 ```
 
-###errors
+### addRule(rule)
+```js
+
+```
+### formData
 ```js
 
 ```
 
-###isFormValid
+### errors
+```js
+
+```
+
+### isFormValid
 ```js
 
 ```
