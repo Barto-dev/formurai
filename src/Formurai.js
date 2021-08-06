@@ -108,7 +108,8 @@ class Formurai {
     if (!this._additionalEvents.includes(evtName)) {
       return
     }
-    console.log(cb)
+    this._event = new CustomEvent(evtName, { detail: this.formData });
+    this._form.addEventListener(evtName, cb);
   }
 
   get formData() {
@@ -139,6 +140,7 @@ class Formurai {
   _onFormSubmit (evt) {
     evt.preventDefault();
     this.checkForm();
+    this._form.dispatchEvent(this._event)
     if (this._isFormValid && !this._noSubmit) {
       this._form.submit();
     } else if (!this._isFormValid) {
