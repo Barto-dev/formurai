@@ -27,6 +27,7 @@ const test = new Formurai(form, {
 });
 test.init({step1: rules, step2: rules2}, {step1: registrationErrors, step2: registrationErrors}, 'step1');
 test.addRule(rule);
+// test.addRule(rule);
 test.changeState('step2')
 test.changeState('step1')
-test.on('formValid', (e) => {console.log('send data' + JSON.stringify(e.detail))})
+// test.on('formValid', (e) => {console.log('send data' + JSON.stringify(e.detail))})

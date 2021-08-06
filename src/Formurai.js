@@ -2,6 +2,18 @@ import LIVR from 'livr';
 
 class Formurai {
 
+  /**
+   * @param {HTMLFormElement} form
+   * @param {string} errorClass
+   * @param {string} successClass
+   * @param {string} wrapperClass
+   * @param {string} errorMessageClass
+   * @param {boolean} withWrapper
+   * @param {boolean} autoTrim
+   * @param {boolean} vibrate
+   * @param {boolean} notSubmit
+   * @param {boolean} multiStep
+   */
   constructor(form, {
     errorClass = 'formurai-error',
     successClass = 'formurai-success',
@@ -39,6 +51,11 @@ class Formurai {
 
   }
 
+  /**
+   * @param {Object} rules
+   * @param {Object} messages
+   * @param {(string|boolean)} state
+   */
   init(rules, messages = {}, state = false) {
     if (!state && this._multiStep) {
       throw 'Multi step validation need initial state!'
@@ -65,6 +82,9 @@ class Formurai {
     this._form.removeEventListener('submit', this._onFormSubmit);
   }
 
+  /**
+   * @param {string} state
+   */
   changeState (state) {
     if (this._multiStep) {
       this._setRulesForCurrentState(state)
@@ -89,6 +109,9 @@ class Formurai {
     }
   };
 
+  /**
+   * @param {Object|Array.<Object>|undefined} rules
+   */
   addRule (rules) {
     if (!rules) {
       return
@@ -104,14 +127,17 @@ class Formurai {
     }
   }
 
-  on (evtName, cb) {
+/*  on (evtName, cb) {
     if (!this._additionalEvents.includes(evtName)) {
       return
     }
     this._event = new CustomEvent(evtName, { detail: this.formData });
     this._form.addEventListener(evtName, cb);
-  }
+  }*/
 
+  /**
+   * @returns {Object}
+   */
   get formData() {
     const data = new FormData(this._form);
     const values = {};
@@ -121,14 +147,24 @@ class Formurai {
     return values;
   }
 
+  /**
+   * @returns {*|{}}
+   */
   get errors() {
     return this._inputErrorsObj;
   }
 
+  /**
+   * @returns {boolean}
+   */
   get isFormValid() {
     return this._isFormValid;
   }
 
+  /**
+   * @param {string}state
+   * @private
+   */
   _setRulesForCurrentState (state) {
     this.validator = null;
     this.validator = new LIVR.Validator(this._rules[state]);
@@ -137,6 +173,10 @@ class Formurai {
     this._currentStateMessages = this._errorMessages[state];
   }
 
+  /**
+   * @param {HTMLFormElement<Event>} evt
+   * @private
+   */
   _onFormSubmit (evt) {
     evt.preventDefault();
     this.checkForm();
@@ -153,6 +193,10 @@ class Formurai {
     errorFields.forEach((input) => input.classList.remove(this._errorClass));
   };
 
+  /**
+   * @param {HTMLElement|null} inputWrapper
+   * @private
+   */
   _addInputErrorClass (inputWrapper) {
     if (inputWrapper) {
       inputWrapper.classList.remove(this._successClass);
@@ -160,6 +204,9 @@ class Formurai {
     }
   };
 
+  /**
+   * @private
+   */
   _checkInputsError () {
     this._removeInputErrorClasses();
     const errorsKey = Object.keys(this.errors);
@@ -173,6 +220,9 @@ class Formurai {
     }
   }
 
+  /**
+   * @private
+   */
   _addInputSuccessClass () {
     this._validationFields.forEach((inputName) => {
       const input = this._form.querySelector(`[name="${inputName}"]`);
@@ -183,6 +233,11 @@ class Formurai {
     });
   };
 
+  /**
+   * @param {HTMLElement|null} wrapper
+   * @param {string} inputName
+   * @private
+   */
   _showErrorMessage (wrapper, inputName) {
     const defaultError = this.errors[inputName];
     const customError = this._currentStateMessages?.[inputName]?.[defaultError];
@@ -192,7 +247,12 @@ class Formurai {
     }
   };
 
-  // Возвращаем элемент в зависимости от того есть ли обертка у элемента
+  /**
+   * return the element on which we will hang up the error or success classes
+   * @param {HTMLInputElement} input
+   * @returns {HTMLElement|HTMLInputElement}
+   * @private
+   */
   _getWrapperElement (input) {
     if (this._withWrapper) {
       return input.closest(`.${this._wrapperClass}`);
@@ -201,12 +261,18 @@ class Formurai {
     }
   }
 
+  /**
+   * @private
+   */
   _vibrate () {
     if (window.navigator.vibrate && this._isVibrate) {
       window.navigator.vibrate([300, 100, 300]);
     }
   };
 
+  /**
+   * @private
+   */
   _autoTrimValues () {
     if (this._isAutoTrim) {
       LIVR.Validator.defaultAutoTrim(true);
