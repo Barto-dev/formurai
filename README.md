@@ -9,20 +9,28 @@
 
 <div align="center">
   <a href="https://bundlephobia.com/package/formurai@0.0.11">
-    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai" />
+    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.1.6" />
   </a>
 </div>
 
+- [Features](#Features)
+- [Setup](#Setup)
+- [Usage](#Usage)
+- [Options](#Options)
+- [Methods](#Methods)
+- [Rules](#Rules)
+- [Examples](#Examples)
 
 ## Features
 
-- 📦 Just **4.4 KB** gzipped 
+- 📦 Just **4.2 KB** gzipped 
 - 👩🏻‍💻 Rules are declarative 
 - 📜 Easy to create and reuse your own rules
 - ✨ Any number of rules for each field
 - 🗜 Has possibility to validate multistep forms
 - ⚙️ Configurable check queue
 - ❌ Flexible error handling and their display
+- 👍 Don't need Jquery.
 
 ## Setup
 ### Install the package
@@ -58,7 +66,7 @@ validator.init(rules, errors);
 
 As a key for the rules, you need to pass the name of the field to be validated. The field name must be unique within this form
 
-## CSS
+### CSS
 ```css
 .formurai-message {
   display: none;
@@ -78,7 +86,7 @@ As a key for the rules, you need to pass the name of the field to be validated. 
 ```
 When the form is submitted, or the checkForm method is called, the wrapper(.formurai-container) is assigned an error or success class.
 
-## HTML
+### HTML
 ```html
 <form id="login">
   

@@ -1,13 +1,13 @@
 {
   "name": "formurai",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Form validator",
   "main": "dist/index.js",
   "author": "Illia",
   "license": "MIT",
+  "repository": "Barto-dev/formurai",
   "files": [
-    "dist",
-    "assets"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
