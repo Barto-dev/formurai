@@ -104,8 +104,16 @@ If you need to show errors in the interface, add the formurai-container class to
 
 To display an error, inside the container, define an element with the class formurai-message, errors that you pass during initialization will be displayed here (optional step).
 ## Usage
-
-Soon...
+Basic usage, you need to pass the form and rules.
+```js
+/**
+ * @param {HTMLFormElement} form 
+ * @param {Object} options 
+ * @type {Formurai}
+ */
+const validator = new Formurai(form, options);
+validator.init(rules);
+```
 
 ## Options
 
