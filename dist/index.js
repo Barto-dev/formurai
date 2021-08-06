@@ -38,19 +38,6 @@
     __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
     return value;
   };
-  var __accessCheck = (obj, member, msg) => {
-    if (!member.has(obj))
-      throw TypeError("Cannot " + msg);
-  };
-  var __privateGet = (obj, member, getter) => {
-    __accessCheck(obj, member, "read from private field");
-    return getter ? getter.call(obj) : member.get(obj);
-  };
-  var __privateAdd = (obj, member, value) => {
-    if (member.has(obj))
-      throw TypeError("Cannot add the same private member more than once");
-    member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-  };
 
   // node_modules/livr/lib/util.js
   var require_util = __commonJS({
@@ -1113,7 +1100,6 @@
 
   // src/Formurai.js
   var import_livr = __toModule(require_LIVR());
-  var _setRulesForCurrentState, _onFormSubmit, _removeInputErrorClasses, _addInputErrorClass, _checkInputsError, _addInputSuccessClass, _showErrorMessage, _getWrapperElement, _vibrate, _autoTrimValues;
   var Formurai = class {
     constructor(form2, {
       errorClass = "formurai-error",
@@ -1133,23 +1119,23 @@
         this._rules = rules3;
         this._errorMessages = messages;
         if (this._multiStep) {
-          __privateGet(this, _setRulesForCurrentState).call(this, state);
+          this._setRulesForCurrentState(state);
         } else {
           this.validator = new import_livr.default.Validator(rules3);
           this._validationFields = Object.keys(rules3);
           this._currentStateMessages = this._errorMessages;
         }
-        this._form.addEventListener("submit", __privateGet(this, _onFormSubmit));
+        this._form.addEventListener("submit", this._onFormSubmit);
       });
       __publicField(this, "destroy", () => {
         this.validator = null;
         this._validationFields = [];
         this._errorMessages = {};
-        this._form.removeEventListener("submit", __privateGet(this, _onFormSubmit));
+        this._form.removeEventListener("submit", this._onFormSubmit);
       });
       __publicField(this, "changeState", (state) => {
         if (this._multiStep) {
-          __privateGet(this, _setRulesForCurrentState).call(this, state);
+          this._setRulesForCurrentState(state);
         } else if (!this._multiStep) {
           throw "changeState method only works with multi step forms!";
         }
@@ -1160,12 +1146,12 @@
         if (validData) {
           this._inputErrorsObj = {};
           this._isFormValid = true;
-          __privateGet(this, _removeInputErrorClasses).call(this);
+          this._removeInputErrorClasses();
         } else {
           this._inputErrorsObj = this.validator.getErrors();
           this._isFormValid = false;
-          __privateGet(this, _checkInputsError).call(this);
-          __privateGet(this, _addInputSuccessClass).call(this);
+          this._checkInputsError();
+          this._addInputSuccessClass();
         }
       });
       __publicField(this, "addRule", (rules3) => {
@@ -1186,54 +1172,54 @@
         }
         console.log(cb);
       });
-      __privateAdd(this, _setRulesForCurrentState, (state) => {
+      __publicField(this, "_setRulesForCurrentState", (state) => {
         this.validator = null;
         this.validator = new import_livr.default.Validator(this._rules[state]);
         this._validationFields = Object.keys(this._rules[state]);
         this.addRule(this._additionalRules);
         this._currentStateMessages = this._errorMessages[state];
       });
-      __privateAdd(this, _onFormSubmit, (evt) => {
+      __publicField(this, "_onFormSubmit", (evt) => {
         evt.preventDefault();
         this.checkForm();
         if (this._isFormValid && !this._noSubmit) {
           this._form.submit();
         } else if (!this._isFormValid) {
-          __privateGet(this, _vibrate).call(this);
+          this._vibrate();
         }
       });
-      __privateAdd(this, _removeInputErrorClasses, () => {
+      __publicField(this, "_removeInputErrorClasses", () => {
         const errorFields = document.querySelectorAll(`.${this._errorClass}`);
         errorFields.forEach((input) => input.classList.remove(this._errorClass));
       });
-      __privateAdd(this, _addInputErrorClass, (inputWrapper) => {
+      __publicField(this, "_addInputErrorClass", (inputWrapper) => {
         if (inputWrapper) {
           inputWrapper.classList.remove(this._successClass);
           inputWrapper.classList.add(this._errorClass);
         }
       });
-      __privateAdd(this, _checkInputsError, () => {
-        __privateGet(this, _removeInputErrorClasses).call(this);
+      __publicField(this, "_checkInputsError", () => {
+        this._removeInputErrorClasses();
         const errorsKey = Object.keys(this.errors);
         if (errorsKey.length) {
           errorsKey.forEach((inputName) => {
             const input = this._form.querySelector(`[name="${inputName}"]`);
-            const inputWrapper = __privateGet(this, _getWrapperElement).call(this, input);
-            __privateGet(this, _addInputErrorClass).call(this, inputWrapper);
-            __privateGet(this, _showErrorMessage).call(this, inputWrapper, inputName);
+            const inputWrapper = this._getWrapperElement(input);
+            this._addInputErrorClass(inputWrapper);
+            this._showErrorMessage(inputWrapper, inputName);
           });
         }
       });
-      __privateAdd(this, _addInputSuccessClass, () => {
+      __publicField(this, "_addInputSuccessClass", () => {
         this._validationFields.forEach((inputName) => {
           const input = this._form.querySelector(`[name="${inputName}"]`);
-          const inputWrapper = __privateGet(this, _getWrapperElement).call(this, input);
+          const inputWrapper = this._getWrapperElement(input);
           if (inputWrapper && !inputWrapper.classList.contains(this._errorClass)) {
             inputWrapper.classList.add(this._successClass);
           }
         });
       });
-      __privateAdd(this, _showErrorMessage, (wrapper, inputName) => {
+      __publicField(this, "_showErrorMessage", (wrapper, inputName) => {
         var _a, _b;
         const defaultError = this.errors[inputName];
         const customError = (_b = (_a = this._currentStateMessages) == null ? void 0 : _a[inputName]) == null ? void 0 : _b[defaultError];
@@ -1242,19 +1228,19 @@
           errorMessageBlock.innerText = customError;
         }
       });
-      __privateAdd(this, _getWrapperElement, (input) => {
+      __publicField(this, "_getWrapperElement", (input) => {
         if (this._withWrapper) {
           return input.closest(`.${this._wrapperClass}`);
         } else {
           return input;
         }
       });
-      __privateAdd(this, _vibrate, () => {
+      __publicField(this, "_vibrate", () => {
         if (window.navigator.vibrate && this._isVibrate) {
           window.navigator.vibrate([300, 100, 300]);
         }
       });
-      __privateAdd(this, _autoTrimValues, () => {
+      __publicField(this, "_autoTrimValues", () => {
         if (this._isAutoTrim) {
           import_livr.default.Validator.defaultAutoTrim(true);
         }
@@ -1274,7 +1260,7 @@
       this._errorMessages = {};
       this._isFormValid = false;
       this._additionalEvents = ["formValid", "changeState"];
-      __privateGet(this, _autoTrimValues).call(this);
+      this._autoTrimValues();
     }
     get formData() {
       const data = new FormData(this._form);
@@ -1291,16 +1277,6 @@
       return this._isFormValid;
     }
   };
-  _setRulesForCurrentState = new WeakMap();
-  _onFormSubmit = new WeakMap();
-  _removeInputErrorClasses = new WeakMap();
-  _addInputErrorClass = new WeakMap();
-  _checkInputsError = new WeakMap();
-  _addInputSuccessClass = new WeakMap();
-  _showErrorMessage = new WeakMap();
-  _getWrapperElement = new WeakMap();
-  _vibrate = new WeakMap();
-  _autoTrimValues = new WeakMap();
   var Formurai_default = Formurai;
 
   // src/testData/config.js
