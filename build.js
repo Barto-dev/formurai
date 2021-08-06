@@ -37,8 +37,7 @@ esbuild.build({
   minify: false,
   watch: true,
   target: [
-    'es2020',
-    'node14',
+    'es2017',
   ],
 });
 
@@ -49,11 +48,11 @@ esbuild.build({
   // outdir: outdirectory,
   outfile: 'dist/index.js',
   sourcemap: true,
-  bundle: true,
+  /*bundle: true,*/
   define: {'process.env.NODE_ENV': '"production"'},
-  minify: true,
+  /* minify: true,*/
   target: [
-    'es2019',
+    'es2017',
   ],
 }) &&
 console.log('building');

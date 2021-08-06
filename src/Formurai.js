@@ -35,9 +35,11 @@ class Formurai {
 
     this._autoTrimValues();
 
+    this._onFormSubmit = this._onFormSubmit.bind(this);
+
   }
 
-  init = (rules, messages = {}, state = false) => {
+  init(rules, messages = {}, state = false) {
     if (!state && this._multiStep) {
       throw 'Multi step validation need initial state!'
     }
@@ -56,14 +58,14 @@ class Formurai {
     this._form.addEventListener('submit', this._onFormSubmit);
   };
 
-  destroy = () => {
+  destroy () {
     this.validator = null;
     this._validationFields = [];
     this._errorMessages = {};
     this._form.removeEventListener('submit', this._onFormSubmit);
   }
 
-  changeState = (state) => {
+  changeState (state) {
     if (this._multiStep) {
       this._setRulesForCurrentState(state)
     } else if (!this._multiStep) {
@@ -72,7 +74,7 @@ class Formurai {
   }
 
 
-  checkForm = () => {
+  checkForm () {
     const data = this.formData
     const validData = this.validator.validate(data);
     if (validData) {
@@ -87,7 +89,7 @@ class Formurai {
     }
   };
 
-  addRule = (rules) => {
+  addRule (rules) {
     if (!rules) {
       return
     }
@@ -102,7 +104,7 @@ class Formurai {
     }
   }
 
-  on = (evtName, cb) => {
+  on (evtName, cb) {
     if (!this._additionalEvents.includes(evtName)) {
       return
     }
@@ -126,7 +128,7 @@ class Formurai {
     return this._isFormValid;
   }
 
-  _setRulesForCurrentState = (state) => {
+  _setRulesForCurrentState (state) {
     this.validator = null;
     this.validator = new LIVR.Validator(this._rules[state]);
     this._validationFields = Object.keys(this._rules[state]);
@@ -134,7 +136,7 @@ class Formurai {
     this._currentStateMessages = this._errorMessages[state];
   }
 
-  _onFormSubmit = (evt) => {
+  _onFormSubmit (evt) {
     evt.preventDefault();
     this.checkForm();
     if (this._isFormValid && !this._noSubmit) {
@@ -144,19 +146,19 @@ class Formurai {
     }
   }
 
-  _removeInputErrorClasses = () => {
+  _removeInputErrorClasses () {
     const errorFields = document.querySelectorAll(`.${this._errorClass}`);
     errorFields.forEach((input) => input.classList.remove(this._errorClass));
   };
 
-  _addInputErrorClass = (inputWrapper) => {
+  _addInputErrorClass (inputWrapper) {
     if (inputWrapper) {
       inputWrapper.classList.remove(this._successClass);
       inputWrapper.classList.add(this._errorClass);
     }
   };
 
-  _checkInputsError = () => {
+  _checkInputsError () {
     this._removeInputErrorClasses();
     const errorsKey = Object.keys(this.errors);
     if (errorsKey.length) {
@@ -169,7 +171,7 @@ class Formurai {
     }
   }
 
-  _addInputSuccessClass = () => {
+  _addInputSuccessClass () {
     this._validationFields.forEach((inputName) => {
       const input = this._form.querySelector(`[name="${inputName}"]`);
       const inputWrapper = this._getWrapperElement(input);
@@ -179,7 +181,7 @@ class Formurai {
     });
   };
 
-  _showErrorMessage = (wrapper, inputName) => {
+  _showErrorMessage (wrapper, inputName) {
     const defaultError = this.errors[inputName];
     const customError = this._currentStateMessages?.[inputName]?.[defaultError];
     const errorMessageBlock = wrapper?.querySelector(`.${this._errorMessageClass}`);
@@ -189,7 +191,7 @@ class Formurai {
   };
 
   // Возвращаем элемент в зависимости от того есть ли обертка у элемента
-  _getWrapperElement = (input) => {
+  _getWrapperElement (input) {
     if (this._withWrapper) {
       return input.closest(`.${this._wrapperClass}`);
     } else {
@@ -197,13 +199,13 @@ class Formurai {
     }
   }
 
-  _vibrate = () => {
+  _vibrate () {
     if (window.navigator.vibrate && this._isVibrate) {
       window.navigator.vibrate([300, 100, 300]);
     }
   };
 
-  _autoTrimValues = () => {
+  _autoTrimValues () {
     if (this._isAutoTrim) {
       LIVR.Validator.defaultAutoTrim(true);
     }
