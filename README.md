@@ -104,6 +104,7 @@ To display an error, inside the container, define an element with the class form
 | errorClass | string | 'formurai-error' | The class that will be added to the field with an error |
 | successClass | string | 'formurai-success' | The class that will be added to the field with an success |
 | wrapperClass | string | 'formurai-container' | The wrapper class to which the error or success class will be added |
+| errorMessageClass | string | 'formurai-message' | The class of the element into which the error will be displayed must be inside the wrapperClass |
 | withWrapper | boolean | true | If you do not need to show error messages and it will be enough for you to add an error or success class to the field, set false |
 | autoTrim | boolean | true | Soon... |
 | vibrate | boolean | true | Soon... |
