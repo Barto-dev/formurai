@@ -235,7 +235,7 @@ validator.on('formValid', sendForm);
 All rules are based on LIVR (Language Independent Validation Rules). 
 So all the rules that you find **[here](https://livr-spec.org/validation-rules.html)** you can use in this validator
 
-Most common rules
+**Most common rules**
 
 | Rule  | Example | Error | 
 | ----- | ----- | ----- |
