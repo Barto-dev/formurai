@@ -195,6 +195,8 @@ validator.isFormValid // true | false
 ```
 
 ## Rules
+Here will be some of the most common rules, all other rules and names of errors you can see [here](https://livr-spec.org/validation-rules.html)
+
 | Rule  | Example | Error | 
 | ----- | ----- | ----- |
 | eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
@@ -210,3 +212,6 @@ validator.isFormValid // true | false
 
 [Registration form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js)
 
+[Multi step form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/multistep.js)
+
+[Ajax form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/multistep.js)
