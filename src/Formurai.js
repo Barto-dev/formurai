@@ -200,7 +200,7 @@ class Formurai {
     this.checkForm();
     if (this._isFormValid) {
       // this._events?.['formValid'].event.detail.data = this.formData;
-      this._form.dispatchEvent(this._events?.['formValid'].event);
+      this._form.dispatchEvent(this._events?.['formValid']?.event);
     }
 
     if (this._isFormValid && !this._noSubmit) {
