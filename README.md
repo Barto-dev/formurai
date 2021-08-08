@@ -131,47 +131,80 @@ validator.init(rules);
 
 
 ## Methods
-
-### init(rules, messages, state)
 ```js
+const validator = new Formurai(form);
+```
 
+### init(rules, messages?, initialState?)
+
+Initializes validator, error object and initialState, optional parameters, initialState work only in multi step forms.
+```js
+validator.init(rules)
 ```
 
 ### destroy()
+Destroys the validator and all associated event listeners. Also delete all added rules.
 ```js
-
+validator.destroy()
 ```
 ### changeState(state)
+Change current state in multi step form. The value must be a key with the rules for the current step
 ```js
+const rules = {
+  'step-1': {...stepRules},
+  'step-2': {...stepRules},
+}
 
+validator.changeState('step-2')
 ```
 
 ### checkForm()
+Manually run a form validation like
 ```js
+
+const nextStepButton = document.querySelector('.next-step');
+
+nextStepButton.addEventListener('click', () => {
+  validator.checkForm();
+  
+  if (validator.isFormValid) {
+    // go to the next step
+  }
+})
 
 ```
 
 ### addRule(rule)
 ```js
-
+validator.addRule()
 ```
 ### formData
 ```js
-
+validator.formData
 ```
 
 ### errors
 ```js
-
+validator.errors
 ```
 
 ### isFormValid
+Returns the current state of form validation
 ```js
-
+validator.isFormValid // true | false
 ```
 
 ## Rules
-soon...
+| Rule  | Example | Error | 
+| ----- | ----- | ----- |
+| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
+| one_of | { name: {'one_of': ['Anton', 'Igor']} } | 'NOT_ALLOWED_VALUE'|
+| max_length | { name: { max_length: 10 } } | 'TOO_LONG'|
+| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
+| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
+| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
+| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
+
 
 ## Examples
 
