@@ -29,8 +29,8 @@ if (process.argv.length > 2) {
 config == '-watch' &&
 esbuild.build({
   // pass any options to esbuild here...
-  entryPoints: ['src/index.js'],
-  outdir: outdirectory,
+  entryPoints: ['src/testData/index.js'],
+  outdir: 'dist',
   bundle: true,
   define: {'process.env.NODE_ENV': '"production"'},
   sourcemap: true,

@@ -216,6 +216,18 @@ validator.on(evt, callback);
 ```
 ### formValid
 This listener is triggered when the form is fully valid, useful if you need to send it in ajax, without reloading the page.
+```js
+
+const sendForm = async () => {
+  await fetch('https://example.com', {
+    method: 'POST',
+    body: evt.detail.data // contain all form data
+  })
+  console.log('Your form has been submitted successfully')
+}
+
+validator.on('formValid', sendForm);
+```
 
 ## Rules
 [ALL RULES](https://livr-spec.org/validation-rules.html)
