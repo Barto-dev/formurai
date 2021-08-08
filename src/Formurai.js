@@ -101,12 +101,14 @@ class Formurai {
       this._inputErrorsObj = {};
       this._isFormValid = true;
       this._removeInputErrorClasses();
+      this._addInputSuccessClass();
     } else {
       this._inputErrorsObj = this.validator.getErrors();
       this._isFormValid = false;
       this._checkInputsError();
       this._addInputSuccessClass();
     }
+    console.log(this.errors)
   };
 
   /**

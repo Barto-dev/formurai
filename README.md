@@ -176,17 +176,32 @@ nextStepButton.addEventListener('click', () => {
 ```
 
 ### addRule(rule)
+Accepts object or array of objects with custom rules. Rules need to be added after initialization
 ```js
-validator.addRule()
+
+const rules = {
+  password: 'strong_password'
+}
+
+const customRule = {
+  name: 'strong_password',
+  rules: [{length_between: [15, 20]}],
+  error: 'WEAK_PASSWORD'
+}
+
+validator.init(rules)
+validator.addRule(customRule)
 ```
 ### formData
+Returns an object with data from the form
 ```js
-validator.formData
+validator.formData // {name: 'Leonardo', email: 'leonardo@gmail.com'}
 ```
 
 ### errors
+Return an object with error codes
 ```js
-validator.errors
+validator.errors // {name: "REQUIRED", email: "WRONG_EMAIL"}
 ```
 
 ### isFormValid
