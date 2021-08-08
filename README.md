@@ -20,6 +20,7 @@
 - [Methods](#Methods)
 - [Rules](#Rules)
 - [Examples](#Examples)
+- [Roadmap](#Roadmap)
 
 ## Features
 
@@ -255,3 +256,10 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 - [Registration form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js)
 - [Multi step form](https://codesandbox.io/s/multi-step-from-validation-tjzob?file=/src/index.js)
 - [Ajax form](https://codesandbox.io/s/kind-pike-smzkx?file=/src/index.js)
+
+## Roadmap
+
+- [ ] Add a getter with a list of error messages
+- [ ] Add a scroll method to error input
+- [ ] Implement 'formInvalid' and 'changeState' events
+- [ ] Сover the code with tests
