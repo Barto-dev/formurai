@@ -195,7 +195,9 @@ validator.isFormValid // true | false
 ```
 
 ## Rules
-Here will be some of the most common rules, all other rules and names of errors you can see [here](https://livr-spec.org/validation-rules.html)
+[ALL RULES](https://livr-spec.org/validation-rules.html)
+
+Most common rules
 
 | Rule  | Example | Error | 
 | ----- | ----- | ----- |
