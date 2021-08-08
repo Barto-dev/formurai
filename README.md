@@ -204,10 +204,10 @@ Most common rules
 | eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
 | one_of | { name: {'one_of': ['Anton', 'Igor']} } | 'NOT_ALLOWED_VALUE'|
 | max_length | { name: { max_length: 10 } } | 'TOO_LONG'|
-| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
-| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
-| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
-| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
+| email | { login: 'email' } |  'WRONG_EMAIL'|
+| like | { name: { like: ['^\w+?$', 'i'] } | 'WRONG_FORMAT'|
+| integer | { age: 'integer' } } |  'NOT_INTEGER'|
+| number_between | { age: { 'number_between': [18, 95] } } |  'TOO_HIGH' or 'TOO_LOW' or 'NOT_NUMBER'|
 
 
 ## Examples
