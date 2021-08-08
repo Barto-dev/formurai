@@ -9,11 +9,11 @@
 
 export const rules = {
   'name': ['required'],
-  'surname': ['required'],
+/*  'surname': ['required'],
   'email': ['required', 'email'],
   'phone': ['required', 'integer', {length_equal: 11}],
   'password': ['required', {min_length: 6}],
-  'password2': ['required', {'equal_to_field': 'password'}],
+  'password2': ['required', {'equal_to_field': 'password'}],*/
 };
 
 export const rules2 = {

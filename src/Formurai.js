@@ -45,6 +45,8 @@ class Formurai {
 
     this._additionalEvents = ['formValid', 'changeState'];
 
+    this._events = {};
+
     this._autoTrimValues();
 
     this._onFormSubmit = this._onFormSubmit.bind(this);
@@ -80,6 +82,10 @@ class Formurai {
     this._validationFields = [];
     this._errorMessages = {};
     this._form.removeEventListener('submit', this._onFormSubmit);
+    const customEvents = Object.keys(this._events);
+    if (customEvents.length) {
+      customEvents.forEach((event) => this._form.removeEventListener(event, this._events[event].cb))
+    }
   }
 
   /**
@@ -108,7 +114,6 @@ class Formurai {
       this._checkInputsError();
       this._addInputSuccessClass();
     }
-    console.log(this.errors)
   };
 
   /**
@@ -129,13 +134,24 @@ class Formurai {
     }
   }
 
-/*  on (evtName, cb) {
+  /**
+   * @param {'formValid'|'changeState'} evtName
+   * @param {function} cb
+   */
+  on (evtName, cb) {
     if (!this._additionalEvents.includes(evtName)) {
-      return
+      throw `No such event exists: ${evtName}`
     }
-    this._event = new CustomEvent(evtName, { detail: this.formData });
+
+    if (typeof cb !== 'function') {
+      return;
+    }
+
+    this._events[evtName] = {};
+    this._events[evtName].event = new CustomEvent(evtName, { detail: {data: this.formData }});
+    this._events[evtName].cb = cb;
     this._form.addEventListener(evtName, cb);
-  }*/
+  }
 
   /**
    * @returns {Object}
@@ -182,6 +198,11 @@ class Formurai {
   _onFormSubmit (evt) {
     evt.preventDefault();
     this.checkForm();
+    if (this._isFormValid) {
+      this._events?.['formValid'].event.detail.data = this.formData;
+      this._form.dispatchEvent(this._events?.['formValid'].event);
+    }
+
     if (this._isFormValid && !this._noSubmit) {
       this._form.submit();
     } else if (!this._isFormValid) {

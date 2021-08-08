@@ -144,7 +144,7 @@ validator.init(rules)
 ```
 
 ### destroy()
-Destroys the validator and all associated event listeners. Also delete all added rules.
+Destroys the validator and all associated event listeners (custom to). Also delete all added rules.
 ```js
 validator.destroy()
 ```
@@ -209,6 +209,13 @@ Returns the current state of form validation
 ```js
 validator.isFormValid // true | false
 ```
+
+## Events
+```js
+validator.on(evt, callback);
+```
+### formValid
+This listener is triggered when the form is fully valid, useful if you need to send it in ajax, without reloading the page.
 
 ## Rules
 [ALL RULES](https://livr-spec.org/validation-rules.html)
