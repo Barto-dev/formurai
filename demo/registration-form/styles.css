@@ -1,0 +1,87 @@
+:root {
+  --error-color: rgb(255, 69, 58);
+  --success-color: rgb(48, 209, 88);
+}
+
+body {
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  place-items: center;
+  display: grid;
+  background-color: #eeeeee;
+  font-family: Arial, sans-serif;
+}
+
+form {
+  display: grid;
+  grid-gap: 25px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  color: rgb(58, 58, 60);
+}
+
+input {
+  display: block;
+  height: 45px;
+  width: 350px;
+  border-color: transparent;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: 2px dashed rgba(142, 142, 147, 1);
+}
+
+.formurai-container {
+  border-radius: 5px;
+  position: relative;
+}
+
+.formurai-error {
+  border: var(--error-color);
+}
+
+.formurai-success input {
+  border: 1px solid var(--success-color);
+}
+
+.formurai-message {
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  bottom: -34px;
+  transition: bottom 0.3s;
+}
+
+.formurai-error .formurai-message {
+  visibility: visible;
+  bottom: -24px;
+  color: var(--error-color);
+}
+
+.formurai-error input {
+  border: 1px solid var(--error-color);
+}
+
+.submit {
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgb(10, 132, 255);
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  display: block;
+  margin-top: 30px;
+}
