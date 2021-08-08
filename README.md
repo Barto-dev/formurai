@@ -239,8 +239,8 @@ Most common rules
 
 | Rule  | Example | Error | 
 | ----- | ----- | ----- |
-| eq | { name: {'eq': 'Anton'} } | 'NOT_ALLOWED_VALUE'|
-| one_of | { name: {'one_of': ['Anton', 'Igor']} } | 'NOT_ALLOWED_VALUE'|
+| eq | { name: {'eq': 'Snow'} } | 'NOT_ALLOWED_VALUE'|
+| one_of | { name: {'one_of': ['Snow', 'Tirion']} } | 'NOT_ALLOWED_VALUE'|
 | max_length | { name: { max_length: 10 } } | 'TOO_LONG'|
 | email | { login: 'email' } |  'WRONG_EMAIL'|
 | like | { name: { like: ['^\w+?$', 'i'] } | 'WRONG_FORMAT'|
