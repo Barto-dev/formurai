@@ -128,7 +128,7 @@ validator.init(rules);
 | autoTrim | boolean | true | Removes spaces before and after validated values |
 | vibrate | boolean | true | If an error occurs while submitting the form, a vibration is triggered |
 | notSubmit | boolean | false | If you don't need to reload the page, after submitting the form, set true |
-| multiStep | boolean | false | If you need to validate a form with many steps, and each step needs to be validated separately |
+| multiStep | boolean | false | If you need to validate a form with many steps, and each step needs to be validated separately. [See multi-step example](https://codesandbox.io/s/multi-step-from-validation-tjzob?file=/src/index.js) |
 
 
 ## Methods
@@ -138,7 +138,7 @@ const validator = new Formurai(form);
 
 ### init(rules, messages?, initialState?)
 
-Initializes validator, error object and initialState, optional parameters, initialState work only in multi step forms.
+Initializes validator, error object and initialState, optional parameters, initialState work only in multi-step forms.
 ```js
 validator.init(rules)
 ```
@@ -228,6 +228,8 @@ const sendForm = async () => {
 
 validator.on('formValid', sendForm);
 ```
+[See full example](https://codesandbox.io/s/kind-pike-smzkx?file=/src/index.js)
+
 
 ## Rules
 **[ALL RULES](https://livr-spec.org/validation-rules.html)**
