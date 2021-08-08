@@ -213,7 +213,5 @@ Most common rules
 ## Examples
 
 [Registration form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js)
-
 [Multi step form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/multistep.js)
-
 [Ajax form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/multistep.js)
