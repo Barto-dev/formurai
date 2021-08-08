@@ -77,7 +77,7 @@ class Formurai {
     this._form.addEventListener('submit', this._onFormSubmit);
   };
 
-  destroy () {
+  destroy() {
     this.validator = null;
     this._validationFields = [];
     this._errorMessages = {};
@@ -91,7 +91,7 @@ class Formurai {
   /**
    * @param {string} state
    */
-  changeState (state) {
+  changeState(state) {
     if (this._multiStep) {
       this._setRulesForCurrentState(state)
     } else if (!this._multiStep) {
@@ -100,7 +100,7 @@ class Formurai {
   }
 
 
-  checkForm () {
+  checkForm() {
     const data = this.formData
     const validData = this.validator.validate(data);
     if (validData) {
@@ -119,7 +119,7 @@ class Formurai {
   /**
    * @param {Object|Array.<Object>|undefined} rules
    */
-  addRule (rules) {
+  addRule(rules) {
     if (!rules) {
       return
     }
@@ -138,7 +138,7 @@ class Formurai {
    * @param {'formValid'|'changeState'} evtName
    * @param {function} cb
    */
-  on (evtName, cb) {
+  on(evtName, cb) {
     if (!this._additionalEvents.includes(evtName)) {
       throw `No such event exists: ${evtName}`
     }
@@ -148,7 +148,7 @@ class Formurai {
     }
 
     this._events[evtName] = {};
-    this._events[evtName].event = new CustomEvent(evtName, { detail: {data: this.formData }});
+    this._events[evtName].event = new CustomEvent(evtName, {detail: {data: this.formData}});
     this._events[evtName].cb = cb;
     this._form.addEventListener(evtName, cb);
   }
@@ -183,7 +183,7 @@ class Formurai {
    * @param {string}state
    * @private
    */
-  _setRulesForCurrentState (state) {
+  _setRulesForCurrentState(state) {
     this.validator = null;
     this.validator = new LIVR.Validator(this._rules[state]);
     this._validationFields = Object.keys(this._rules[state]);
@@ -195,12 +195,11 @@ class Formurai {
    * @param {HTMLFormElement<Event>} evt
    * @private
    */
-  _onFormSubmit (evt) {
+  _onFormSubmit(evt) {
     evt.preventDefault();
     this.checkForm();
     if (this._isFormValid) {
-      // this._events?.['formValid'].event.detail.data = this.formData;
-      this._form.dispatchEvent(this._events?.['formValid']?.event);
+      this._dispatchFormValidEvent();
     }
 
     if (this._isFormValid && !this._noSubmit) {
@@ -210,7 +209,7 @@ class Formurai {
     }
   }
 
-  _removeInputErrorClasses () {
+  _removeInputErrorClasses() {
     const errorFields = document.querySelectorAll(`.${this._errorClass}`);
     errorFields.forEach((input) => input.classList.remove(this._errorClass));
   };
@@ -219,7 +218,7 @@ class Formurai {
    * @param {HTMLElement|null} inputWrapper
    * @private
    */
-  _addInputErrorClass (inputWrapper) {
+  _addInputErrorClass(inputWrapper) {
     if (inputWrapper) {
       inputWrapper.classList.remove(this._successClass);
       inputWrapper.classList.add(this._errorClass);
@@ -229,7 +228,7 @@ class Formurai {
   /**
    * @private
    */
-  _checkInputsError () {
+  _checkInputsError() {
     this._removeInputErrorClasses();
     const errorsKey = Object.keys(this.errors);
     if (errorsKey.length) {
@@ -245,7 +244,7 @@ class Formurai {
   /**
    * @private
    */
-  _addInputSuccessClass () {
+  _addInputSuccessClass() {
     this._validationFields.forEach((inputName) => {
       const input = this._form.querySelector(`[name="${inputName}"]`);
       const inputWrapper = this._getWrapperElement(input);
@@ -260,7 +259,7 @@ class Formurai {
    * @param {string} inputName
    * @private
    */
-  _showErrorMessage (wrapper, inputName) {
+  _showErrorMessage(wrapper, inputName) {
     const defaultError = this.errors[inputName];
     const customError = this._currentStateMessages?.[inputName]?.[defaultError];
     const errorMessageBlock = wrapper?.querySelector(`.${this._errorMessageClass}`);
@@ -275,7 +274,7 @@ class Formurai {
    * @returns {HTMLElement|HTMLInputElement}
    * @private
    */
-  _getWrapperElement (input) {
+  _getWrapperElement(input) {
     if (this._withWrapper) {
       return input.closest(`.${this._wrapperClass}`);
     } else {
@@ -286,7 +285,7 @@ class Formurai {
   /**
    * @private
    */
-  _vibrate () {
+  _vibrate() {
     if (window.navigator.vibrate && this._isVibrate) {
       window.navigator.vibrate([300, 100, 300]);
     }
@@ -295,11 +294,18 @@ class Formurai {
   /**
    * @private
    */
-  _autoTrimValues () {
+  _autoTrimValues() {
     if (this._isAutoTrim) {
       LIVR.Validator.defaultAutoTrim(true);
     }
   };
+
+  _dispatchFormValidEvent() {
+    if ('formValid' in this._events) {
+      this._events['formValid'].event.detail.data = this.formData;
+      this._form.dispatchEvent(this._events['formValid']?.event);
+    }
+  }
 }
 
 export default Formurai;

@@ -125,10 +125,10 @@ validator.init(rules);
 | wrapperClass | string | 'formurai-container' | The wrapper class to which the error or success class will be added |
 | errorMessageClass | string | 'formurai-message' | The class of the element into which the error will be displayed must be inside the wrapperClass |
 | withWrapper | boolean | true | If you do not need to show error messages and it will be enough for you to add an error or success class to the field, set false |
-| autoTrim | boolean | true | Soon... |
-| vibrate | boolean | true | Soon... |
-| notSubmit | boolean | false | Soon... |
-| multiStep | boolean | false | Soon... |
+| autoTrim | boolean | true | Removes spaces before and after validated values |
+| vibrate | boolean | true | If an error occurs while submitting the form, a vibration is triggered |
+| notSubmit | boolean | false | If you don't need to reload the page, after submitting the form, set true |
+| multiStep | boolean | false | If you need to validate a form with many steps, and each step needs to be validated separately |
 
 
 ## Methods
@@ -221,7 +221,7 @@ This listener is triggered when the form is fully valid, useful if you need to s
 const sendForm = async () => {
   await fetch('https://example.com', {
     method: 'POST',
-    body: evt.detail.data // contain all form data
+    body: validator.formData // contain all form data
   })
   console.log('Your form has been submitted successfully')
 }
@@ -252,4 +252,4 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 
 - [Registration form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js)
 - [Multi step form](https://codesandbox.io/s/multi-step-from-validation-tjzob?file=/src/index.js)
-- [Ajax form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/multistep.js)
+- [Ajax form](https://codesandbox.io/s/kind-pike-smzkx?file=/src/index.js)
