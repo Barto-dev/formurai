@@ -214,5 +214,5 @@ Most common rules
 ## Examples
 
 - [Registration form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/index.js)
-- [Multi step form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/multistep.js)
+- [Multi step form](https://codesandbox.io/s/multi-step-from-validation-tjzob?file=/src/index.js)
 - [Ajax form](https://codesandbox.io/s/shy-sunset-nzb8u?file=/src/multistep.js)
