@@ -30,6 +30,7 @@
 - 🗜 Has possibility to validate multistep forms
 - ⚙️ Configurable check queue
 - ❌ Flexible error handling and their display
+- ⚡️ Based on LIVR(Language Independent Validation Rules)
 - 👍 Don't need Jquery.
 
 ## Setup
