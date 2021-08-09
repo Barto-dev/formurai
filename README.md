@@ -25,12 +25,12 @@
 ## Features
 
 - 📦 Just **4.2 KB** gzipped 
-- 👩🏻‍💻 Rules are declarative 
-- 📜 Easy to create and reuse your own rules
+- 👩🏻‍💻 Rules are declarative
 - ✨ Any number of rules for each field
-- 🗜 Has possibility to validate multistep forms
-- ⚙️ Configurable check queue
 - ❌ Flexible error handling and their display
+- 🗜 Has possibility to validate multi-step forms
+- ⚙️ Configurable check queue
+- 📜 Easy to create and reuse your own rules
 - ⚡️ Based on LIVR(Language Independent Validation Rules)
 - 👍 Don't need Jquery.
 
@@ -65,8 +65,27 @@ const form = document.querySelector('#login');
 const validator = new Formurai(form);
 validator.init(rules, errors);
 ```
+**[ALL RULES AND ERROR CODES](https://livr-spec.org/validation-rules.html)**
 
 As a key for the rules, you need to pass the name of the field to be validated. The field name must be unique within this form
+
+### HTML
+```html
+<form id="login">
+  
+  <section class="formurai-container">
+    <input name="login-email" type="email">
+    <span class="formurai-message"></span>
+  </section>
+
+  <button type="submit">Submit</button>
+  
+</form>
+```
+
+If you need to show errors in the interface, add the formurai-container class to the element to which you want to assign the error or success class (optional step).
+
+To display an error, inside the container, define an element with the class formurai-message, errors that you pass during initialization will be displayed here (optional step).
 
 ### CSS
 ```css
@@ -88,23 +107,7 @@ As a key for the rules, you need to pass the name of the field to be validated. 
 ```
 When the form is submitted, or the checkForm method is called, the wrapper(.formurai-container) is assigned an error or success class.
 
-### HTML
-```html
-<form id="login">
-  
-  <section class="formurai-container">
-    <input name="login-email" type="email">
-    <span class="formurai-message"></span>
-  </section>
 
-  <button type="submit">Submit</button>
-  
-</form>
-```
-
-If you need to show errors in the interface, add the formurai-container class to the element to which you want to assign the error or success class (optional step).
-
-To display an error, inside the container, define an element with the class formurai-message, errors that you pass during initialization will be displayed here (optional step).
 ## Usage
 Basic usage, you need to pass the form and rules.
 ```js
@@ -127,7 +130,7 @@ validator.init(rules);
 | errorMessageClass | string | 'formurai-message' | The class of the element into which the error will be displayed must be inside the wrapperClass |
 | withWrapper | boolean | true | If you do not need to show error messages and it will be enough for you to add an error or success class to the field, set false |
 | autoTrim | boolean | true | Removes spaces before and after validated values |
-| vibrate | boolean | true | If an error occurs while submitting the form, a vibration is triggered |
+| vibrate | boolean | true | If an error occurs while submitting the form, a vibration is triggered. [Support devices](https://caniuse.com/vibration) | |
 | notSubmit | boolean | false | If you don't need to reload the page, after submitting the form, set true |
 | multiStep | boolean | false | If you need to validate a form with many steps, and each step needs to be validated separately. [See multi-step example](https://codesandbox.io/s/multi-step-from-validation-tjzob?file=/src/index.js) |
 
@@ -242,13 +245,13 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 
 | Rule  | Example | Error | 
 | ----- | ----- | ----- |
-| eq | { name: {'eq': 'Snow'} } | 'NOT_ALLOWED_VALUE'|
-| one_of | { name: {'one_of': ['Snow', 'Tirion']} } | 'NOT_ALLOWED_VALUE'|
-| max_length | { name: { max_length: 10 } } | 'TOO_LONG'|
-| email | { login: 'email' } |  'WRONG_EMAIL'|
-| like | { name: { like: ['^\w+?$', 'i'] } | 'WRONG_FORMAT'|
-| integer | { age: 'integer' } } |  'NOT_INTEGER'|
-| number_between | { age: { 'number_between': [18, 95] } } |  'TOO_HIGH' or 'TOO_LOW' or 'NOT_NUMBER'|
+| eq |  name: {'eq': 'Snow'}  | 'NOT_ALLOWED_VALUE'|
+| one_of |  name: {'one_of': ['Snow', 'Tirion']}  | 'NOT_ALLOWED_VALUE'|
+| max_length |  name: { max_length: 10 }  | 'TOO_LONG'|
+| email |  login: 'email'  |  'WRONG_EMAIL'|
+| like |  name: { like: ['^\w+?$', 'i']  | 'WRONG_FORMAT'|
+| integer |  age: 'integer'   |  'NOT_INTEGER'|
+| number_between |  age: { 'number_between': [18, 95] }  |  'TOO_HIGH' or 'TOO_LOW' or 'NOT_NUMBER'|
 
 
 ## Examples
