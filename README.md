@@ -54,7 +54,7 @@ const rules = {
 };
 
 // define errors for user, its optional
-export const errors = {
+const errors = {
   'login-email': {
     REQUIRED: 'Email required',
     WRONG_EMAIL: 'Email must be valid',
