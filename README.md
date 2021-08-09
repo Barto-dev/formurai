@@ -3,7 +3,7 @@
 </div>
 <br>
 <div align="center">
-<strong>Formurai</strong> is a lightweight and powerfull library for declarative form validation
+<strong>Formurai</strong> is a <strong>lightweight</strong> and powerfull library for <strong>declarative</strong> form validation
 </div>
 <br>
 
