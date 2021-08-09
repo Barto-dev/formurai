@@ -9,7 +9,7 @@
 
 <div align="center">
   <a href="https://bundlephobia.com/package/formurai@0.0.11">
-    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.1.6" />
+    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.2.2" />
   </a>
 </div>
 
@@ -24,13 +24,13 @@
 
 ## Features
 
-- 📦 Just **4.2 KB** gzipped 
-- 👩🏻‍💻 Rules are declarative
-- ✨ Any number of rules for each field
-- ❌ Flexible error handling and their display
-- 🗜 Has possibility to validate multi-step forms
+- 📦 Just **4.4 KB** gzipped 
+- 👩🏻‍💻 Rules are **declarative**
+- ✨ Any number of **rules for each field**
+- ❌ Flexible **error handling** and their display
+- 🗜 Has possibility to validate **multi-step forms**
 - ⚙️ Configurable check queue
-- 📜 Easy to create and reuse your own rules
+- 📜 Easy to create and reuse your **own rules**
 - ⚡️ Based on LIVR(Language Independent Validation Rules)
 - 👍 Don't need Jquery.
 
