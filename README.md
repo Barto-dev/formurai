@@ -203,7 +203,7 @@ validator.formData // {name: 'Leonardo', email: 'leonardo@gmail.com'}
 ```
 
 ### errors
-Return an object with error codes
+Returns an object with error codes
 ```js
 validator.errors // {name: "REQUIRED", email: "WRONG_EMAIL"}
 ```

@@ -1,6 +1,6 @@
 {
   "name": "formurai",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Form validator",
   "main": "dist/index.js",
   "author": "Illia",
@@ -12,7 +12,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["form", "forms", "validation", "form validation", "validator"],
+  "keywords": ["form", "forms", "validation", "form validation", "validator", "javascript", "js"],
   "scripts": {
     "test": "test",
     "build": "node build.js -build",
