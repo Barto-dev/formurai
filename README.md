@@ -247,12 +247,12 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 | ----- | ----- | ----- |
 | eq |  name: {'eq': 'Snow'}  | 'NOT_ALLOWED_VALUE'|
 | one_of |  name: {'one_of': ['Snow', 'Tirion']}  | 'NOT_ALLOWED_VALUE'|
-| max_length |  name: { max_length: 10 }  | 'TOO_LONG'|
 | email |  login: 'email'  |  'WRONG_EMAIL'|
 | integer |  age: 'integer'   |  'NOT_INTEGER'|
-| number_between |  age: { 'number_between': [18, 95] }  |  'TOO_HIGH' or 'TOO_LOW' or 'NOT_NUMBER'|
 | min_length |  login: { min_length: 2 }  | 'TOO_SHORT'|
+| max_length |  name: { max_length: 10 }  | 'TOO_LONG'|
 | length_between |  code: { length_between: [2, 10]  |  'TOO_LONG' or 'TOO_SHORT'|
+| number_between |  age: { 'number_between': [18, 95] }  |  'TOO_HIGH' or 'TOO_LOW' or 'NOT_NUMBER'|
 | like |  price: { like: ['^\w+?$', 'i'] }  | 'WRONG_FORMAT'|
 
 
