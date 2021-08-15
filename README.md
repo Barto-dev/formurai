@@ -1,7 +1,7 @@
 # Formurai
 
 <div>
-    <img align="right" src="https://raw.githubusercontent.com/Barto-dev/formurai/master/assets/logo.svg" width="130" height="130" alt="Logo" />
+    <img align="right" src="https://raw.githubusercontent.com/Barto-dev/formurai/master/assets/logo.svg" width="120" height="120" alt="Logo" />
 </div>
 
 <br>
