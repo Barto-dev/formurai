@@ -10,7 +10,8 @@
 <strong>Formurai</strong> is a <strong>lightweight</strong> and powerfull library for <strong>declarative</strong> form validation
 </div>
 
-Validating forms has never been so easy
+Validating forms has never been so <strong>easy</strong>. A few lines of code and your form is validated
+
 <div align="left">
   <a href="https://bundlephobia.com/package/formurai@0.0.11">
     <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.2.2" />
