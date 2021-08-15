@@ -11,9 +11,12 @@
 </div>
 
 Validating forms has never been so easy
+<div align="center">
+  <a href="https://bundlephobia.com/package/formurai@0.0.11">
+    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.2.2" />
+  </a>
+</div>
 
-
-<br>
 <br>
 
 ```js
@@ -33,13 +36,6 @@ validator.init(rules, errors);
 
 
 
-<br>
-
-<div align="center">
-  <a href="https://bundlephobia.com/package/formurai@0.0.11">
-    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.2.2" />
-  </a>
-</div>
 
 ## Table of Contents
 
