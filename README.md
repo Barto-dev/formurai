@@ -1,10 +1,37 @@
-<div align="center">
-    <img src="https://raw.githubusercontent.com/Barto-dev/formurai/master/assets/logo.svg" width="180" height="180" alt="Logo" />
+# Formurai
+
+<div>
+    <img align="right" src="https://raw.githubusercontent.com/Barto-dev/formurai/master/assets/logo.svg" width="130" height="130" alt="Logo" />
 </div>
+
 <br>
-<div align="center">
+
+<div align="left">
 <strong>Formurai</strong> is a <strong>lightweight</strong> and powerfull library for <strong>declarative</strong> form validation
 </div>
+
+Validating forms has never been so easy
+
+
+<br>
+
+```js
+import Formurai from 'formurai';
+
+const rules = {'login-email': ['email']};
+
+const errors = {
+  'login-email': {WRONG_EMAIL: 'Email must be valid'}
+};
+
+const form = document.querySelector('#login');
+
+const validator = new Formurai(form);
+validator.init(rules, errors);
+```
+
+
+
 <br>
 
 <div align="center">
@@ -12,6 +39,8 @@
     <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.2.2" />
   </a>
 </div>
+
+## Table of Contents
 
 - [Features](#Features)
 - [Setup](#Setup)
