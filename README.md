@@ -14,6 +14,7 @@ Validating forms has never been so easy
 
 
 <br>
+<br>
 
 ```js
 import Formurai from 'formurai';
