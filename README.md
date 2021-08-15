@@ -295,4 +295,5 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 - [ ] Add a scroll method to error input
 - [ ] Add a showError method to show errors from backend
 - [ ] Implement 'formInvalid' and 'changeState' events
+- [ ] Treeshaking
 - [ ] Сover the code with tests
