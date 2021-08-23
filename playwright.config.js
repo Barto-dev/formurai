@@ -1,12 +1,12 @@
 const {devices} = require('@playwright/test');
 
 const config = {
-  use: {
+/*  use: {
     headless: false,
     launchOptions: {
-      slowMo: 200
+      slowMo: 100
     }
-  },
+  },*/
   projects: [
     {
       name: 'Desktop Chromium',
