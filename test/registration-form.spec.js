@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test');
 
 test.describe('Catalog', () => {
-  test('Successfully form submit', async ({page}) => {
+  test('Successfully registration form submit', async ({page}) => {
     await page.goto('http://localhost:8080/demo/registration-form/');
     await page.fill('[name="name"]', 'John');
     await page.fill('[name="surname"]', 'Snow');
@@ -13,7 +13,7 @@ test.describe('Catalog', () => {
     await expect(page).toHaveURL(/.*password2/);
   });
 
-  test('Error form not submit', async ({page}) => {
+  test('Error registration form not submit', async ({page}) => {
     await page.goto('http://localhost:8080/demo/registration-form/');
     await page.fill('[name="name"]', 'John');
     await page.fill('[name="surname"]', 'Snow');
@@ -32,10 +32,9 @@ test.describe('Catalog', () => {
     await page.click('.submit');
     const emailError = await page.innerText('.formurai-error .formurai-message');
     expect(emailError).toBe('Email must be valid');
-
   });
 
-  test('Add success class', async ({page}) => {
+  test('Add success class to registration form', async ({page}) => {
     await page.goto('http://localhost:8080/demo/registration-form/');
     await page.fill('[name="name"]', 'John');
     await page.fill('[name="surname"]', 'Snow');
@@ -45,3 +44,4 @@ test.describe('Catalog', () => {
   });
 
 });
+

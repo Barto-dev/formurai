@@ -1,5 +1,4 @@
-// import Formurai from "formurai";
-import Formurai from "formurai";
+import Formurai from '../../src/Formurai';
 
 // declare validation rules based on LIVR (Language Independent Validation Rules)
 export const rules = {
@@ -35,6 +34,7 @@ const sendForm = async () => {
   const data = validator.formData;
   await fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
+    mode: "no-cors",
     body: JSON.stringify(data)
   });
 

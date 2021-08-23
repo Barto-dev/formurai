@@ -3,8 +3,22 @@
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop))
+          __defNormalProp(a, prop, b[prop]);
+      }
+    return a;
+  };
   var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
@@ -21,9 +35,9 @@
     return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
   };
 
-  // node_modules/formurai/node_modules/livr/lib/util.js
+  // node_modules/livr/lib/util.js
   var require_util = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/util.js"(exports, module) {
+    "node_modules/livr/lib/util.js"(exports, module) {
       module.exports = {
         isPrimitiveValue(value) {
           if (typeof value == "string")
@@ -60,9 +74,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/Validator.js
+  // node_modules/livr/lib/Validator.js
   var require_Validator = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/Validator.js"(exports, module) {
+    "node_modules/livr/lib/Validator.js"(exports, module) {
       "use strict";
       var util = require_util();
       var DEFAULT_RULES = {};
@@ -240,9 +254,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/common/required.js
+  // node_modules/livr/lib/rules/common/required.js
   var require_required = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/common/required.js"(exports, module) {
+    "node_modules/livr/lib/rules/common/required.js"(exports, module) {
       var util = require_util();
       function required() {
         return (value) => {
@@ -256,9 +270,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/common/not_empty.js
+  // node_modules/livr/lib/rules/common/not_empty.js
   var require_not_empty = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/common/not_empty.js"(exports, module) {
+    "node_modules/livr/lib/rules/common/not_empty.js"(exports, module) {
       function not_empty() {
         return (value) => {
           if (value !== null && value !== void 0 && value === "") {
@@ -271,9 +285,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/common/not_empty_list.js
+  // node_modules/livr/lib/rules/common/not_empty_list.js
   var require_not_empty_list = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/common/not_empty_list.js"(exports, module) {
+    "node_modules/livr/lib/rules/common/not_empty_list.js"(exports, module) {
       function not_empty_list() {
         return (list) => {
           if (list === void 0 || list === "")
@@ -289,9 +303,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/common/any_object.js
+  // node_modules/livr/lib/rules/common/any_object.js
   var require_any_object = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/common/any_object.js"(exports, module) {
+    "node_modules/livr/lib/rules/common/any_object.js"(exports, module) {
       var util = require_util();
       function any_object() {
         return (value) => {
@@ -306,9 +320,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/string.js
+  // node_modules/livr/lib/rules/string/string.js
   var require_string = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/string.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/string.js"(exports, module) {
       var util = require_util();
       function string() {
         return (value, params, outputArr) => {
@@ -324,9 +338,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/eq.js
+  // node_modules/livr/lib/rules/string/eq.js
   var require_eq = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/eq.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/eq.js"(exports, module) {
       var util = require_util();
       function eq(allowedValue) {
         return (value, params, outputArr) => {
@@ -345,9 +359,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/one_of.js
+  // node_modules/livr/lib/rules/string/one_of.js
   var require_one_of = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/one_of.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/one_of.js"(exports, module) {
       var util = require_util();
       function one_of(allowedValues) {
         if (!Array.isArray(allowedValues)) {
@@ -372,9 +386,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/max_length.js
+  // node_modules/livr/lib/rules/string/max_length.js
   var require_max_length = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/max_length.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/max_length.js"(exports, module) {
       var util = require_util();
       function max_length(maxLength) {
         return (value, params, outputArr) => {
@@ -392,9 +406,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/min_length.js
+  // node_modules/livr/lib/rules/string/min_length.js
   var require_min_length = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/min_length.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/min_length.js"(exports, module) {
       var util = require_util();
       function min_length(minLength) {
         return (value, params, outputArr) => {
@@ -412,9 +426,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/length_equal.js
+  // node_modules/livr/lib/rules/string/length_equal.js
   var require_length_equal = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/length_equal.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/length_equal.js"(exports, module) {
       var util = require_util();
       function length_equal(length) {
         return (value, params, outputArr) => {
@@ -434,9 +448,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/length_between.js
+  // node_modules/livr/lib/rules/string/length_between.js
   var require_length_between = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/length_between.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/length_between.js"(exports, module) {
       var util = require_util();
       function length_between(minLength, maxLength) {
         return (value, params, outputArr) => {
@@ -456,9 +470,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/string/like.js
+  // node_modules/livr/lib/rules/string/like.js
   var require_like = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/string/like.js"(exports, module) {
+    "node_modules/livr/lib/rules/string/like.js"(exports, module) {
       var util = require_util();
       function like(reStr, flags) {
         const isIgnoreCase = arguments.length === 3 && flags.match("i");
@@ -478,9 +492,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/numeric/integer.js
+  // node_modules/livr/lib/rules/numeric/integer.js
   var require_integer = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/numeric/integer.js"(exports, module) {
+    "node_modules/livr/lib/rules/numeric/integer.js"(exports, module) {
       var util = require_util();
       function integer() {
         return (value, params, outputArr) => {
@@ -499,9 +513,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/numeric/positive_integer.js
+  // node_modules/livr/lib/rules/numeric/positive_integer.js
   var require_positive_integer = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/numeric/positive_integer.js"(exports, module) {
+    "node_modules/livr/lib/rules/numeric/positive_integer.js"(exports, module) {
       var util = require_util();
       function positive_integer() {
         return (value, params, outputArr) => {
@@ -520,9 +534,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/numeric/decimal.js
+  // node_modules/livr/lib/rules/numeric/decimal.js
   var require_decimal = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/numeric/decimal.js"(exports, module) {
+    "node_modules/livr/lib/rules/numeric/decimal.js"(exports, module) {
       var util = require_util();
       function decimal() {
         return (value, params, outputArr) => {
@@ -542,9 +556,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/numeric/positive_decimal.js
+  // node_modules/livr/lib/rules/numeric/positive_decimal.js
   var require_positive_decimal = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/numeric/positive_decimal.js"(exports, module) {
+    "node_modules/livr/lib/rules/numeric/positive_decimal.js"(exports, module) {
       var util = require_util();
       function positive_decimal() {
         return (value, params, outputArr) => {
@@ -563,9 +577,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/numeric/max_number.js
+  // node_modules/livr/lib/rules/numeric/max_number.js
   var require_max_number = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/numeric/max_number.js"(exports, module) {
+    "node_modules/livr/lib/rules/numeric/max_number.js"(exports, module) {
       var util = require_util();
       function max_number(maxNumber) {
         return (value, params, outputArr) => {
@@ -584,9 +598,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/numeric/min_number.js
+  // node_modules/livr/lib/rules/numeric/min_number.js
   var require_min_number = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/numeric/min_number.js"(exports, module) {
+    "node_modules/livr/lib/rules/numeric/min_number.js"(exports, module) {
       var util = require_util();
       function min_number(minNumber) {
         return (value, params, outputArr) => {
@@ -605,9 +619,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/numeric/number_between.js
+  // node_modules/livr/lib/rules/numeric/number_between.js
   var require_number_between = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/numeric/number_between.js"(exports, module) {
+    "node_modules/livr/lib/rules/numeric/number_between.js"(exports, module) {
       var util = require_util();
       function number_between(minNumber, maxNumber) {
         return (value, params, outputArr) => {
@@ -628,9 +642,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/special/email.js
+  // node_modules/livr/lib/rules/special/email.js
   var require_email = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/special/email.js"(exports, module) {
+    "node_modules/livr/lib/rules/special/email.js"(exports, module) {
       var util = require_util();
       function email() {
         var emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -653,9 +667,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/special/equal_to_field.js
+  // node_modules/livr/lib/rules/special/equal_to_field.js
   var require_equal_to_field = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/special/equal_to_field.js"(exports, module) {
+    "node_modules/livr/lib/rules/special/equal_to_field.js"(exports, module) {
       var util = require_util();
       function equal_to_field(field) {
         return (value, params) => {
@@ -672,9 +686,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/special/url.js
+  // node_modules/livr/lib/rules/special/url.js
   var require_url = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/special/url.js"(exports, module) {
+    "node_modules/livr/lib/rules/special/url.js"(exports, module) {
       var util = require_util();
       function url() {
         const urlReStr = "^(?:(?:http|https)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[0-1]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))\\.?|localhost)(?::\\d{2,5})?(?:[/?#]\\S*)?$";
@@ -693,9 +707,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/special/iso_date.js
+  // node_modules/livr/lib/rules/special/iso_date.js
   var require_iso_date = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/special/iso_date.js"(exports, module) {
+    "node_modules/livr/lib/rules/special/iso_date.js"(exports, module) {
       var util = require_util();
       function iso_date() {
         return (value) => {
@@ -721,9 +735,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/meta/nested_object.js
+  // node_modules/livr/lib/rules/meta/nested_object.js
   var require_nested_object = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/meta/nested_object.js"(exports, module) {
+    "node_modules/livr/lib/rules/meta/nested_object.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
       function nested_object(livr, ruleBuilders) {
@@ -746,9 +760,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/meta/variable_object.js
+  // node_modules/livr/lib/rules/meta/variable_object.js
   var require_variable_object = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/meta/variable_object.js"(exports, module) {
+    "node_modules/livr/lib/rules/meta/variable_object.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
       function variable_object(selectorField, livrs, ruleBuilders) {
@@ -777,9 +791,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/meta/list_of.js
+  // node_modules/livr/lib/rules/meta/list_of.js
   var require_list_of = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/meta/list_of.js"(exports, module) {
+    "node_modules/livr/lib/rules/meta/list_of.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
       function list_of(rules2, ruleBuilders) {
@@ -820,9 +834,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/meta/list_of_objects.js
+  // node_modules/livr/lib/rules/meta/list_of_objects.js
   var require_list_of_objects = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/meta/list_of_objects.js"(exports, module) {
+    "node_modules/livr/lib/rules/meta/list_of_objects.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
       function list_of_objects(livr, ruleBuilders) {
@@ -858,9 +872,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/meta/or.js
+  // node_modules/livr/lib/rules/meta/or.js
   var require_or = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/meta/or.js"(exports, module) {
+    "node_modules/livr/lib/rules/meta/or.js"(exports, module) {
       var Validator = require_Validator();
       function or() {
         const ruleSets = Array.prototype.slice.call(arguments);
@@ -888,9 +902,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/meta/list_of_different_objects.js
+  // node_modules/livr/lib/rules/meta/list_of_different_objects.js
   var require_list_of_different_objects = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/meta/list_of_different_objects.js"(exports, module) {
+    "node_modules/livr/lib/rules/meta/list_of_different_objects.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
       function list_of_different_objects(selectorField, livrs, ruleBuilders) {
@@ -935,9 +949,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/modifiers/default.js
+  // node_modules/livr/lib/rules/modifiers/default.js
   var require_default = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/modifiers/default.js"(exports, module) {
+    "node_modules/livr/lib/rules/modifiers/default.js"(exports, module) {
       var util = require_util();
       module.exports = (defaultValue) => {
         return (value, params, outputArr) => {
@@ -949,9 +963,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/modifiers/trim.js
+  // node_modules/livr/lib/rules/modifiers/trim.js
   var require_trim = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/modifiers/trim.js"(exports, module) {
+    "node_modules/livr/lib/rules/modifiers/trim.js"(exports, module) {
       var util = require_util();
       function trim() {
         return (value, params, outputArr) => {
@@ -965,9 +979,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/modifiers/to_lc.js
+  // node_modules/livr/lib/rules/modifiers/to_lc.js
   var require_to_lc = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/modifiers/to_lc.js"(exports, module) {
+    "node_modules/livr/lib/rules/modifiers/to_lc.js"(exports, module) {
       var util = require_util();
       function to_lc() {
         return (value, params, outputArr) => {
@@ -981,9 +995,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/modifiers/to_uc.js
+  // node_modules/livr/lib/rules/modifiers/to_uc.js
   var require_to_uc = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/modifiers/to_uc.js"(exports, module) {
+    "node_modules/livr/lib/rules/modifiers/to_uc.js"(exports, module) {
       var util = require_util();
       function to_uc() {
         return (value, params, outputArr) => {
@@ -997,9 +1011,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/modifiers/remove.js
+  // node_modules/livr/lib/rules/modifiers/remove.js
   var require_remove = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/modifiers/remove.js"(exports, module) {
+    "node_modules/livr/lib/rules/modifiers/remove.js"(exports, module) {
       var util = require_util();
       function remove(chars) {
         chars = util.escapeRegExp(chars);
@@ -1015,9 +1029,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/rules/modifiers/leave_only.js
+  // node_modules/livr/lib/rules/modifiers/leave_only.js
   var require_leave_only = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/rules/modifiers/leave_only.js"(exports, module) {
+    "node_modules/livr/lib/rules/modifiers/leave_only.js"(exports, module) {
       var util = require_util();
       function leave_only(chars) {
         chars = util.escapeRegExp(chars);
@@ -1033,9 +1047,9 @@
     }
   });
 
-  // node_modules/formurai/node_modules/livr/lib/LIVR.js
+  // node_modules/livr/lib/LIVR.js
   var require_LIVR = __commonJS({
-    "node_modules/formurai/node_modules/livr/lib/LIVR.js"(exports, module) {
+    "node_modules/livr/lib/LIVR.js"(exports, module) {
       var Validator = require_Validator();
       var util = require_util();
       var rules2 = {
@@ -1080,24 +1094,8 @@
     }
   });
 
-  // node_modules/formurai/dist/index.js
+  // src/Formurai.js
   var import_livr = __toModule(require_LIVR());
-  var __defProp2 = Object.defineProperty;
-  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-  var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-  var __propIsEnum = Object.prototype.propertyIsEnumerable;
-  var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-  var __spreadValues = (a, b) => {
-    for (var prop in b || (b = {}))
-      if (__hasOwnProp2.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    if (__getOwnPropSymbols)
-      for (var prop of __getOwnPropSymbols(b)) {
-        if (__propIsEnum.call(b, prop))
-          __defNormalProp(a, prop, b[prop]);
-      }
-    return a;
-  };
   var Formurai = class {
     constructor(form, {
       errorClass = "formurai-error",
@@ -1315,7 +1313,7 @@
       }
     }
   };
-  var dist_default = Formurai;
+  var Formurai_default = Formurai;
 
   // demo/multistep-form/changeCurrentStep.js
   var prevButton = document.querySelector(".js-prev");
@@ -1369,7 +1367,7 @@
     }
   };
   var multiStepForm = document.querySelector("#multistep-form");
-  var validator = new dist_default(multiStepForm, {
+  var validator = new Formurai_default(multiStepForm, {
     multiStep: true
   });
   validator.init(rules, errors, "step_1");

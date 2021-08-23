@@ -4,7 +4,7 @@ const config = {
 /*  use: {
     headless: false,
     launchOptions: {
-      slowMo: 100
+      slowMo: 500
     }
   },*/
   projects: [

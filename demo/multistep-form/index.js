@@ -1,4 +1,4 @@
-import Formurai from "formurai";
+import Formurai from '../../src/Formurai';
 import { changeCurrentStep } from "./changeCurrentStep";
 
 const rules = {
