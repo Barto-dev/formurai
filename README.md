@@ -302,4 +302,4 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 - [ ] Implement 'formInvalid' and 'changeState' events
 - [ ] Treeshaking
 - [ ] Integration with React
-- [ ] Сover the code with tests
+- [x] Сover the validator with e2e tests
