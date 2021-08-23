@@ -1,6 +1,6 @@
 {
   "name": "formurai",
-  "version": "0.2.3",
+  "version": "0.3.5",
   "description": "Form validator",
   "main": "dist/index.js",
   "author": "Illia",
@@ -12,15 +12,28 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["form", "forms", "validation", "form validation", "validator", "javascript", "js"],
+  "keywords": [
+    "form",
+    "forms",
+    "validation",
+    "form validation",
+    "validator",
+    "javascript",
+    "js"
+  ],
   "scripts": {
-    "test": "test",
+    "test": "npx playwright test",
+    "build-demo": "node build.js -demo",
     "build": "node build.js -build",
     "start": "node build.js -watch",
+    "server": "http-server",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
+    "@playwright/test": "^1.14.0",
     "esbuild": "^0.12.15",
+    "http-server": "^13.0.1",
+    "playwright": "^1.14.0",
     "servor": "^4.0.2"
   },
   "dependencies": {

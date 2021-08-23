@@ -114,8 +114,6 @@ class Formurai {
       this._checkInputsError();
       this._addInputSuccessClass();
     }
-
-    console.log(this.errorList);
   };
 
   /**
