@@ -38,6 +38,18 @@ esbuild.build({
   ],
 });
 
+config == '-demo' &&
+esbuild.build({
+  entryPoints: ['demo/registration-form/index.js', 'demo/ajax-form/index.js', 'demo/multistep-form/index.js'],
+  outdir: 'demo/out',
+  outbase: 'demo',
+  sourcemap: false,
+  target: [
+    'es2017',
+  ],
+  bundle: true
+})
+
 config == '-build' &&
 esbuild.build({
   entryPoints: ['src/Formurai.js'],
