@@ -60,7 +60,7 @@ class Formurai {
    */
   init(rules, messages = {}, state = false) {
     if (!state && this._multiStep) {
-      throw 'Multi step validation need initial state!'
+      throw TypeError('Multi step validation need initial state!');
     }
 
     this._rules = rules;
@@ -95,7 +95,7 @@ class Formurai {
     if (this._multiStep) {
       this._setRulesForCurrentState(state)
     } else if (!this._multiStep) {
-      throw 'changeState method only works with multi step forms!'
+      throw TypeError('changeState method only works with multi step forms!');
     }
   }
 
@@ -114,6 +114,8 @@ class Formurai {
       this._checkInputsError();
       this._addInputSuccessClass();
     }
+
+    console.log(this.errorList);
   };
 
   /**
@@ -140,7 +142,7 @@ class Formurai {
    */
   on(evtName, cb) {
     if (!this._additionalEvents.includes(evtName)) {
-      throw `No such event exists: ${evtName}`
+      throw TypeError(`No such event exists: ${evtName}`);
     }
 
     if (typeof cb !== 'function') {
@@ -177,6 +179,20 @@ class Formurai {
    */
   get isFormValid() {
     return this._isFormValid;
+  }
+
+  /**
+   * Returns human readable error list
+   * @returns {{}}
+   */
+  get errorList() {
+    const names = Object.keys(this._inputErrorsObj);
+    const errorList = {};
+    names.forEach((name) => {
+      const errorCode = this._inputErrorsObj[name];
+      errorList[name] = this._errorMessages[name]?.[errorCode ];
+    });
+    return errorList;
   }
 
   /**
@@ -240,6 +256,7 @@ class Formurai {
         this._addInputErrorClass(inputWrapper);
         this._showErrorMessage(inputWrapper, inputName);
       } catch (e) {
+        console.log(e);
         console.error(`The ${inputName} field does not exist on this form`);
       }
     })
