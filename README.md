@@ -7,7 +7,7 @@
 <br>
 
 <div align="left">
-<strong>Formurai</strong> is a <strong>lightweight</strong> and powerfull library for <strong>declarative</strong> form validation
+<strong>Formurai</strong> is a <strong>lightweight</strong> and powerfull library for <strong>declarative</strong> form validation.
 </div>
 
 Validating forms has never been so <strong>easy</strong>. A few lines of code and your form is validated
