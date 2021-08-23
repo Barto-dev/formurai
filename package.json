@@ -1,6 +1,6 @@
 {
   "name": "formurai",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Form validator",
   "main": "dist/index.js",
   "author": "Illia",
