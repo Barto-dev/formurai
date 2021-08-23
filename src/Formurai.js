@@ -234,6 +234,11 @@ class Formurai {
     if (errorsKey.length) {
       errorsKey.forEach((inputName) => {
         const input = this._form.querySelector(`[name="${inputName}"]`);
+
+        if (!input) {
+          throw ReferenceError(`The ${inputName} field does not exist on this form`);
+        }
+
         const inputWrapper = this._getWrapperElement(input);
         this._addInputErrorClass(inputWrapper);
         this._showErrorMessage(inputWrapper, inputName);
@@ -247,6 +252,11 @@ class Formurai {
   _addInputSuccessClass() {
     this._validationFields.forEach((inputName) => {
       const input = this._form.querySelector(`[name="${inputName}"]`);
+
+      if (!input) {
+        throw ReferenceError(`The ${inputName} field does not exist on this form`);
+      }
+
       const inputWrapper = this._getWrapperElement(input);
       if (inputWrapper && !inputWrapper.classList.contains(this._errorClass)) {
         inputWrapper.classList.add(this._successClass);
