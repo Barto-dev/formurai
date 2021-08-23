@@ -235,6 +235,12 @@ Returns an object with error codes
 validator.errors // {name: "REQUIRED", email: "WRONG_EMAIL"}
 ```
 
+### errorList
+Returns human-readable error list. For example, if you need to show all errors somewhere in one place
+```js
+validator.errorList // {name: "First name required", email: "Email must be valid"}
+```
+
 ### isFormValid
 Returns the current state of form validation
 ```js
@@ -291,7 +297,7 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 
 ## Roadmap
 
-- [ ] Add a getter with a list of error messages
+- [x] Add a getter with a list of error messages
 - [ ] Add a scroll method to error input
 - [ ] Add a showError method to show errors from backend
 - [ ] Implement 'formInvalid' and 'changeState' events
