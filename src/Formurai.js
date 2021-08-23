@@ -226,40 +226,40 @@ class Formurai {
   };
 
   /**
+   * Removes error classes from all fields, and re-add them where needed
    * @private
    */
   _checkInputsError() {
     this._removeInputErrorClasses();
-    const errorsKey = Object.keys(this.errors);
-    if (errorsKey.length) {
-      errorsKey.forEach((inputName) => {
+    const errorsKey = Object.keys(this.errors) || [];
+
+    errorsKey.forEach((inputName) => {
+      try {
         const input = this._form.querySelector(`[name="${inputName}"]`);
-
-        if (!input) {
-          throw ReferenceError(`The ${inputName} field does not exist on this form`);
-        }
-
         const inputWrapper = this._getWrapperElement(input);
         this._addInputErrorClass(inputWrapper);
         this._showErrorMessage(inputWrapper, inputName);
-      });
-    }
+      } catch (e) {
+        console.error(`The ${inputName} field does not exist on this form`);
+      }
+    })
+
   }
 
   /**
+   * Add a success class if there is no error class on this field
    * @private
    */
   _addInputSuccessClass() {
     this._validationFields.forEach((inputName) => {
-      const input = this._form.querySelector(`[name="${inputName}"]`);
-
-      if (!input) {
-        throw ReferenceError(`The ${inputName} field does not exist on this form`);
-      }
-
-      const inputWrapper = this._getWrapperElement(input);
-      if (inputWrapper && !inputWrapper.classList.contains(this._errorClass)) {
-        inputWrapper.classList.add(this._successClass);
+      try {
+        const input = this._form.querySelector(`[name="${inputName}"]`);
+        const inputWrapper = this._getWrapperElement(input);
+        if (inputWrapper && !inputWrapper.classList.contains(this._errorClass)) {
+          inputWrapper.classList.add(this._successClass);
+        }
+      } catch (e) {
+        console.error(`The ${inputName} field does not exist on this form`);
       }
     });
   };
