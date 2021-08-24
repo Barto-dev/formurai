@@ -285,7 +285,7 @@ const logCurrentState = (evt) => {
   console.log(evt.detail.state) // console current step
 }
 
-validator.on('changeState', scrollToFirstError);
+validator.on('changeState', logCurrentState);
 ```
 
 ## Rules
