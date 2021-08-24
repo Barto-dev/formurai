@@ -14,7 +14,7 @@ Validating forms has never been so <strong>easy</strong>. A few lines of code an
 
 <div align="left">
   <a href="https://bundlephobia.com/package/formurai@0.0.11">
-    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@0.2.2" />
+    <img alt="size" src="https://badgen.net/bundlephobia/minzip/formurai@latest" />
   </a>
 </div>
 
@@ -51,7 +51,7 @@ validator.init(rules, errors);
 
 ## Features
 
-- 📦 Just **4.4 KB** gzipped 
+- 📦 Just **4.6 KB** gzipped 
 - 👩🏻‍💻 Rules are **declarative**
 - ✨ Any number of **rules for each field**
 - ❌ Flexible **error handling** and their display
