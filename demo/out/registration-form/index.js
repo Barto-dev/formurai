@@ -1122,7 +1122,7 @@
       this._validationFields = [];
       this._errorMessages = {};
       this._isFormValid = false;
-      this._additionalEvents = ["formValid", "changeState"];
+      this._additionalEvents = ["formValid", "changeState", "formInvalid"];
       this._events = {};
       this._autoTrimValues();
       this._onFormSubmit = this._onFormSubmit.bind(this);
@@ -1155,6 +1155,7 @@
     changeState(state) {
       if (this._multiStep) {
         this._setRulesForCurrentState(state);
+        this._dispatchChangeStateEvent(state);
       } else if (!this._multiStep) {
         throw TypeError("changeState method only works with multi step forms!");
       }
@@ -1172,6 +1173,7 @@
         this._isFormValid = false;
         this._checkInputsError();
         this._addInputSuccessClass();
+        this._dispatchFormInvalidEvent();
       }
     }
     addRule(rules2) {
@@ -1194,7 +1196,7 @@
         return;
       }
       this._events[evtName] = {};
-      this._events[evtName].event = new CustomEvent(evtName, { detail: { data: this.formData } });
+      this._events[evtName].event = new CustomEvent(evtName, { detail: { data: this.formData, state: "qeqeweqw" } });
       this._events[evtName].cb = cb;
       this._form.addEventListener(evtName, cb);
     }
@@ -1312,6 +1314,17 @@
         this._form.dispatchEvent((_a = this._events["formValid"]) == null ? void 0 : _a.event);
       }
     }
+    _dispatchFormInvalidEvent() {
+      if ("formInvalid" in this._events) {
+        this._form.dispatchEvent(this._events["formInvalid"].event);
+      }
+    }
+    _dispatchChangeStateEvent(currentState) {
+      if ("changeState" in this._events) {
+        this._events["changeState"].event.detail.state = currentState;
+        this._form.dispatchEvent(this._events["changeState"].event);
+      }
+    }
   };
   var Formurai_default = Formurai;
 
@@ -1354,5 +1367,8 @@
   if (form) {
     const validator = new Formurai_default(form);
     validator.init(rules, registrationErrors);
+    validator.on("formInvalid", () => {
+      console.log("invalid form");
+    });
   }
 })();

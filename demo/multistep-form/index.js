@@ -57,6 +57,10 @@ function stepHandler() {
   }
 }
 
+validator.on('changeState', (evt) => {
+  console.log(evt.detail.state);
+});
+
 const stepButtons = document.querySelectorAll("[data-step]");
 
 stepButtons.forEach((button) => button.addEventListener("click", stepHandler));

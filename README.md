@@ -267,6 +267,26 @@ validator.on('formValid', sendForm);
 ```
 [See full example](https://codesandbox.io/s/kind-pike-smzkx?file=/src/index.js)
 
+### formInvalid
+This listener is triggered when the form is invalid, regardless of whether the click submit, or you manually invoke checkForm() method 
+```js
+const scrollToFirstError = () => {
+  const errorEl = document.querySelector('.formurai-error');
+  errorEl.scrollIntoView();
+}
+
+validator.on('formInvalid', scrollToFirstError);
+```
+
+### changeState
+This listener works only in multi-step forms and triggered when you use changeState() method
+```js
+const logCurrentState = (evt) => {
+  console.log(evt.detail.state) // console current step
+}
+
+validator.on('changeState', scrollToFirstError);
+```
 
 ## Rules
 **[ALL RULES](https://livr-spec.org/validation-rules.html)**
@@ -299,7 +319,7 @@ So all the rules that you find **[here](https://livr-spec.org/validation-rules.h
 
 - [x] Add a getter with a list of error messages
 - [ ] Add a showError method to show errors from backend
-- [ ] Implement 'formInvalid' and 'changeState' events
+- [x] Implement 'formInvalid' and 'changeState' events
 - [ ] Treeshaking
 - [ ] Integration with React
 - [x] Сover the validator with e2e tests

@@ -32,6 +32,7 @@ test.describe('Catalog', () => {
     await page.click('.submit');
     const emailError = await page.innerText('.formurai-error .formurai-message');
     expect(emailError).toBe('Email must be valid');
+
   });
 
   test('Add success class to registration form', async ({page}) => {
@@ -40,8 +41,21 @@ test.describe('Catalog', () => {
     await page.fill('[name="surname"]', 'Snow');
     await page.click('.submit');
     const successInput = page.locator('[name="name"]');
+
     expect(await successInput.evaluate(node => node.closest('.formurai-success'))).toBeTruthy()
   });
+
+  test('Form invalid event', async ({page}) => {
+
+    page.on('console', msg => {
+      expect(msg.text()).toBe('invalid form');
+    });
+
+    await page.goto('http://localhost:8080/demo/registration-form/');
+    await page.fill('[name="name"]', 'John');
+    await page.fill('[name="surname"]', 'Snow');
+    await page.click('.submit');
+  })
 
 });
 
