@@ -43,7 +43,7 @@ class Formurai {
 
     this._isFormValid = false;
 
-    this._additionalEvents = ['formValid', 'changeState'];
+    this._additionalEvents = ['formValid', 'changeState', 'formInvalid'];
 
     this._events = {};
 
@@ -93,7 +93,8 @@ class Formurai {
    */
   changeState(state) {
     if (this._multiStep) {
-      this._setRulesForCurrentState(state)
+      this._setRulesForCurrentState(state);
+      this._dispatchChangeStateEvent(state);
     } else if (!this._multiStep) {
       throw TypeError('changeState method only works with multi step forms!');
     }
@@ -113,6 +114,8 @@ class Formurai {
       this._isFormValid = false;
       this._checkInputsError();
       this._addInputSuccessClass();
+
+      this._dispatchFormInvalidEvent();
     }
   };
 
@@ -135,7 +138,7 @@ class Formurai {
   }
 
   /**
-   * @param {'formValid'|'changeState'} evtName
+   * @param {'formValid'|'formInvalid'|'changeState'} evtName
    * @param {function} cb
    */
   on(evtName, cb) {
@@ -148,7 +151,7 @@ class Formurai {
     }
 
     this._events[evtName] = {};
-    this._events[evtName].event = new CustomEvent(evtName, {detail: {data: this.formData}});
+    this._events[evtName].event = new CustomEvent(evtName, {detail: {data: this.formData, state: 'qeqeweqw'}});
     this._events[evtName].cb = cb;
     this._form.addEventListener(evtName, cb);
   }
@@ -188,7 +191,7 @@ class Formurai {
     const errorList = {};
     names.forEach((name) => {
       const errorCode = this._inputErrorsObj[name];
-      errorList[name] = this._errorMessages[name]?.[errorCode ];
+      errorList[name] = this._errorMessages[name]?.[errorCode];
     });
     return errorList;
   }
@@ -329,6 +332,19 @@ class Formurai {
     if ('formValid' in this._events) {
       this._events['formValid'].event.detail.data = this.formData;
       this._form.dispatchEvent(this._events['formValid']?.event);
+    }
+  }
+
+  _dispatchFormInvalidEvent() {
+    if ('formInvalid' in this._events) {
+      this._form.dispatchEvent(this._events['formInvalid'].event);
+    }
+  }
+
+  _dispatchChangeStateEvent(currentState) {
+    if ('changeState' in this._events) {
+      this._events['changeState'].event.detail.state = currentState;
+      this._form.dispatchEvent(this._events['changeState'].event);
     }
   }
 }

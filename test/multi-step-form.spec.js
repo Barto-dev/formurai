@@ -25,4 +25,19 @@ test.describe('Catalog', () => {
     await page.click('.submit');
     await expect(page).toHaveURL(/.*feedback/);
   });
+
+  test('Change state event work correctly', async ({page}) => {
+
+    page.on('console', msg => {
+      expect(msg.text()).toBe('step_2');
+    });
+
+    await page.goto('http://localhost:8080/demo/multistep-form/');
+    // step 1
+    await page.fill('[name="name"]', 'John');
+    await page.fill('[name="surname"]', 'Snow');
+    await page.click('.js-next');
+  });
+
+
 });
