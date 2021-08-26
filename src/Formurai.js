@@ -54,6 +54,16 @@ class Formurai {
   }
 
   /**
+   * @param {Array<function>} funcArr
+   */
+  static use(funcArr) {
+    funcArr.forEach((func) => {
+      const funcName = func.name;
+      this.prototype[funcName] = func;
+    })
+  }
+
+  /**
    * @param {Object} rules
    * @param {Object} messages
    * @param {(string|boolean)} state

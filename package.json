@@ -33,8 +33,7 @@
     "@playwright/test": "^1.14.0",
     "esbuild": "^0.12.15",
     "http-server": "^13.0.1",
-    "playwright": "^1.14.0",
-    "servor": "^4.0.2"
+    "playwright": "^1.14.0"
   },
   "dependencies": {
     "livr": "^2.3.3"
